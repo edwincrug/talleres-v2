@@ -1,0 +1,101 @@
+<div ng-init="init()" class="contenedor">
+    <div class="headTitle">
+        <span class="title"> Cotizaciones <span class="subtitle">Call Center / Taller</span> </span>
+    </div>
+    <div class="formGroup">
+        <input class="rounded inputWidth" type="text" placeholder="Buscar Cotizaciones" ng-model="cotizacion">
+    </div>
+    <div class="row">
+
+    </div>
+    <!-- /.row -->
+    </br>
+    </br>
+    </br>
+    <div class="row">
+        <table class="table table-striped" cg-busy="{promise:promise,message:message, minDuration: minDuration,
+   delay:delay}">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Número de Aprobación</th>
+                    <th>Eco</th>
+                    <th>Marca - Modelo</th>
+                    <th>Trabajo</th>
+                    <th>Estatus</th>
+                    <th>Observaciones</th>
+                    <th>Cotizó</th>
+                    <th>Detalle</th>
+                    <th>Abrir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cotizacion in cotizaciones | filter: cotizacion">
+                    <td>{{ cotizacion.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{cotizacion.numeroCotizacion}}</td>
+                    <td>{{cotizacion.numEconomico}}</td>
+                    <td>{{cotizacion.marca}}</td>
+                    <td>{{cotizacion.trabajo}}</td>
+                    <td>{{ cotizacion.estatus }}</td>
+                    <td>{{cotizacion.observaciones}}</td>
+                    <td>{{ cotizacion.nombreCompleto }}</td>
+                    <td>
+                        <button class="btn btn-info" type="button" id="btnEnviar">
+                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="modal" ng-click="Detalle(cotizacion.idCotizacion, cotizacion.idTaller)"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" type="button" id="btnEnviar">
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true" data-toggle="modal" ng-click="Autorizacion(cotizacion.idCita, cotizacion.idCotizacion, cotizacion.idUnidad, cotizacion.numeroCotizacion, cotizacion.idTrabajo,
+                            cotizacion.idTaller)"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="cotizacionDetalle" class="modal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detalle</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>No.Partida</th>
+                            <th>Descripción</th>
+                            <th>Cant.</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="articulo in articulos">
+                            <td>{{ articulo.numeroPartida }}</td>
+                            <td>{{articulo.item}}</td>
+                            <td>{{articulo.cantidad}}</td>
+                            <td style="text-align:right;">{{ articulo.precio | currency }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:right;"><b>Total: </b></td>
+                            <td>
+                                {{total | currency}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

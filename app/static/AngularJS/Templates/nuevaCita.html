@@ -1,0 +1,187 @@
+<div class="contenedor" ng-init="initNuevaCita()">
+	<div class="headTitle">
+		<span class="title"> Nueva cita<span class="subtitle">Call Center</span> </span>
+	</div>
+	<div class="formGroup">
+		<table>
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="tdFicha">
+							<div id="divNuevaCita">
+								<div id="id="ficha"">
+									<div>
+										<label>Número económico:</label><span> {{unidadInfo.numEconomico}}</span>
+									</div>
+									<div>
+										<label>Marca- modelo:</label><span> {{unidadInfo.marca}}-{{unidadInfo.modelo}}</span>
+									</div>
+								</div>
+								</br>
+							<input  class="rounded" type="text" ng-model="datoTaller" placeholder=" Datos del taller"> 
+			    			<button type="button" class="btn btn-primary" ng-click="lookUpTaller(datoTaller)" data-toggle="tooltip" tooltip="Buscar taller" tooltip-placement="right"><span class="glyphicon glyphicon-search"></span></button>
+			    			</br></br>
+							<div id="tableTaller">
+								<table class="table table-condensed table-striped" cg-busy="{promise:promise,message:message}">
+									<thead>
+										<th>Taller</th>
+										<th>Dirección</th>
+										<th>Seleccionar</th>
+									</thead>
+									<tbody>
+										<tr dir-paginate="taller in talleres | itemsPerPage:3" pagination-id="listaTalleres">
+											<td>{{taller.razonSocial}}</td>		
+											<td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{taller.direccion}}" tooltip-placement="top-right"></span></td>
+											<td><input type="radio" name="optTaller" ng-click="getTaller(taller.idTaller)"></input></td>
+										</tr>
+									</tbody>
+								</table>
+								<div id="paginationTaller">
+									<dir-pagination-controls
+								       	max-size="5"
+								        direction-links="true"
+								        boundary-links="true" 
+								        pagination-id="listaTalleres">
+								    </dir-pagination-controls>
+								</div>
+							</div>
+							</br></br>
+							<div class="row">
+							  	<div class="col-xs-6">
+							  		<label for="trabajo">Fecha:&nbsp;&nbsp;&nbsp;</label>
+						    		<input id="datepicker" class="rounded" type="date" ng-model="datosCita.fechaCita">
+							  	</div>
+							  	<div class="col-xs-6">
+							  		<label for="trabajo">Hora:</label>
+						    		<input  class="rounded" type="time" ng-model="datosCita.horaCita">
+							  	</div>
+							</div>
+							<div class="row">
+							  	<div class="col-xs-10">
+							  		<label for="trabajo">Trabajo:</label>
+							  		<input type="text" class="rounded" ng-model="datosCita.trabajoCita" size="53">
+							  	</div>
+							  	<div class="col-xs-2">
+							  	</div>
+							</div>
+							</br>
+							<div class="row">
+							  	<div class="col-xs-3">
+							  		<label for="observacion">Observaciones:</label>
+							  	</div>
+							  	<div class="col-xs-9">
+							  		<textarea rows="4" cols="50" ng-model="datosCita.observacionCita"></textarea>
+							  	</div>
+							</div>	
+							</br>
+							<div id="labelNumItems">
+								<p>Items añadidas: {{labelItems}}</p>
+							</div>
+							<div id="bntAgendarCita">
+					    		<button type="button" class="btn btn-primary" ng-click="showCitaServicioModal()"  ng-disabled="selectedTaller"><span class="glyphicon glyphicon-usd"></span>Orden de servicio</button>
+					    		
+					    		<button type="button" class="btn btn-primary" ng-click="addCita()" ><span class="glyphicon glyphicon-calendar"></span>Agendar cita</button>	
+					    	</div>
+						</div>
+					</td>
+					<td id="tdMapa">
+						<div id="divMapa">
+							<img id="imgMapa" src="image/mapa.jpg">
+						</div>						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- Servicios Modal -->
+<div id="citaServicioModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Orden de servicios</h4>
+      </div>
+      <div class="modal-body">
+        <div class="contenedor" >
+			<div class="formGroup" ng-init="initCitaServicio()">
+		        <input  class="rounded inputWidth" type="text" placeholder="Búsqueda: Servicio/Paquete/Refacción" ng-model="pieza">
+		        <button id="btnBuscarPieza" busy="Buscando.." type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="getPieza(pieza)"></button>
+		    </div>       	
+		    <div class="row tablaBusqueda tablaAlign" cg-busy="{promise:promise,message:message}">
+		      	<table class="table table-condensed table-striped"> 
+			        <thead> 	 
+		                <th>No.Partida</th>
+		                <th>No.Parte</th>                        
+		                <th>Descripción</th>
+		                <th>Agregar</th>                    
+			        </thead> 
+			        <tbody> 
+			            <tr dir-paginate="pieza in piezas | itemsPerPage:4" pagination-id="listaPiezasDisponibles">
+			                <td>{{ pieza.numeroPartida }}</td> 
+			                <td>{{ pieza.numeroParte }}</td>
+			                <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{pieza.item}}" tooltip-placement="top-right"></span></td>
+			                <td>
+			                  <button class="btn btn-success glyphicon glyphicon-plus" type="button" 
+			                  	id="btnCotizar" ng-click="addPieza(pieza)">
+			                  </button>
+			                </td>
+			            </tr>                
+			        </tbody> 
+		    	</table> 
+		    	<div id="paginationTaller">
+					<dir-pagination-controls
+				       	max-size="5"
+				        direction-links="true"
+				        boundary-links="true" 
+				        pagination-id="listaPiezasDisponibles">
+				    </dir-pagination-controls>
+				</div>
+			</div>
+		    </br>
+		    <div>
+		        <table class="table table-condensed table-striped"> 
+		            <thead>
+		                <th>No.Partida</th>
+		                <th>No.Parte</th>                        
+		                <th>Descripción</th>
+		                <th>Cantidad</th>
+		            </thead> 
+		            <tbody> 
+		                <tr dir-paginate="pieza in listaPiezas | itemsPerPage:3" pagination-id="listaPiezasSeleccionadas">
+		                    <td>{{pieza.numeroPartida }}</td> 
+		                    <td>{{pieza.numeroParte}}</td> 
+		                    <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{pieza.item}}" tooltip-placement="top-right"></span></td>
+		                    <td>{{pieza.cantidad}}</td>                                
+		                    <td>
+		                      <button class="btn btn-danger glyphicon glyphicon-remove" type="button" 
+		                      	id="btnCotizar" ng-click="removePieza(pieza.idItem)">
+		                      </button>
+		                    </td>
+		                </tr>                
+		            </tbody> 
+		        </table>
+		        <div id="paginationTaller">
+					<dir-pagination-controls
+				       	max-size="5"
+				        direction-links="true"
+				        boundary-links="true" 
+				        pagination-id="listaPiezasSeleccionadas">
+				    </dir-pagination-controls>
+				</div>
+		        <div id="generarServicio">
+		        	<button type="button" class="btn btn-primary" ng-click="generarCitaServicio()" ><span class="glyphicon glyphicon-saved"></span>Generar orden</button>
+		        </div> 
+		    </div>
+		</div>
+      </div>
+     <!--  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+
+  </div>
+</div>

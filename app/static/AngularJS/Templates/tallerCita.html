@@ -1,0 +1,45 @@
+<div ng-init="initTallerCita()">
+	   <div class="headTitleTallerCita">
+        <span class="title"> Consulta de Citas<span class="subtitle">Call Center / Taller</span> </span>
+    </div>
+	<div id="contenedor" class="contenedor">
+        <div class="formGroup form-right" >
+            <div class="inputLabel">
+                <label>Fecha:</label>
+                <input class="rounded" type="date" ng-model="fecha" placeholder="dd/mm/yyyy" ng-change="busquedaCita(fecha)"></input>
+            </div>
+        </div>
+        <div class="row tablaBusqueda tablaAlign" cg-busy="{promise:promise,message:message}">
+          <table class="table table-striped"> 
+            <thead> 
+                <tr> 
+                    <th>Fecha</th> 
+                    <th>Num.Economico</th>                        
+                    <th>Marca-Modelo</th>
+                    <th>Trabajo</th>
+                    <th>Observaciones</th>
+                    <th>Estatus</th>     
+                    <th>Agendó</th> 
+                </tr> 
+            </thead> 
+            <tbody> 
+                <tr ng-repeat="cita in listaCitas">
+                    <td>{{ cita.Fecha | date:'dd-MM-yyyy HH:mm'}} </td>
+                    <td>{{ cita.numEconomico }}</td> 
+                    <td>{{ cita.modeloMarca }}</td>
+                    <td>{{ cita.trabajo }}</td> 
+                    <td>{{ cita.observacion}}</td>
+                    <td>{{ cita.estatus}}</td>
+                    <td>{{ cita.nombreCompleto }} </td>
+                    <td>
+                      <button class="btn btn-info" type="button" data-toggle="tooltip"
+                      	tooltip="Cotizar" id="btnCotizar" tooltip-placement="right" ng-click="nuevaCotizacion(cita)">                        
+                        <span class="glyphicon glyphicon-usd"></span>
+                      </button>
+                    </td>
+                </tr>                
+            </tbody> 
+        </table> 
+        </div>                 
+    </div>
+</div>

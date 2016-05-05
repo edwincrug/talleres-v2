@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>Talleres Externos</title>
+    <meta name="description" content="description project">
+    <meta name="author" content="name" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Libreria de Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900italic' rel='stylesheet' type='text/css'>
+
+    <!--Hojas de estilos-->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/cita.css">
+    <link rel="stylesheet" type="text/css" href="css/general.css">
+    <link rel="stylesheet" type="text/css" href="css/cotizacion.css">
+    <link rel="stylesheet" type="text/css" href="css/precios.css">
+
+
+    <!--Loading-->
+    <link href="css/toastr.css" rel="stylesheet" />
+    <link href="css/angular-busy.css" rel="stylesheet" />
+
+    <!-- CSS Menú -->
+    <link rel="stylesheet" type="text/css" href="css/menu/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/menu/component.css" />
+
+    <!--Librearias JQuery y Bootstrap-->
+    <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
+    <script src="js/libs/bootstrap/bootstrap.js"></script>
+
+    <!-- Menú -->
+    <script src="js/menu/modernizr.custom.25376.js"></script>
+
+</head>
+
+<body ng-app="registrationModule">
+
+    <div id="perspective" class="perspective effect-rotateleft">
+        <div class="container">
+            <div class="wrapper">
+                <!-- wrapper needed for scroll -->
+                <span id="showMenu" class="glyphicon glyphicon-th btnMenu" aria-hidden="true" ng-hide="sesion == 0"> <span id="menuTitle">Menú</span> </span>
+                <div id="user" ng-hide="sesion == 0">
+
+                    <div id="profile">Taller</div>
+                    <div id="name">Edwin Cruz</div>
+                    <div id="avatar">
+                        <img id="imgAvatar" src="image/profile/man.jpg"></img>
+                    </div>
+                </div>
+                <div id="divisor" ng-hide="sesion == 0"></div>
+                <div ng-view></div>
+            </div>
+            <!-- wrapper -->
+        </div>
+        <!-- /container -->
+        <nav class="outer-nav right vertical" ng-controller="menuController">
+            <a href="/cita" ng-click="Cerrar()" class="icon-home">Nueva Cita</a>
+            <a href="/tallerCita" ng-click="Cerrar()" class="icon-news">Citas</a>
+            <a href="/cotizacionConsulta" ng-click="Cerrar()" class="icon-image">Aprobaciones</a>
+            <a href="/trabajo" ng-click="Cerrar()" class="icon-upload">Órdenes de Servicio</a>
+            <!--    <a href="#" class="icon-star">Favorites</a>
+            <a href="#" class="icon-mail">Messages</a>
+            <a href="#" class="icon-lock">Security</a> -->
+        </nav>
+    </div>
+    <!-- /perspective -->
+
+    <!--Interface de usuario-->
+    <script src="js/libs/toastr/toastr.min.js"></script>
+
+    <!-- Librerias Angular-->
+    <script src="js/libs/angular/angular.js"></script>
+    <script src="js/libs/angular/angular-route.min.js"></script>
+    <!--<script src="js/libs/angular/angular-animate.min.js"></script>-->
+    <script src="js/libs/angular/ui-bootstrap-tpls.min.js"></script>
+    <script src="js/libs/angular/dirPagination.js"></script>
+    <script src="js/libs/angular/angular-local-storage.min.js"></script>
+
+    <!--Funciones Comunes-->
+    <script src="confront.js"></script>
+
+    <!-- Scripts de menú -->
+    <script src="js/menu/classie.js"></script>
+    <script src="js/menu/menu.js"></script>
+
+    <!--Angular Busy-->
+    <script src="js/libs/angular/angular-busy.js"></script>
+
+    <!--Librería para realizar querys-->
+    <script src="js/libs/angular/linq.js"></script>
+
+    <!--Librerias de aplicación angular-->
+    <script src="AngularJS/registrationModule.js"></script>
+
+    <!--librerias de componenetes-->
+    <script src="AngularJS/alertFactory.js"></script>
+
+    <!--Controllers-->
+    <script src="AngularJS/menu/menuController.js"></script>
+    <script src="AngularJS/Cita/citaController.js"></script>
+    <script src="AngularJS/Cita/citaRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionMailRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionAutorizacionRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionConsultaRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionController.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionConsultaController.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionAutorizacionController.js"></script>
+    <script src="AngularJS/Login/loginController.js"></script>
+    <script src="AngularJS/Trabajo/trabajoController.js"></script>
+    <script src="AngularJS/Trabajo/trabajoRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionTrabajoRepository.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionTrabajoController.js"></script>
+    <script src="AngularJS/Servicio/servicioController.js"></script>
+
+</body>
+
+</html>

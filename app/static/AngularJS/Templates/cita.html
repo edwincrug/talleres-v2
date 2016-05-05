@@ -1,0 +1,57 @@
+<div class="contenedor" ng-init="init()"> 
+	<div>
+	<div class="headTitle">
+		<span class="title"> Buscar Unidad<span class="subtitle">Call Center</span> </span>
+	</div>
+		<div class="formGroup">
+			<input  class="rounded inputWidth" type="text" placeholder="Buscar datos de la unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" data-toggle="tooltip" tooltip="Busque por Número de unidad/ Número inventario/ Número de TAR/ Marca/ Modelo al menos 4 caracateres" tooltip-placement="bottom-right">
+	    	<button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(datoUnidad)" ng-disabled="habilitaBtnBuscar"><span class="glyphicon glyphicon-search"></span></button>
+	    </div>
+    	</br>
+    	<div id="tablaUnidad">
+    		<table class="table table-condensed table-striped table-hover" cg-busy="{promise:promise,message:message}"> 
+				<thead> 
+					<tr> 
+						<th>Número económico</th> 
+						<th>Número económico cliente</th>
+						<th>Activo fijo</th>
+						<th>Número de inventario</th>
+						<th>Número de TAR</th>
+						<th>TAR</th>
+						<th>GAR</th>
+						<th>Ubicación</th>
+						<th>Marca</th>
+						<th>Modelo</th>                        
+						<th>Motor</th>									   
+					</tr> 
+				</thead> 
+				<tbody> 
+					<tr dir-paginate="unidad in unidades | itemsPerPage:10"> 
+						<td>{{unidad.numEconomico}}</td> 
+						<td>{{unidad.clienteNumEconomico}}</td>	
+						<td>{{unidad.activoFijo}}</td>
+						<td>{{unidad.clienteNumInventario}}</td>
+						<td>{{unidad.numTAR}}</td>
+						<td>{{unidad.TAR}}</td>
+						<td>{{unidad.GAR}}</td>
+						<td>{{unidad.ubicacion}}</td>		
+						<td>{{unidad.marca}}</td>
+						<td>{{unidad.modelo}}</td>
+						<td>{{unidad.motor}}</td>
+						<td>							
+							<button class="btn btn-primary" type="button" ng-click="lookUpCita(unidad)"><span class="glyphicon glyphicon-check" data-toggle="tooltip" tooltip="Seleccionar" tooltip-placement="top"></span></button>
+						</td>										
+					</tr>                
+				</tbody>
+			</table>
+			<div id="pagination">
+				<dir-pagination-controls
+			       	max-size="5"
+			        direction-links="true"
+			        boundary-links="true" >
+			    </dir-pagination-controls>
+			</div>	
+    	</div>
+    </div>
+</div>
+

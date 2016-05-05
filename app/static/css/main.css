@@ -1,0 +1,117 @@
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background: white;
+  font-size: 15px; }
+
+#header {
+  width: 100%;
+  height: 150px;
+  border-bottom: 1px solid rgba(153, 153, 153, 0.35);
+  box-shadow: 1px 1px 6px rgba(153, 153, 153, 0.54);
+  position: relative; }
+
+#logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 19px;
+  width: 191px;
+  margin-left: 11px; }
+
+.btnMenu {
+  font-size: 26px;
+  color: #5F8FB9;
+  margin-left: 10px;
+  margin-top: 10px; }
+
+.btnMenu:hover {
+  color: #93C3EC; }
+
+#menuTitle {
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 28px;
+  margin-top: 5px;
+  cursor: pointer;
+  color: #5F8FB9;
+  font-family: Source Sans Pro; }
+
+#user {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom: 2px solid #CFCACA;
+  width: 300px;
+  height: 35px;
+  border-radius: 5px 5px 5px 5px;
+  margin-right: 5px; }
+
+#avatar {
+  position: absolute;
+  width: 20%;
+  margin-left: 80%;
+  height: 100%;
+  background-color: #D8E6F2;
+  padding-left: 13px;
+  border-radius: 0px 0px 5px 0px; }
+
+#imgAvatar {
+  width: 30px;
+  border-radius: 35px;
+  margin-top: 1px; }
+
+#name {
+  position: absolute;
+  width: 60%;
+  margin-left: 20%;
+  height: 100%;
+  text-align: right;
+  padding-right: 5px;
+  padding-top: 5px;
+  background-color: #8EB1CF;
+  color: white;
+  font-weight: 200; }
+
+#profile {
+  position: absolute;
+  width: 20%;
+  background-color: #5F8FB9;
+  color: white;
+  height: 100%;
+  padding-top: 5px;
+  text-align: center;
+  font-weight: 200;
+  border-radius: 0px 0px 0px 5px; }
+
+#divisor {
+  width: 100%;
+  background-color: rgba(40, 96, 144, 0.17);
+  position: absolute;
+  height: 1px;
+  top: 0;
+  margin-top: 50px;
+  margin-left: 5px;
+  margin-right: 5px;
+  box-shadow: 2px 0.5px 1px rgba(142, 177, 207, 0.37); }
+
+.title {
+  font-size: 25px;
+  color: #466B8C;
+  font-weight: 300; }
+
+.subtitle {
+  font-size: 15px;
+  padding-left: 10px;
+  color: #A6551B;
+  font-weight: 100; }
+
+.headTitle {
+  margin-bottom: 15px;
+  padding-top: 10px; }
+
+.headTitleTallerCita {
+  margin-bottom: 15px;
+  padding-top: 30px;
+  padding-left: 10px; }

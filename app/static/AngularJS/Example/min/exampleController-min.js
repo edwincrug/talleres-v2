@@ -1,0 +1,1 @@
+registrationModule.controller("exampleController",function(l,o){l.init=function(){l.hello="Hello, Angular is ready! XD  :)  :("},l.sayHello=function(){o.success(l.hello)}});

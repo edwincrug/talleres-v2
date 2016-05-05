@@ -1,0 +1,1 @@
+var global_settings={urlCORS:"http://localhost:4100",uploadPath:"C:/Desarrollo/Flotilla/flotilla/app/uploads/"};

@@ -1,0 +1,94 @@
+<link href="../../css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="../../css/cotizacion.css">
+ <script src="../../js/libs/jQuery/jquery-2.1.4.js"></script>
+
+<form 
+  id        =  "uploadForm"
+  enctype   =  "multipart/form-data"
+  action    =  "/profile"
+  method    =  "post">
+  <div>
+      <input type="text" id="idTrabajo" name="idTrabajo" hidden="true" />
+      <input type="text" id="idCotizacion" name="idCotizacion" hidden="true" />
+      <div id="wrapper">
+      <div id="contenedor">
+        <div class="added">
+       	  <a id="agregarCampo" class="btn btn-success glyphicon glyphicon-plus"></a></br></br>
+          <span class="btn btn-primary btn-file">
+            Adjuntar Archivo <input type="file" class="files" id="fileDoc_1" name="avatar" accept=".jpg,.png,.pdf,.JPG,.PNG,.PDF,.BMP,.bmp,.mp4">
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="submit" id="submit2" name="submit2" hidden="true">Cargar</button>
+</form>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var MaxInputs = 8; 
+		var contenedor = $("#contenedor");
+		var AddButton = $("#agregarCampo");
+
+		var x = $("#contenedor div").length + 1;
+		var FieldCount = x-1; 
+
+		$(AddButton).click(function (e) 
+		{
+			if(x <= MaxInputs)
+			{
+				FieldCount++; 
+				$(contenedor).append('<div class="added"><span class="btn btn-primary btn-file">Elegir Archivo <input type="file" class="files" id="fileDoc'+ FieldCount +'" name="avatar" accept=".jpg,.png,.pdf,.JPG,.PNG,.PDF,.BMP,.bmp,.mp4"></span><a href="#" class="btn btn-danger glyphicon glyphicon-remove eliminar"></a></div>');
+				x++;
+			}
+		return false;
+		});
+
+		$("body").on("click",".eliminar", function(e){ 
+			if( x > 1 ) {
+				$(this).parent('div').remove(); 
+				x--;
+			}
+		return false;
+		});
+
+		/*$(document).ready(function() {
+			if(getParameterByName('response') != null){
+				window.parent.buttonReset();
+			}		    	
+		});
+
+		function getParameterByName(name, url) {
+		    if (!url) url = window.location.href;
+		    name = name.replace(/[\[\]]/g, "\\$&");
+		    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+		        results = regex.exec(url);
+		    if (!results) return null;
+		    if (!results[2]) return '';
+		    return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}*/
+	});
+
+	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+		numFiles = input.get(0).files ? input.get(0).files.length : 1,
+		label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [numFiles, label]);
+		var id = $(this).attr("id");
+		var valida = ValidarExtension(label);
+		if(valida == false){
+			alert("Extensión de documento no valido");
+			$('#' + id).val('');
+		}
+	});
+
+	function ValidarExtension(v)
+	{
+	  var extensionesPermitidas = new Array("jpg","JPG","png","PNG","pdf","PDF","bmp","BMP","docx","DOCX","xls","XLSX", "doc", "DOC", "ppt", "PPT", "mp4");
+	  for(var ct=0;ct<extensionesPermitidas.length;ct++)
+	  {
+	      sample = v.lastIndexOf(extensionesPermitidas[ct]);
+	      if(sample != -1){return true;}
+	  }
+	  return false;
+	}
+</script>
