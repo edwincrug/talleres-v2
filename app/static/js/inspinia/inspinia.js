@@ -1,13 +1,8 @@
-/*
- *
- *   INSPINIA - Responsive Admin Theme
- *   version 2.4
- *
- */
-
-
 $(document).ready(function () {
 
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        options.async = true;
+    });
 
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
@@ -17,7 +12,7 @@ $(document).ready(function () {
     }
 
     // MetsiMenu
-    $('#side-menu').metisMenu();
+    /* $('#side-menu').metisMenu();*/
 
     // Collapse ibox function
     $('.collapse-link').click(function () {
@@ -58,10 +53,10 @@ $(document).ready(function () {
     });
 
     // Run menu of canvas
-    $('body.canvas-menu .sidebar-collapse').slimScroll({
+    /*$('body.canvas-menu .sidebar-collapse').slimScroll({
         height: '100%',
         railOpacity: 0.9
-    });
+    });*/
 
     // Open close right sidebar
     $('.right-sidebar-toggle').click(function () {
@@ -69,11 +64,11 @@ $(document).ready(function () {
     });
 
     // Initialize slimscroll for right sidebar
-    $('.sidebar-container').slimScroll({
+    /*$('.sidebar-container').slimScroll({
         height: '100%',
         railOpacity: 0.4,
         wheelStep: 10
-    });
+    });*/
 
     // Open close small chat
     $('.open-small-chat').click(function () {
@@ -82,10 +77,10 @@ $(document).ready(function () {
     });
 
     // Initialize slimscroll for small chat
-    $('.small-chat-box .content').slimScroll({
+    /*$('.small-chat-box .content').slimScroll({
         height: '234px',
         railOpacity: 0.4
-    });
+    });*/
 
     // Small todo handler
     $('.check-link').click(function () {
@@ -111,10 +106,10 @@ $(document).ready(function () {
     });
 
     // Tooltips demo
-    $('.tooltip-demo').tooltip({
-        selector: "[data-toggle=tooltip]",
-        container: "body"
-    });
+    /* $('.tooltip-demo').tooltip({
+         selector: "[data-toggle=tooltip]",
+         container: "body"
+     });*/
 
     // Move modal to body
     // Fix Bootstrap backdrop issu with animation.css
@@ -173,13 +168,13 @@ $(document).ready(function () {
         }
     });
 
-    $("[data-toggle=popover]")
-        .popover();
+    /*  $("[data-toggle=popover]")
+          .popover();*/
 
     // Add slimscroll to element
-    $('.full-height-scroll').slimscroll({
+    /*$('.full-height-scroll').slimscroll({
         height: '100%'
-    })
+    })*/
 });
 
 
@@ -287,8 +282,7 @@ function WinMove() {
     var element = "[class*=col]";
     var handle = ".ibox-title";
     var connect = "[class*=col]";
-    $(element).sortable(
-        {
+    $(element).sortable({
             handle: handle,
             connectWith: connect,
             tolerance: 'pointer',
@@ -297,5 +291,3 @@ function WinMove() {
         })
         .disableSelection();
 }
-
-

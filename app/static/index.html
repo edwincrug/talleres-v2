@@ -22,6 +22,7 @@
     <link href="css/angular-busy.css" rel="stylesheet" />
 
     <!--Librearias JQuery y Bootstrap-->
+    <!--<script src="https://code.jquery.com/jquery-2.1.1.js" integrity="sha256-FA/0OOqu3gRvHOuidXnRbcmAWVcJORhz+pv3TX2+U6w=" crossorigin="anonymous"></script>-->
     <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
     <script src="js/libs/bootstrap/bootstrap.js"></script>
 
@@ -42,7 +43,8 @@
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Edwin Cruz</strong>
-                             </span> <span class="text-muted text-xs block">Talleres <b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">Talleres <b class="caret"></b></span> </span>
+                        </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="profile.html">Profile</a></li>
                             <li><a href="contacts.html">Contacts</a></li>
@@ -72,122 +74,125 @@
         </div>
     </nav>
     <div id="page-wrapper" class="gray-bg">
-    <div class="row border-bottom">
-    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-    </div>
-        <ul class="nav navbar-top-links navbar-right">
-            <li>
-                <span class="m-r-sm text-muted welcome-message">Talleres</span>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
-                </a>
-                <ul class="dropdown-menu dropdown-messages">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <div class="dropdown-messages-box">
-                            <a href="profile.html" class="pull-left">
-                                <img alt="image" class="img-circle" src="img/a7.jpg">
-                            </a>
-                            <div class="media-body">
-                                <small class="pull-right">46h ago</small>
-                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
-                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-                            </div>
-                        </div>
+                        <span class="m-r-sm text-muted welcome-message">Talleres</span>
                     </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="dropdown-messages-box">
-                            <a href="profile.html" class="pull-left">
-                                <img alt="image" class="img-circle" src="img/a4.jpg">
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right text-navy">5h ago</small>
-                                <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
-                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-                            </div>
-                        </div>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="img/a7.jpg">
+                                    </a>
+                                    <div class="media-body">
+                                        <small class="pull-right">46h ago</small>
+                                        <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>.
+                                        <br>
+                                        <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="img/a4.jpg">
+                                    </a>
+                                    <div class="media-body ">
+                                        <small class="pull-right text-navy">5h ago</small>
+                                        <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>.
+                                        <br>
+                                        <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="img/profile.jpg">
+                                    </a>
+                                    <div class="media-body ">
+                                        <small class="pull-right">23h ago</small>
+                                        <strong>Monica Smith</strong> love <strong>Kim Smith</strong>.
+                                        <br>
+                                        <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a href="mailbox.html">
+                                        <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="dropdown-messages-box">
-                            <a href="profile.html" class="pull-left">
-                                <img alt="image" class="img-circle" src="img/profile.jpg">
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right">23h ago</small>
-                                <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
-                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                            </div>
-                        </div>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="mailbox.html">
+                                    <div>
+                                        <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="profile.html">
+                                    <div>
+                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                        <span class="pull-right text-muted small">12 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="grid_options.html">
+                                    <div>
+                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a href="notifications.html">
+                                        <strong>See All Alerts</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="divider"></li>
                     <li>
-                        <div class="text-center link-block">
-                            <a href="mailbox.html">
-                                <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
-                            </a>
-                        </div>
+                        <a href="login.html">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
                     </li>
                 </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
-                </a>
-                <ul class="dropdown-menu dropdown-alerts">
-                    <li>
-                        <a href="mailbox.html">
-                            <div>
-                                <i class="fa fa-envelope fa-fw"></i> You have 16 messages
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="profile.html">
-                            <div>
-                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                <span class="pull-right text-muted small">12 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="grid_options.html">
-                            <div>
-                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="text-center link-block">
-                            <a href="notifications.html">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="login.html">
-                    <i class="fa fa-sign-out"></i> Log out
-                </a>
-            </li>
-        </ul>
-    </nav>
-    </div>
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
-            <h2>Talleres</h2>
-            <!-- <ol class="breadcrumb">
+            </nav>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Talleres</h2>
+                <!-- <ol class="breadcrumb">
                 <li>
                     <a href="index-2.html">Home</a>
                 </li>
@@ -198,64 +203,65 @@
                     <strong>Talleres</strong>
                 </li>
             </ol> -->
+            </div>
+            <div class="col-lg-2">
+            </div>
         </div>
-        <div class="col-lg-2">
-        </div>
-    </div>
-    <div ng-view>hola desde</div>
-    <!-- /perspective -->
+        <div ng-view>hola desde</div>
+        <!-- /perspective -->
 
-    <!--Interface de usuario-->
-    <script src="js/libs/toastr/toastr.min.js"></script>
+        <!--Interface de usuario-->
+        <script src="js/libs/toastr/toastr.min.js"></script>
 
-    <!-- Librerias Angular-->
-    <script src="js/libs/angular/angular.js"></script>
-    <script src="js/libs/angular/angular-route.min.js"></script>
-    <!--<script src="js/libs/angular/angular-animate.min.js"></script>-->
-    <script src="js/libs/angular/ui-bootstrap-tpls.min.js"></script>
-    <script src="js/libs/angular/dirPagination.js"></script>
-    <script src="js/libs/angular/angular-local-storage.min.js"></script>
+        <!-- Librerias Angular-->
+        <script src="js/libs/angular/angular.js"></script>
+        <script src="js/libs/angular/angular-route.min.js"></script>
+        <!--<script src="js/libs/angular/angular-animate.min.js"></script>-->
+        <script src="js/libs/angular/ui-bootstrap-tpls.min.js"></script>
+        <script src="js/libs/angular/dirPagination.js"></script>
+        <script src="js/libs/angular/angular-local-storage.min.js"></script>
 
-    <!--Funciones Comunes-->
-    <script src="confront.js"></script>
+        <!--Funciones Comunes-->
+        <script src="confront.js"></script>
 
-    <!--Angular Busy-->
-    <script src="js/libs/angular/angular-busy.js"></script>
+        <!--Angular Busy-->
+        <script src="js/libs/angular/angular-busy.js"></script>
 
-    <!--Librería para realizar querys-->
-    <script src="js/libs/angular/linq.js"></script>
+        <!--Librería para realizar querys-->
+        <script src="js/libs/angular/linq.js"></script>
 
-    <!--Librerias de aplicación angular-->
-    <script src="AngularJS/registrationModule.js"></script>
+        <!--Librerias de aplicación angular-->
+        <script src="AngularJS/registrationModule.js"></script>
 
-    <!--librerias de componenetes-->
-    <script src="AngularJS/alertFactory.js"></script>
+        <!--librerias de componenetes-->
+        <script src="AngularJS/alertFactory.js"></script>
 
-    <!--Controllers-->
-    <script src="AngularJS/menu/menuController.js"></script>
-    <script src="AngularJS/Cita/citaController.js"></script>
-    <script src="AngularJS/Cita/citaRepository.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionMailRepository.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionRepository.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionAutorizacionRepository.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionConsultaRepository.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionController.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionConsultaController.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionAutorizacionController.js"></script>
-    <script src="AngularJS/Login/loginController.js"></script>
-    <script src="AngularJS/Trabajo/trabajoController.js"></script>
-    <script src="AngularJS/Trabajo/trabajoRepository.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionTrabajoRepository.js"></script>
-    <script src="AngularJS/Cotizacion/cotizacionTrabajoController.js"></script>
-    <script src="AngularJS/Servicio/servicioController.js"></script>
+        <!--Controllers-->
+        <script src="AngularJS/menu/menuController.js"></script>
+        <script src="AngularJS/Cita/citaController.js"></script>
+        <script src="AngularJS/Cita/citaRepository.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionMailRepository.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionRepository.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionAutorizacionRepository.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionConsultaRepository.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionController.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionConsultaController.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionAutorizacionController.js"></script>
+        <script src="AngularJS/Login/loginController.js"></script>
+        <script src="AngularJS/Trabajo/trabajoController.js"></script>
+        <script src="AngularJS/Trabajo/trabajoRepository.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionTrabajoRepository.js"></script>
+        <script src="AngularJS/Cotizacion/cotizacionTrabajoController.js"></script>
+        <script src="AngularJS/Servicio/servicioController.js"></script>
 
-     <!-- Mainly scripts -->
-    <script src="js/inspinia/metisMenu/jquery.metisMenu.js"></script>
-    <!--<script src="js/inspinia/slimscroll/jquery.slimscroll.min.js"></script>-->
+        <!-- Mainly scripts -->
+        <script src="js/inspinia/metisMenu/jquery.metisMenu.js"></script>
+        <script src="js/inspinia/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="js/inspinia/inspinia.js"></script>
-    <script src="js/inspinia/pace/pace.min.js"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="js/inspinia/inspinia.js"></script>
+        <script src="js/inspinia/pace/pace.min.js"></script>
+
 
 </body>
 
