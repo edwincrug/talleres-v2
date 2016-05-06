@@ -1,4 +1,4 @@
-<div ng-init="init()">
+<div ng-init="init()" class="animated bounceInRight">
     <div class="headTitleTallerCita">
         <span class="title"> Buscar Unidad<span class="subtitle">Call Center / Taller</span></span>
     </div>
@@ -31,7 +31,7 @@
                                         <th>Marca</th>
                                         <th>Modelo</th>
                                         <th>Motor</th>
-                                        <th></th>
+                                        <th>Seleccionar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,7 +48,7 @@
                                         <td>{{unidad.modelo}}</td>
                                         <td>{{unidad.motor}}</td>
                                         <td>
-                                            <button class="btn btn-primary dim" type="button" ng-click="lookUpCita(unidad)"><span class="glyphicon glyphicon-check" data-toggle="tooltip" tooltip="Seleccionar" tooltip-placement="top"></span></button>
+                                            <button class="btn btn-primary dim" type="button" ng-click="lookUpCita(unidad)"><span class="glyphicon glyphicon-check"></span></button>
                                         </td>
                                     </tr>
                                 </tbody>
