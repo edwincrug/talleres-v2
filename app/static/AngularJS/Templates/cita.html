@@ -17,7 +17,7 @@
                         </div>
                         <br/>   
                         <div class="table-responsive">                         
-                            <table class="table table-striped table-bordered table-hover" cg-busy="{promise:promise,message:message}">
+                            <table class="table table-striped table-bordered table-hover dataTablesUnidad" cg-busy="{promise:promise,message:message}">
                                 <thead>
                                     <tr>
                                         <th>Número económico</th>
@@ -35,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr dir-paginate="unidad in unidades | itemsPerPage:6">
+                                    <tr ng-repeat="unidad in unidades ">
                                         <td>{{unidad.numEconomico}}</td>
                                         <td>{{unidad.clienteNumEconomico}}</td>
                                         <td>{{unidad.activoFijo}}</td>
@@ -53,10 +53,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div id="pagination">
-                                <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
-                                </dir-pagination-controls>
-                            </div>
                         </div>
                     </div>
                 </div>

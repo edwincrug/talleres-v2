@@ -11,7 +11,6 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	$scope.message = 'Buscando...';
 
 	$scope.init = function(){
-        $scope.unidades = [];
 		$scope.idTaller = 0;
 		$scope.habilitaBtnBuscar = true;
 	}
@@ -60,6 +59,29 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 		$scope.promise = citaRepository.getUnidadInformation(datoUnidad).then(function(unidadInfo){
 			$scope.unidades = unidadInfo.data;
 			if(unidadInfo.data.length > 0){
+                setTimeout(function(){
+                    $('.dataTablesUnidad').DataTable({
+                        dom: '<"html5buttons"B>lTfgitp',
+                        buttons: [
+                            { extend: 'copy'},
+                            {extend: 'csv'},
+                            {extend: 'excel', title: 'ExampleFile'},
+                            {extend: 'pdf', title: 'ExampleFile'},
+
+                            {extend: 'print',
+                             customize: function (win){
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                            .addClass('compact')
+                                            .css('font-size', 'inherit');
+                            }
+                            }
+                        ]
+                    });  
+                }, 2000);
+                
 				alertFactory.success('Datos encontrados');
 				$('#btnBuscar').button('reset');
 			}
