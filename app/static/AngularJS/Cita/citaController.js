@@ -11,6 +11,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	$scope.message = 'Buscando...';
 
 	$scope.init = function(){
+        $scope.unidades = [];
 		$scope.idTaller = 0;
 		$scope.habilitaBtnBuscar = true;
 	}
