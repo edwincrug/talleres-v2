@@ -6,12 +6,9 @@
 // -- Fecha: 30/03/2016
 // -- =============================================
 registrationModule.controller('citaController', function($scope, $route,$rootScope, localStorageService, alertFactory,citaRepository, cotizacionRepository){
-	var cDetalles = [];
-	var cPaquetes = [];
 	$scope.message = 'Buscando...';
 
 	$scope.init = function(){
-		$scope.idTaller = 0;
 		$scope.habilitaBtnBuscar = true;
 	}
 
@@ -60,7 +57,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 			$scope.unidades = unidadInfo.data;
 			if(unidadInfo.data.length > 0){
                 setTimeout(function(){
-                    $('.dataTablesUnidad').DataTable({
+                    $('.dataTableUnidad').DataTable({
                         dom: '<"html5buttons"B>lTfgitp',
                         buttons: [
                             { extend: 'copy'},
@@ -97,10 +94,31 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
 	//obtiene las citas de la unidad
 	var getCita = function(idUnidad){
-		//obtiene todas las citas de la unidad
 		$scope.promise = citaRepository.getCita(idUnidad).then(function(cita){
 			$scope.citas = cita.data;
 			if(cita.data.length > 0){
+                setTimeout(function(){
+                    $('.dataTableCita').DataTable({
+                        dom: '<"html5buttons"B>lTfgitp',
+                        buttons: [
+                            { extend: 'copy'},
+                            {extend: 'csv'},
+                            {extend: 'excel', title: 'ExampleFile'},
+                            {extend: 'pdf', title: 'ExampleFile'},
+
+                            {extend: 'print',
+                             customize: function (win){
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                            .addClass('compact')
+                                            .css('font-size', 'inherit');
+                            }
+                            }
+                        ]
+                    });  
+                }, 2000);
 				alertFactory.success('Datos encontrados');
 			}
 			else{
@@ -109,40 +127,6 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 		}, function(error){
 			alertFactory.error('Error al obtener datos');
 		});
-	}
-
-	//obtiene los tabajos de la cita
-	$scope.lookUpTrabajo = function(cita){
-		$scope.promise = citaRepository.getTrabajo(cita.idCita).then(function(trabajo){
-			if(trabajo.data.length > 0){
-				$scope.slideDown();
-				$scope.cita = cita;
-				alertFactory.success('Trabajo cargado');
-				//obtiene las cotizaciones(servicios) de la unidad
-				$scope.promise = citaRepository.getCotizacion(trabajo.data[0].idTrabajo).then(function(cotizacion){
-					if(cotizacion.data.length > 0){
-						citaRepository.getCotizacionDetalle(trabajo.data[0].idTrabajo).then(function(cotizacionDetalle){
-							citaRepository.getPaquete(trabajo.data[0].idTrabajo).then(function(cotPaquete){
-								getCotizacionDetallePaquete(trabajo.data, cotizacion.data, cotizacionDetalle.data, cotPaquete.data);
-							});
-						});
-					}
-					else{
-						alertFactory.info('No se encontraron cotizaciones');
-					}
-				}, function(error){
-					alertFactory('Error al obtener las cotizaciones');
-				});
-			}
-			else{
-				alertFactory.info('No se encontraron datos del trabajo');
-				$scope.trabajo = [];
-				$scope.cita = [];
-			}
-
-		}, function(error){
-			alertFactory.error("Error al obtener datos del trabajo");
-		})
 	}
 
 	//regresa a la pantalla de cita
@@ -160,58 +144,11 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 		}		
 	} 
 
-	//Obtiene la lista de trabajo/cotizaciones/detalle/paquete por unidad
-	var getCotizacionDetallePaquete = function(trabajo, cotizacion, cotizacionDetalle, paquetes){
-		$scope.trabajo = [];
-
-		//crea una propiedad trabajo y agrega los objetos en el array
-		trabajo.forEach(function(t){
-			$scope.trabajo.push({trabajo: t});
-			$scope.trabajo[0].trabajo.cotizacion = cotizacion;
-			$scope.trabajo[0].trabajo.cotizacion.forEach(function(c, i){
-
-				//consulta de cotizaciones detalle
-				cDetalles = Enumerable.From(cotizacionDetalle)
-				.Where(function(x){return x.idCotizacion == c.idCotizacion})
-				.Select(function(x){return x})
-				.ToArray();
-				//añade detalles por cotización
-				$scope.trabajo[0].trabajo.cotizacion[i].cotizacionDetalle = cDetalles;
-
-				$scope.trabajo[0].trabajo.cotizacion[i].cotizacionDetalle.forEach(function(cd, j){
-					//consulta de paquetes de cotización detalle
-					cPaquetes = Enumerable.From(paquetes)
-					.Where(function(x){return x.idCotizacion == c.idCotizacion && cd.idTipoElemento == 1})
-					.Select(function(x){return x})
-					.ToArray();
-					if(cPaquetes.length > 0){
-						$scope.trabajo[0].trabajo.cotizacion[i].cotizacionDetalle[j].paquete = cPaquetes;
-					}
-				});
-			});
-		});
-	}
-
 	//obtiene las citas y servicios de la unidad
 	$scope.lookUpCita = function(unidad){
 		location.href = '/citatrabajo';
 		localStorageService.set('unidad', unidad);
 	}
-
-	//expande y contrae las filas de las tablas
-	$(function(){
-		$('body').on('click', '.CX button', function(){
-			if($(this).text() == '+'){
-				$(this).text('-');
-			}
-			else{
-				$(this).text('+');
-			}
-			$(this).closest('tr')
-			.next('tr')
-			.toggle();
-		});
-	});
 
 	$scope.busquedaCita = function(fecha){
 		var dia = fecha.getDate();
@@ -288,7 +225,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     		var citaTaller = {};
     		citaTaller.idCita = 0;
 			citaTaller.idUnidad = localStorageService.get('unidad').idUnidad;
-			citaTaller.idTaller = $scope.datosCita.idTaller;//$scope.idTaller;
+			citaTaller.idTaller = $scope.datosCita.idTaller;
 			citaTaller.fecha = combineDateAndTime($scope.datosCita.fechaCita, $scope.datosCita.horaCita);
 			citaTaller.trabajo = $scope.datosCita.trabajoCita;
 			citaTaller.observacion = $scope.datosCita.observacionCita;
