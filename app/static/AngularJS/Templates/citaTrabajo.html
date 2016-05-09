@@ -1,213 +1,45 @@
-<div class="contenedor" ng-init="initCita()">
-	<div> 
-		<div>
-			<button type="button" class="btn btn-primary" ng-click="backToCita()" data-toggle="tooltip" tooltip="Regresar" tooltip-placement="right"><span class="glyphicon glyphicon-hand-left"></span>Regresar</button>
-		</div>
-		</br>
-		<tabset>	      	
-			<tab heading="Ficha técnica">
-				</br> 
-				<div class="formGroup">
-					<div class="panel panel-info">
-				      	<div class="panel-heading"><h4>{{unidadInfo.marca}} {{unidadInfo.modelo}}</h4></div>
-				        <div class="panel-body">				      	
-							<table>
-								<thead>
-									<th></th>
-									<th></th>
-								</thead>
-								<tbody>
-									<tr>
-										<th id="ficha">			      	
-											<div>
-												<div>
-													<label>Número económico:</label><span> {{unidadInfo.numEconomico}}</span>
-												</div>
-												<div>
-													<label>Número ecnómico cliente:</label><span> {{unidadInfo.clienteNumEconomico}}</span>
-												</div>
-												<div>
-													<label>Número de inventario:</label><span> {{unidadInfo.clienteNumInventario}}</span>
-												</div>
-												<div>
-													<label>Número de TAR:</label><span> {{unidadInfo.numTAR}}</span>
-												</div>
-												<div>
-													<label>TAR:</label><span> {{unidadInfo.TAR}}</span>
-												</div>
-												<div>
-													<label>GAR:</label><span> {{unidadInfo.GAR}}</span>
-												</div>
-												<div>
-													<label>Ubicación:</label><span> {{unidadInfo.ubicacion}}</span>
-												</div>
-												<div>
-													<label>Activo fijo:</label><span> {{unidadInfo.activoFijo}}</span>
-												</div>
-												<div>
-													<label>Motor:</label><span> {{unidadInfo.motor}}</span>
-												</div>
-											</div>
-										</th>
-										<th id="fotoFicha">
-											<img src="image/international.jpg" id="fotoUnidad">
-										</th>
-									</tr>
-								</tbody>
-							</table>	
-				        </div>
-				    </div>			
-				</div> 
-			</tab>
-			<tab heading="Citas">
-				</br>
-				<div>
-					<table class="table table-condensed table-striped" cg-busy="{promise:promise,message:message}">
-						<thead>
-							<th>Fecha</th>
-							<th>Taller</th>
-							<th>Dirección</th>
-							<th>Trabajo</th>
-							<th>Agendó</th>
-							<th></th>
-						</thead>
-						<tbody>
-							<tr dir-paginate="cita in citas | itemsPerPage:5" pagination-id="listaCitas">
-								<td>{{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
-								<td>{{cita.razonSocial}}</td>
-								<td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{cita.direccion}}" tooltip-placement="top-right"></span></td>
-								<td>{{cita.trabajo}}</td>					
-								<td>{{cita.nombreCompleto}}</td>
-								<td><button type="button" class="btn btn-primary" ng-click="lookUpTrabajo(cita)" data-toggle="tooltip" tooltip="Ver trabajo" tooltip-placement="top"><span class="glyphicon glyphicon-folder-open"></span></button></td>
-								<td><button type="button" class="btn btn-success" ng-click="goToLineTime(cita.idCita)" data-toggle="tooltip" tooltip="Ver historial" tooltip-placement="top"><span class="glyphicon glyphicon-align-left"></span></button></td>
-							</tr>
-						</tbody>
-					</table>
-					<div id="pagination">
-						<dir-pagination-controls
-					       	max-size="5"
-					        direction-links="true"
-					        boundary-links="true"
-					        pagination-id="listaCitas">
-					    </dir-pagination-controls>
-					</div>
-				</div>			
-				</br>
-				<div  id="borderTop" class="div showDiv">
-					<i class="glyphicon glyphicon-remove" id="closeDiv" ng-click="slideUp()"></i>
-					</br>
-					<div>
-						<div>
-							<label>Número de cita:</label><span> {{cita.idCita}}</span>
-						</div>
-						<div>
-							<label>Taller:</label><span> {{cita.razonSocial}}</span>
-						</div>
-						<div>
-							<label>Trabajo:</label><span> {{cita.observacion}}</span>
-						</div>
-						<div>
-							<label>Fecha:</label><span> {{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</span>
-						</div>
-						<div>
-							<label>Agendó:</label><span> {{cita.nombreCompleto}}</span>
-						</div>
-					</div>
-					</br>
-					<div>
-						<table class="table table-condensed table-striped" cg-busy="{promise:promise,message:message}">
-							<thead>
-								<th>Número de trabajo</th>
-								<th>Fecha inicio</th>
-								<th>Fecha fin</th>
-								<th>Trabajo</th>
-								<th>Estatus</th>
-							</thead>
-							<tbody ng-repeat="t in trabajo">
-								<tr>
-									<td>{{t.trabajo.numeroTrabajo}}</td>
-									<td>{{t.trabajo.fechaInicio | date:'dd-MM-yyyy HH:mm'}}</td>
-									<td>{{t.trabajo.fechaFin | date:'dd-MM-yyyy HH:mm'}}</td>
-									<td>{{t.trabajo.trabajo}}</td>
-									<td>{{t.trabajo.estatus}}</td>				
-								</tr>
-								<tr>
-									<td></td>
-									<td colspan="5">
-										<table class="tableData">
-											<thead>
-												<th></th>
-												<th>Número de cotización</th>	 
-												<th>Fecha</th>
-												<th>Cotizó</th>
-												<th>Estatus</th>
-												<th>Total</th>
-											</thead>
-											<tbody ng-repeat="c in t.trabajo.cotizacion">
-												<tr>
-													<td class="CX"><button type="button">+</button></td>
-													<td>{{c.idCotizacion}}</td>
-													<td>{{c.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
-													<td>{{c.nombreCompleto}}</td>
-													<td>{{c.estatus}}</td>
-													<td>{{c.total | currency}}</td>
-												</tr>
-												<tr class="sub">
-													<td></td>
-													<td colspan="5">
-														<table class="tableData">
-															<thead>
-																<th></th>
-																<th>Tipo de artículo</th>
-																<th>Descripción</th>
-																<th>Precio</th>
-																<th>Cantidad</th>
-																<th>Subtotal</th>
-															</thead>
-															<tbody ng-repeat="cd in c.cotizacionDetalle">
-																<tr>	
-																	<td class="CX"><button ng-if="cd.idTipoElemento == 1" type="button">+</button></td>			
-																	<td>{{cd.tipoDescripcion}}</td>
-																	<td>{{cd.descripcion}}</td>
-																	<td>{{cd.precio | currency}}</td>
-																	<td>{{cd.cantidad}}</td>
-																	<td>{{cd.subtotal | currency}}</td>
-																</tr>
-																<tr class="sub">
-																	<td colspan="3"></td>
-																	<td colspan="3">
-																		<table class="tableData">
-																			<thead>
-																				<tr>				
-																					<th>Descripción</th>
-																					<th>Número de parte</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<tr ng-repeat="p in cd.paquete">
-																					<td>{{p.item}}</td>
-																					<td>{{p.numeroParte}}</td>
-																				</tr>
-																			</tbody>
-																		</table>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													</td>
-												</tr> 
-											</tbody>
-										</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>	       	
-			</tab>	    	      		
-		</tabset>
-		<div id="btnAgendar">
-			<button type="button" class="btn btn-success" ng-click="goNewCita()"><span class="glyphicon glyphicon-calendar"></span>Agendar cita</button>
-		</div>
+<div ng-init="initCita()" class="animated bounceInRight">
+    <div class="headTitleTallerCita">
+        <span class="title"> Citas<span class="subtitle">Call Center / Taller</span></span>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <br/>   
+                        <div class="table-responsive">                         
+                            <table class="table table-striped table-bordered table-hover dataTableCita" cg-busy="{promise:promise,message:message}">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Taller</th>
+                                        <th>Dirección</th>
+                                        <th>Trabajo</th>
+                                        <th>Agendó</th>
+                                        <th>Trabajo</th>
+                                        <th>Historial</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="cita in citas">
+                                        <td>{{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
+                                        <td>{{cita.razonSocial}}</td>
+                                        <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{cita.direccion}}" tooltip-placement="top-right"></span></td>
+                                        <td>{{cita.trabajo}}</td>					
+                                        <td>{{cita.nombreCompleto}}</td>
+                                        <td><button type="button" class="btn btn-primary" ng-click="lookUpTrabajo(cita)" data-toggle="tooltip" tooltip="Ver trabajo" tooltip-placement="top"><span class="glyphicon glyphicon-folder-open"></span></button></td>
+                                        <td><button type="button" class="btn btn-success" ng-click="goToLineTime(cita.idCita)" data-toggle="tooltip" tooltip="Ver historial" tooltip-placement="top"><span class="glyphicon glyphicon-align-left"></span></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="btnAgendar">
+                <button type="button" class="btn btn-success" ng-click="goNewCita()"><span class="glyphicon glyphicon-calendar"></span>Agendar cita</button>
+            </div>
+        </div>
     </div>
 </div>
