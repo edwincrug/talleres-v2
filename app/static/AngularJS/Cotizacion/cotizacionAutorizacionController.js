@@ -298,4 +298,8 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         });
 
     }
+    
+    $scope.Evidencias = function(){
+       location.href = '/cotizacionevidencias';
+    }
 });
