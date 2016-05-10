@@ -31,6 +31,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.idCita = '';
 
     $scope.init = function(){
+        //cargarFiles();
         exist = false;
         //Se valida si la cotización es para editar
         if(localStorageService.get('objEditCotizacion') != null){
@@ -65,7 +66,40 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                     idTaller = $scope.objCita.idTaller;
                 }
                 $scope.promise = cotizacionRepository.buscarPieza(idTaller,pieza).then(function(result){
-                $scope.listaPiezas = result.data;             
+                    $scope.listaPiezas = result.data;
+                    setTimeout(function () {
+                    $('.dataTableItem').DataTable({
+                        dom: '<"html5buttons"B>lTfgitp',
+                        buttons: [
+                            {
+                                extend: 'copy'
+                            },
+                            {
+                                extend: 'csv'
+                            },
+                            {
+                                extend: 'excel',
+                                title: 'ExampleFile'
+                            },
+                            {
+                                extend: 'pdf',
+                                title: 'ExampleFile'
+                            },
+
+                            {
+                                extend: 'print',
+                                customize: function (win) {
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                                }
+                                        }
+                                    ]
+                    });
+                }, 2000);              
             }, function (error){
                 alertFactory.error('Error');
             }); 
@@ -351,9 +385,36 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             $scope.arrayItem = result.data;
             $scope.arrayCambios = $scope.arrayItem.slice();
             $scope.importe = calcularImporte();
-            $scope.total = calculaTotalEditar();            
+            $scope.total = calculaTotalEditar();
         },function(error){
             alertFactory.error('Error');
         }); 
+    }
+
+    var cargarFiles = function(){
+        Dropzone.options.myAwesomeDropzone = {
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            parallelUploads: 100,
+            maxFiles: 100,
+
+            // Dropzone settings
+            init: function() {
+                var myDropzone = this;
+
+                this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    myDropzone.processQueue();
+                });
+                this.on("sendingmultiple", function() {
+                });
+                this.on("successmultiple", function(files, response) {
+                });
+                this.on("errormultiple", function(files, response) {
+                });
+            }
+
+        }
     }
 });

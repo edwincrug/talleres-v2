@@ -80,7 +80,7 @@
                                 </div>
                                 <br/>
                                 <br/>
-                                <table class="table table-striped table-bordered table-hover">
+                                <table class="table table-striped table-bordered table-hover dataTableCita">
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
@@ -94,7 +94,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr dir-paginate="cita in listaCitas | itemsPerPage:5">
+                                        <tr ng-repeat="cita in listaCitas">
                                             <td>{{ cita.Fecha | date:'dd-MM-yyyy HH:mm'}} </td>
                                             <td>{{ cita.numEconomico }}</td>
                                             <td>{{ cita.modeloMarca }}</td>
@@ -110,10 +110,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div id="pagination">
-                                    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
-                                    </dir-pagination-controls>
-                                </div>
                             </div>
                         </div>
                     </div>

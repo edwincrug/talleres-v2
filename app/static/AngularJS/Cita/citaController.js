@@ -28,6 +28,14 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
 	//init de la pantalla tallerCita
 	$scope.initTallerCita = function(){
+        $('#calendar .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: true,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            todayHighlight: true
+        });
 		if($route.current.params.confCita != undefined){
 			var idConfCita = Number($route.current.params.confCita);
 			var fecha = $route.current.params.fecha;
@@ -45,7 +53,8 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 			}
 		}
 		else{
-			$scope.fecha = new Date();
+			var date = new Date();
+            $scope.fecha = ('0' + date.getDate()).slice(-2) + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + date.getFullYear();
 			$scope.busquedaCita($scope.fecha);
 		}
 	}
@@ -151,17 +160,11 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	}
 
 	$scope.busquedaCita = function(fecha){
-		var dia = fecha.getDate();
-		if(dia < 9){
-			dia = ''+'0'+dia 
-		}
-		var mes = fecha.getMonth()+1;
-		if(mes < 9){
-			mes = ''+'0'+mes 
-		}
-		var anio = fecha.getFullYear();
+        var date = fecha.toString();
+        var dia = date.substring(0,2);
+        var mes = date.substring(3,5);
+        var anio = date.substring(6,date.length);
 		var date = anio +''+ mes +''+ dia;
-					
 		getCitaTaller(date, 0);
 	}
 
@@ -169,6 +172,39 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 		$scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function(cita){
 			if(cita.data.length > 0){
 				$scope.listaCitas = cita.data;
+                setTimeout(function () {
+                    $('.dataTableCita').DataTable({
+                        dom: '<"html5buttons"B>lTfgitp',
+                        buttons: [
+                            {
+                                extend: 'copy'
+                            },
+                            {
+                                extend: 'csv'
+                            },
+                            {
+                                extend: 'excel',
+                                title: 'ExampleFile'
+                            },
+                            {
+                                extend: 'pdf',
+                                title: 'ExampleFile'
+                            },
+
+                            {
+                                extend: 'print',
+                                customize: function (win) {
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                                }
+                                        }
+                                    ]
+                    });
+                }, 2000);    
 				alertFactory.success('Datos de citas cargados.');
 			}			
 			else{		
