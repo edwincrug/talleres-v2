@@ -36,10 +36,8 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
             // Get all html elements for map
             var mapElement1 = document.getElementById('map1');
-            //var mapElement2 = document.getElementById('map2');
             // Create the Google Map using elements
             var map1 = new google.maps.Map(mapElement1, mapOptions1);
-            //var map2 = new google.maps.Map(mapElement2, mapOptions1);
         }
 		$scope.selectedTaller = true;
 		$scope.datosCita = {};

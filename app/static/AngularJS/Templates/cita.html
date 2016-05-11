@@ -12,7 +12,7 @@
                                 <input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control">
                             </div>
                             <div class="col-xs-0">
-                                <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary dim" ng-click="lookUpUnidad(datoUnidad)" ng-disabled="habilitaBtnBuscar"><span class="glyphicon glyphicon-search"></span></button>
+                                <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(datoUnidad)" ng-disabled="habilitaBtnBuscar"><span class="glyphicon glyphicon-search"></span></button>
                             </div>
                         </div>
                         <br/>   
@@ -48,7 +48,7 @@
                                         <td>{{unidad.modelo}}</td>
                                         <td>{{unidad.motor}}</td>
                                         <td>
-                                            <button class="btn btn-primary dim" type="button" ng-click="lookUpCita(unidad)"><span class="glyphicon glyphicon-check"></span></button>
+                                            <button class="btn btn-primary" type="button" ng-click="lookUpCita(unidad)"><span class="glyphicon glyphicon-check"></span></button>
                                         </td>
                                     </tr>
                                 </tbody>
