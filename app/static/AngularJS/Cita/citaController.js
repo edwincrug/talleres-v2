@@ -20,6 +20,25 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
 	//init de la pantalla  nuevaCita
 	$scope.initNuevaCita = function(){
+        $('.clockpicker').clockpicker();
+        // When the window has finished loading google map
+        google.maps.event.addDomListener(window, 'load', init);
+
+        function init() {
+            // Options for Google map
+            // More info see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+            var mapOptions1 = {
+                zoom: 11,
+                center: new google.maps.LatLng(19.3329031, -99.2031112),
+                // Style for Google Maps
+                styles: [{"featureType":"water","stylers":[{"saturation":43},{"lightness":-11},{"hue":"#0088ff"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"hue":"#ff0000"},{"saturation":-100},{"lightness":99}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#808080"},{"lightness":54}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ece2d9"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#ccdca1"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#767676"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"poi","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#b8cb93"}]},{"featureType":"poi.park","stylers":[{"visibility":"on"}]},{"featureType":"poi.sports_complex","stylers":[{"visibility":"on"}]},{"featureType":"poi.medical","stylers":[{"visibility":"on"}]},{"featureType":"poi.business","stylers":[{"visibility":"simplified"}]}]
+            };
+
+            // Get all html elements for map
+            var mapElement1 = document.getElementById('map1');
+            // Create the Google Map using elements
+            var map1 = new google.maps.Map(mapElement1, mapOptions1);
+        }
 		$scope.selectedTaller = true;
 		$scope.datosCita = {};
 		$scope.unidadInfo = localStorageService.get('unidad');
@@ -28,6 +47,14 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
 	//init de la pantalla tallerCita
 	$scope.initTallerCita = function(){
+        $('#calendar .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: true,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            todayHighlight: true
+        });
 		if($route.current.params.confCita != undefined){
 			var idConfCita = Number($route.current.params.confCita);
 			var fecha = $route.current.params.fecha;
@@ -45,7 +72,8 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 			}
 		}
 		else{
-			$scope.fecha = new Date();
+			var date = new Date();
+            $scope.fecha = ('0' + date.getDate()).slice(-2) + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + date.getFullYear();
 			$scope.busquedaCita($scope.fecha);
 		}
 	}
@@ -54,31 +82,10 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	var getUnidad = function(datoUnidad){
 		$('#btnBuscar').button('Buscando...');
 		$scope.promise = citaRepository.getUnidadInformation(datoUnidad).then(function(unidadInfo){
+            $('.dataTableUnidad').DataTable().destroy();
 			$scope.unidades = unidadInfo.data;
 			if(unidadInfo.data.length > 0){
-                setTimeout(function(){
-                    $('.dataTableUnidad').DataTable({
-                        dom: '<"html5buttons"B>lTfgitp',
-                        buttons: [
-                            { extend: 'copy'},
-                            {extend: 'csv'},
-                            {extend: 'excel', title: 'ExampleFile'},
-                            {extend: 'pdf', title: 'ExampleFile'},
-
-                            {extend: 'print',
-                             customize: function (win){
-                                    $(win.document.body).addClass('white-bg');
-                                    $(win.document.body).css('font-size', '10px');
-
-                                    $(win.document.body).find('table')
-                                            .addClass('compact')
-                                            .css('font-size', 'inherit');
-                            }
-                            }
-                        ]
-                    });  
-                }, 2000);
-                
+                waitDrawDocument("dataTableUnidad");
 				alertFactory.success('Datos encontrados');
 				$('#btnBuscar').button('reset');
 			}
@@ -97,28 +104,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 		$scope.promise = citaRepository.getCita(idUnidad).then(function(cita){
 			$scope.citas = cita.data;
 			if(cita.data.length > 0){
-                setTimeout(function(){
-                    $('.dataTableCita').DataTable({
-                        dom: '<"html5buttons"B>lTfgitp',
-                        buttons: [
-                            { extend: 'copy'},
-                            {extend: 'csv'},
-                            {extend: 'excel', title: 'ExampleFile'},
-                            {extend: 'pdf', title: 'ExampleFile'},
-
-                            {extend: 'print',
-                             customize: function (win){
-                                    $(win.document.body).addClass('white-bg');
-                                    $(win.document.body).css('font-size', '10px');
-
-                                    $(win.document.body).find('table')
-                                            .addClass('compact')
-                                            .css('font-size', 'inherit');
-                            }
-                            }
-                        ]
-                    });  
-                }, 2000);
+                waitDrawDocument("dataTableCita");
 				alertFactory.success('Datos encontrados');
 			}
 			else{
@@ -151,17 +137,11 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	}
 
 	$scope.busquedaCita = function(fecha){
-		var dia = fecha.getDate();
-		if(dia < 9){
-			dia = ''+'0'+dia 
-		}
-		var mes = fecha.getMonth()+1;
-		if(mes < 9){
-			mes = ''+'0'+mes 
-		}
-		var anio = fecha.getFullYear();
+        var date = fecha.toString();
+        var dia = date.substring(0,2);
+        var mes = date.substring(3,5);
+        var anio = date.substring(6,date.length);
 		var date = anio +''+ mes +''+ dia;
-					
 		getCitaTaller(date, 0);
 	}
 
@@ -169,6 +149,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 		$scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function(cita){
 			if(cita.data.length > 0){
 				$scope.listaCitas = cita.data;
+                waitDrawDocument("dataTableCitaTaller");   
 				alertFactory.success('Datos de citas cargados.');
 			}			
 			else{		
@@ -199,6 +180,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 			$scope.promise = citaRepository.getTaller(datoTaller).then(function(taller){
 	    		$scope.talleres = taller.data;
 	    		if(taller.data.length > 0){
+                    waitDrawDocument("dataTableTaller");
 	    			alertFactory.success('Datos encontrados');
 	    		}
 	    		else{
@@ -226,7 +208,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     		citaTaller.idCita = 0;
 			citaTaller.idUnidad = localStorageService.get('unidad').idUnidad;
 			citaTaller.idTaller = $scope.datosCita.idTaller;
-			citaTaller.fecha = combineDateAndTime($scope.datosCita.fechaCita, $scope.datosCita.horaCita);
+			citaTaller.fecha = $scope.datosCita.fechaCita+' '+$scope.datosCita.horaCita;
 			citaTaller.trabajo = $scope.datosCita.trabajoCita;
 			citaTaller.observacion = $scope.datosCita.observacionCita;
 			citaTaller.idUsuario = 2;
@@ -305,6 +287,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     	$scope.datosCita.pieza = "";
 		$scope.selectedTaller = false;
 		$scope.datosCita.idTaller = idTaller;
+        $scope.labelItems = 0;
 	}
 
 	//Redirige a pagina para nueva cotización
@@ -335,13 +318,14 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
 	//va a la pantalla de nueva cita
 	$scope.goNewCita = function(){
-		location.href = '/nuevacita';
+		location.href = 'nuevacita';
 	}
 
 	//visualiza la modal de servicioCita
 	$scope.showCitaServicioModal = function(){
 		$scope.piezas = [];
 		$scope.pieza = "";
+        $('.dataTablePiezaTaller').DataTable().destroy();
 		$('#citaServicioModal').appendTo("body").modal('show');
 	}
 
@@ -354,9 +338,11 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	$scope.getPieza = function(nombrePieza){
 		if(nombrePieza !== '' && nombrePieza !== undefined){
 			$('#btnBuscarPieza').button('Buscando...');
+            $('.dataTablePiezaTaller').DataTable().destroy();
 			$scope.promise = cotizacionRepository.buscarPieza($scope.datosCita.idTaller, nombrePieza).then(function(pieza){
 				$scope.piezas = pieza.data;
 				if(pieza.data.length > 0){
+                    waitDrawDocument("dataTablePiezaTaller");
 					alertFactory.success("Datos obtenidos");
 				}
 				else{
@@ -468,5 +454,58 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 			alertFactory.error("Error al obtener historial cita");
 		})
 	}
+    
+    //ir a cotización trabajo
+    $scope.goToCotizacionTrabajo = function(cita){
+        //obtiene los tabajos de la cita
+        $scope.promise = citaRepository.getTrabajo(cita.idCita).then(function(trabajo){
+			if(trabajo.data.length > 0){
+				location.href = '/cotizacionTrabajo'
+                localStorageService.set("objTrabajo", trabajo.data);
+			}
+			else{
+				alertFactory.info('Aún no existe un trabajo');
+			}
 
+		}, function(error){
+			alertFactory.error("Error al obtener datos del trabajo");
+		})
+    }
+    
+    //fecha
+    $('#fechaTrabajo .input-group.date').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: true,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true,
+        todayHighlight: true
+    });
+    
+    //espera que el documento se pinte para llenar el dataTable
+    var waitDrawDocument = function(dataTable){
+        setTimeout(function(){
+            $('.'+dataTable).DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+            });  
+        }, 2500);
+    }
+    
 });

@@ -314,4 +314,5 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             alertFactory.error('No se pudo obtener los datos del cliente, inténtelo más tarde');
         });
     }
+    
 });
