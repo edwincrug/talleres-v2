@@ -82,6 +82,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	var getUnidad = function(datoUnidad){
 		$('#btnBuscar').button('Buscando...');
 		$scope.promise = citaRepository.getUnidadInformation(datoUnidad).then(function(unidadInfo){
+            $('.dataTableUnidad').DataTable().destroy();
 			$scope.unidades = unidadInfo.data;
 			if(unidadInfo.data.length > 0){
                 waitDrawDocument("dataTableUnidad");
@@ -286,6 +287,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     	$scope.datosCita.pieza = "";
 		$scope.selectedTaller = false;
 		$scope.datosCita.idTaller = idTaller;
+        $scope.labelItems = 0;
 	}
 
 	//Redirige a pagina para nueva cotización
@@ -323,6 +325,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	$scope.showCitaServicioModal = function(){
 		$scope.piezas = [];
 		$scope.pieza = "";
+        $('.dataTablePiezaTaller').DataTable().destroy();
 		$('#citaServicioModal').appendTo("body").modal('show');
 	}
 
@@ -335,9 +338,11 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 	$scope.getPieza = function(nombrePieza){
 		if(nombrePieza !== '' && nombrePieza !== undefined){
 			$('#btnBuscarPieza').button('Buscando...');
+            $('.dataTablePiezaTaller').DataTable().destroy();
 			$scope.promise = cotizacionRepository.buscarPieza($scope.datosCita.idTaller, nombrePieza).then(function(pieza){
 				$scope.piezas = pieza.data;
 				if(pieza.data.length > 0){
+                    waitDrawDocument("dataTablePiezaTaller");
 					alertFactory.success("Datos obtenidos");
 				}
 				else{
