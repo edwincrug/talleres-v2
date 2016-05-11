@@ -418,12 +418,6 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     	$scope.datosCita.idTaller = undefined;
 	}
 
-	//muestra la pantalla de linea de tiempo
-	$scope.goToLineTime = function(idCita){
-		location.href = '/lineatiempo';
-		localStorageService.set('hIdCita', idCita);
-	}
-
 	//init de linea de tiempo
 	$scope.initLineTime = function(){
 		var idCita =  localStorageService.get('hIdCita');
@@ -506,6 +500,11 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
                 ]
             });  
         }, 2500);
+    }
+    
+    //muestra el modal para la linea de tiempo
+    $scope.showLineTime = function(idCita){
+        $('#lineaTiempoModal').appendTo("body").modal('show');
     }
     
 });

@@ -1,45 +1,86 @@
-<div ng-init="init()" class="contenedor"> 
-    <div class="headTitle">
-        <span class="title"> Ordenes de servicio en proceso<span class="subtitle">Call Center / Taller</span> </span>
+
+<div ng-init="init()" class="animated bounceInRight">
+    <div>
+        <span class="title"> Órdenes de servicio <span class="subtitle">Call Center / Taller</span></span>
     </div>
-	<div class="formGroup">
-			<input  class="rounded inputWidth" type="text" placeholder="Buscar trabajo" ng-model="datoTrabajo">
-	    	<!-- <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(datoUnidad)" ng-disabled="habilitaBtnBuscar"><span class="glyphicon glyphicon-search"></span></button> -->
-	    </div>
-	<table class="table table-condensed table-striped">
-		<thead>
-			<th>Número económico</th>
-			<th>Marca</th>
-			<th>Modelo</th>
-			<th>Trabajo</th>
-			<th>Estatus</th>
-			<th>Fecha de inicio</th>
-			<th>Fecha final</th>
-		</thead>
-		<tbody>
-			<tr dir-paginate="trabajo in trabajos | filter:datoTrabajo | itemsPerPage:10">
-				<td>{{trabajo.numEconomico}}</td>
-				<td>{{trabajo.marca}}</td>
-				<td>{{trabajo.modeloMarca}}</td>
-				<td>{{trabajo.trabajo}}</td>
-				<td>{{trabajo.estatus}}</td>
-				<td>{{trabajo.fechaInicio | date:"dd-MM-yy HH:mm"}}</td>
-				<td>{{trabajo.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
-				<td>
-                    <button class="btn btn-info" type="button" id="btnCotizar" ng-click="aprobacion(trabajo)">Ver</button>
-                </td>
-                <td>
-                      <button class="btn btn-success" type="button" id="btnCotizar">Finalizar
-                      </button>
-                </td>
-			</tr>
-		</tbody>
-	</table>
-	<div id="pagination">
-		<dir-pagination-controls
-	       	max-size="5"
-	        direction-links="true"
-	        boundary-links="true" >
-	    </dir-pagination-controls>
-	</div>	
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href=""> This is tab</a></li>
+                                <li class=""><a data-toggle="tab" href="">This is second tab</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    1
+                                </div>
+                                <div class="tab-pane">
+                                    2
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="modal inmodal" id="finalizarTrabajoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Finalizar trabajo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea placeholder="Observaciones" class="form-control" rows="4" ng-model="observacionTrabajo"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger">Finalizar trabajo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                    <!--<div class="table-responsive">                         
+                                        <table class="table table-striped table-bordered table-hover dataTableTrabajo" cg-busy="{promise:promise,message:message}">
+                                            <thead>
+                                                <tr>
+                                                    <th>Número económico</th>
+                                                    <th>Marca</th>
+                                                    <th>Modelo</th>
+                                                    <th>Trabajo</th>
+                                                    <th>Estatus</th>
+                                                    <th>Fecha de inicio</th>
+                                                    <th>Fecha final</th>
+                                                    <th>Factura</th>
+                                                    <th>Trabajo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="trabajo in trabajos">
+                                                    <td>{{trabajo.numEconomico}}</td>
+                                                    <td>{{trabajo.marca}}</td>
+                                                    <td>{{trabajo.modeloMarca}}</td>
+                                                    <td>{{trabajo.trabajo}}</td>
+                                                    <td>{{trabajo.estatus}}</td>
+                                                    <td>{{trabajo.fechaInicio | date:"dd-MM-yy HH:mm"}}</td>
+                                                    <td>{{trabajo.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
+                                                    <td>
+                                                        <button class="btn btn-info" type="button" ng-click="aprobacion(trabajo)"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
+                                                    </td>
+                                                    <td>
+                                                          <button class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal()" ><span class="glyphicon glyphicon-ok-sign"></span> Finalizar
+                                                          </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>-->
+
+
