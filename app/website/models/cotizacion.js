@@ -300,18 +300,19 @@ Cotizacion.prototype.updateCotizacion = function (msgObj, callback) {
 };
 
 Cotizacion.prototype.docs = function (params, callback) {
-   var self = this.connection;
-   this.connection.connect(function (err) {
-       // Stored Procedure
-       var request = new sql.Request(self);
-       request.input('idCotizacion', sql.Numeric(18, 0), params);
-       request.execute('SEL_EVIDENCIA_DOCUMENTO_BY_COTIZACION_SP', function (err, recordsets, returnValue) {
-           if (recordsets != null) {
-               callback(err, recordsets[0]);
-           } else {
-               console.log('Error al obtener los documentos de la cotización: ' + params + ' mensaje: ' + err);
-           }
-       });    });
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure
+        var request = new sql.Request(self);
+        request.input('idCotizacion', sql.Numeric(18, 0), params);
+        request.execute('SEL_EVIDENCIA_DOCUMENTO_BY_COTIZACION_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al obtener los documentos de la cotización: ' + params + ' mensaje: ' + err);
+            }
+        });
+    });
 };
 
 Cotizacion.prototype.servicioDetalle = function (params, callback) {
@@ -337,7 +338,7 @@ Cotizacion.prototype.mail = function (objMail, callback) {
         // Stored Procedure 
         var request = new sql.Request(self);
         request.input('idCotizacion', sql.Numeric(18, 0), objMail.idCotizacion);
-        request.input('idTaller', sql.Numeric(18,0), objMail.idTaller);
+        request.input('idTaller', sql.Numeric(18, 0), objMail.idTaller);
         request.input('idOperacion', sql.Numeric(18, 0), objMail.idOperacion);
         request.input('comentarios', sql.VarChar(300), objMail.comentarios);
         request.execute('SEL_NOTIFICACION_COTIZACION_SP', function (err, recordsets, returnValue) {
@@ -345,6 +346,23 @@ Cotizacion.prototype.mail = function (objMail, callback) {
                 callback(err, recordsets[0]);
             } else {
                 console.log('Error al enviar mail: ' + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
+Cotizacion.prototype.datosCliente = function (params, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCita', sql.Numeric(18, 0), params);
+        request.execute('SEL_DATOS_CLIENTE_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al obtener los datos del cliente: ' + params + ' mensaje: ' + err);
             }
         });
 

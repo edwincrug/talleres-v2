@@ -1,313 +1,98 @@
 <div ng-init="init()" class="animated bounceInRight">
-    <div class="headTitleTallerCita">
-        <div class="col-lg-8">
-            <span class="title"> Cotización - {{descripcion}}<span class="subtitle">Call Center</span> </span>
+    <div class="row headTitleTallerCita">
+        <div class="col-lg-10">
+            <span class="title"> Autorización<span class="subtitle">Call Center / Taller</span></span>
         </div>
-        <div class="col-lg-4">
-            <button class="btn btn-success fa fa-files-o" type="button" ng-click="Evidencias()">&nbsp;Evidencias</button>
+        <div class="col-lg-2">
+            <a href="/cotizacionevidencias" class="btn btn-info"><i class="fa fa-files-o"></i> Evidencias </a>
         </div>
     </div>
-    <br>
-    <br>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox-content p-xl">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5>Unidad:</h5>
+                            <address>
+                                        <strong>{{unidadInfo.marca}} - {{unidadInfo.modelo}}</strong><br>
+                                        No. Económico: {{unidadInfo.clienteNumEconomico}}<br>
+                                        No. Inventario: {{unidadInfo.clienteNumInventario}}<br>
+                                        No. TAR: {{unidadInfo.numTAR}}<br>
+                                        TAR:  {{unidadInfo.TAR}}<br>
+                                        GAR:  {{unidadInfo.GAR}}
+                                    </address>
+                        </div>
 
-
-    <div class="row" cg-busy="{promise:promise,message:message, minDuration: minDuration,
-   delay:delay}">
-        <div class="col-md-7">
-            <ul class="nav nav-tabs" id="myTabs">
-                <!--<li role="presentation" class="active"><a href="#fich">Ficha Técnica</a></li>-->
-                <li role="presentation" class="active"><a href="#trabajo">Cotización</a></li>
-                <li role="presentation"><a href="#documentos">Documentos</a></li>
-                <li role="presentation"><a href="#evidencia">Evidencia</a></li>
-            </ul>
-            <div class="tab-content">
-                <div id="trabajo" class="tab-pane fade in active">
+                        <div class="col-sm-6 text-right">
+                            <h4>Cotización No.</h4>
+                            <h4 class="text-navy">{{descripcion}}</h4>
+                            <span>Cliente:</span>
+                            <address>
+                                        <strong>{{ClienteData.nombre}}</strong><br>
+                                        {{ClienteData.direccion}}<br>
+                                        <abbr title="Phone">Tel:</abbr>{{ClienteData.telefono}}<br>
+                                    </address>
+                            <p>
+                                <span><strong>Fecha: </strong>{{articulos[0].fecha |  date:'dd-MM-yyyy HH:mm'}}</span>
+                                <br/>
+                            </p>
+                        </div>
+                    </div>
                     <br>
-                    <div>
-                        <table class="table table-condensed">
+                    <div class="table-responsive m-t">
+                        <table class="table invoice-table">
                             <thead>
                                 <tr>
-                                    <th>No.Partida</th>
-                                    <th>Descripción</th>
-                                    <th>Cant.</th>
+                                    <th>Artículos</th>
+                                    <th>Cantidad</th>
                                     <th>Precio</th>
+                                    <th>Precio Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="articulo in articulos">
-                                    <td>{{ articulo.numeroPartida }}</td>
-                                    <td>{{articulo.item}}</td>
+                                    <td>
+                                        <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
+                                        <small>{{articulo.item}}</small></td>
                                     <td>{{articulo.cantidad}}</td>
-                                    <td style="text-align:right;">{{ articulo.precio | currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td style="text-align:right;" class="text-precio">
-                                        <h3>Total:</h3></td>
-                                    <td class="text-precio">
-                                        <h3>{{total | currency}}</h3>
-                                    </td>
+                                    <td>{{ articulo.precio | currency }}</td>
+                                    <td>{{(articulo.cantidad * articulo.precio) | currency}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        </td>
-                        </tr>
-                        </tbody>
-                        </table>
                     </div>
-                </div>
-                <div id="documentos" class="tab-pane fade">
-                    <table id="tblPersonas" class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Tipo Archivo</th>
-                                <th>Usuario</th>
-                                <th>Nombre Archivo</th>
-                                <th>Fecha</th>
-                                <th>Documentos</th>
-                            </tr>
-                        </thead>
+                    <!-- /table-responsive -->
+                    <table class="table invoice-total">
                         <tbody>
-                            <tr ng-repeat="doc in docs ">
-                                <td>{{doc.descripcionTipo}}</td>
-                                <td>{{doc.nombreCompleto}}</td>
-                                <td>{{doc.NombreArchivo}}</td>
-                                <td>{{doc.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
-                                <td><a href="uploads/files/{{doc.idTrabajo}}/{{doc.idCotizacion}}/documentos/{{doc.NombreArchivo}}" download="" target="_blank">{{doc.NombreArchivo}}</a>
-                                </td>
+                            <tr>
+                                <td><strong>TOTAL :</strong></td>
+                                <td>{{total | currency}}</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div id="evidencia" class="tab-pane fade">
                     <br>
-                    <div style="border:1">
-                        <carousel interval="setInterval">
-                            <div ng-if="alerta == 1" ng-model="alerta" class="alert alert-warning" role="alert">Esta cotización aún no cuenta con evidencias !! </div>
-                            <slide ng-repeat="slide in slides" active="slide.active">
-                                <img class="carousel-image" ng-if="slide.tipoArchivo == '3'" ng ng-src="uploads/files/video.jpg">
-                                <img style="height:380px; width:100%" class="carousel-image" ng-if="slide.tipoArchivo !== '1'" ng ng-src="uploads/files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.nombreArchivo}}">
-                            </slide>
-                        </carousel>
+                    <div class="text-right">
+                        <textarea class="well m-t form-control" rows="2" cols="45" maxlength="300" ng-model="comentario" placeholder="Comentarios..."></textarea>
+                        <button class="btn btn-primary" ng-click="Autorizar(comentario)"><i class="fa fa-check"></i> Autorizar</button>
+                        <button class="btn btn-danger" ng-click="Rechazar(comentario)"><i class="fa fa-times"></i> Rechazar</button>
+                        <button class="btn btn-success" ng-click="Editar()"><i class="fa fa-edit"></i> Editar</button>
+                        <button class="btn btn-info" ng-click="Adjuntar()"><i class="fa fa-paperclip"></i> Adjuntar</button>
+                    </div>
+
+                    <div ng-hide="estado==1" class="btnNueva">
+                        <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
+                        <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()"></button>
                     </div>
                 </div>
             </div>
         </div>
-       <!-- <div class="col-md-5">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>{{unidadInfo.marca}} {{unidadInfo.modelo}}</h4></div>
-                <div class="panel-body">
-                    <table>
-                        <thead>
-                            <th></th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    <div>
-                                        <div>
-                                            <label>Número económico:</label><span> {{unidadInfo.numEconomico}}</span>
-                                        </div>
-                                        <div>
-                                            <label>Número ecnómico cliente:</label><span> {{unidadInfo.clienteNumEconomico}}</span>
-                                        </div>
-                                        <div>
-                                            <label>Número de inventario:</label><span> {{unidadInfo.clienteNumInventario}}</span>
-                                        </div>
-                                        <div>
-                                            <label>Número de TAR:</label><span> {{unidadInfo.numTAR}}</span>
-                                        </div>
-                                        <div>
-                                            <label>TAR:</label><span> {{unidadInfo.TAR}}</span>
-                                        </div>
-                                        <div>
-                                            <label>GAR:</label><span> {{unidadInfo.GAR}}</span>
-                                        </div>
-                                        <div>
-                                            <label>Ubicación:</label><span> {{unidadInfo.ubicacion}}</span>
-                                        </div>
-                                        <div>
-                                            <label>Activo fijo:</label><span> {{unidadInfo.activoFijo}}</span>
-                                        </div>
-                                        <div>
-                                            <label>Motor:</label><span> {{unidadInfo.motor}}</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th id="fotoFicha">
-                                    <img src="image/international.jpg" id="fotoUnidad">
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>-->
-        <!--  <div class="col-md-5 panel panel-primary">
-            <div class="panel-heading">Chat</div>
-            <div class="panel-body">
-                <div id="chat">
-                    <div class="chatItem" ng-repeat="conversacion in chat">
-                        <img class="visto" src="image/chat/novisto.png" ng-hide="conversacion.chatVisto == 1 || conversacion.usrVisto != 1"></img>
-                        <img class="visto" src="image/chat/visto.png" ng-hide="conversacion.chatVisto == 0 || conversacion.usrVisto != 1"></img>
-                        <div class="sender" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }"><span class="glyphicon glyphicon-user iconChat" aria-hidden="true"></span> {{ conversacion.idUsuario === 3 ? 'Yo' : conversacion.nombreCompleto }}</div>
-                        <div class="date" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }"> {{ conversacion.fecha | date:"dd-MM-yy HH:mm" }} </div>
-                        <div class="text wordwrap" ng-class="{ 'right': conversacion.usrVisto == 1, 'left': conversacion.usrVisto != 1 }">
-                            {{ conversacion.mensaje }}
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <textarea class="form-control" rows="3" id="txtComentario" placeholder="Escriba un comentario" ng-model="comentarios"></textarea>
-
-                        </div>
-                        <button type="button" class="btn btn-primary" data-loading-text="Enviando..." id="btnEnviar" ng-click="EnviarComentario(comentarios)">Enviar</button>
-                    </div>
-                </div>
-            </div>
-        </div>-->
     </div>
 </div>
 
-<div class="small-chat-box fadeInRight animated">
-
-    <div class="heading" draggable="true">
-        <small class="chat-date pull-right">
-                    02.19.2015
-                </small> Small chat
-    </div>
-
-    <div class="content">
-
-        <div class="left">
-            <div class="author-name">
-                Monica Jackson <small class="chat-date">
-                        10:02 am
-                    </small>
-            </div>
-            <div class="chat-message active">
-                Lorem Ipsum is simply dummy text input.
-            </div>
-
-        </div>
-        <div class="right">
-            <div class="author-name">
-                Mick Smith
-                <small class="chat-date">
-                            11:24 am
-                        </small>
-            </div>
-            <div class="chat-message">
-                Lorem Ipsum is simpl.
-            </div>
-        </div>
-        <div class="left">
-            <div class="author-name">
-                Alice Novak
-                <small class="chat-date">
-                            08:45 pm
-                        </small>
-            </div>
-            <div class="chat-message active">
-                Check this stock char.
-            </div>
-        </div>
-        <div class="right">
-            <div class="author-name">
-                Anna Lamson
-                <small class="chat-date">
-                            11:24 am
-                        </small>
-            </div>
-            <div class="chat-message">
-                The standard chunk of Lorem Ipsum
-            </div>
-        </div>
-        <div class="left">
-            <div class="author-name">
-                Mick Lane
-                <small class="chat-date">
-                            08:45 pm
-                        </small>
-            </div>
-            <div class="chat-message active">
-                I belive that. Lorem Ipsum is simply dummy text.
-            </div>
-        </div>
-        <div id="small-chat">
-
-            <span class="badge badge-warning pull-right">5</span>
-            <a class="open-small-chat">
-                <i class="fa fa-comments"></i>
-
-            </a>
-        </div>
-
-    </div>
-
-
-
-    <div class="form-chat">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control"> <span class="input-group-btn"> <button
-                        class="btn btn-primary" type="button">Send
-                </button> </span></div>
-    </div>
-
-</div>
-<div class="row">
-    <div class="col-md-offset-5 col-md-7">
-        <form class="form-inline">
-            <div class="form-group">
-                <div ng-hide="estado==2">
-                    <textarea class="form-control" rows="2" cols="45" maxlength="300" ng-model="comentario" placeholder="Comentarios..."></textarea>
-                    <button class="form-control btn btn-success glyphicon glyphicon-ok" type="button" ng-click="Autorizar(comentario)">Autorizar</button>
-                    <button class="form-control btn btn-danger glyphicon glyphicon-remove" type="button" ng-click="Rechazar(comentario)">Rechazar</button>
-                    <button class="form-control btn btn-info glyphicon glyphicon-edit" type="button" ng-click="Editar()">Editar</button>
-                    <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" ng-click="Adjuntar()">Adjuntar</button>
-                </div>
-                <div ng-hide="estado==1" class="btnNueva">
-                    <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
-                    <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()"></button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 <br>
 <br>
-<!--<form class="form-inline" style="float: right;">
-    <div class="form-group">
-        <div ng-hide="estado==2">
-            <textarea class="form-control" rows="2" cols="45" maxlength="300" ng-model="comentario" placeholder="Comentarios..."></textarea>
-            <button class="form-control btn btn-success glyphicon glyphicon-ok" type="button" ng-click="Autorizar(comentario)">Autorizar</button>
-            <button class="form-control btn btn-danger glyphicon glyphicon-remove" type="button" ng-click="Rechazar(comentario)">Rechazar</button>
-            <button class="form-control btn btn-info glyphicon glyphicon-edit" type="button" ng-click="Editar()">Editar</button>
-            <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" ng-click="Adjuntar()">Adjuntar</button>
-        </div>
-        <div ng-hide="estado==1" class="btnNueva">
-            <button type="button" class="btn btn-success" ng-click="nuevaCotizacion()">Nueva Cotización</button>
-            <button class="form-control btn btn-primary glyphicon glyphicon-paperclip" type="button" tooltip="Adjuntar Evidencias" ng-click="Adjuntar()"></button>
-        </div>
-    </div>
-</form>-->
 
-<!--<div class="video-wrap">
-        <div class="video-inner">
-            <video id="video1" class="video-player" src="../../image/ES_818_01_01_XR25R.mp4" preload="auto">
-                <source src="../../image/ES_818_01_01_XR25R.mp4" type='video/mp4; codecs="avc1.4D401E, mp4a.40.2"'>
-                <p>Sorry, but your browser does not support this video format.</p>
-            </video>
-            <button class="action action--close"><i class="fa fa-close"></i><span class="action__label action__label--hidden">Close preview</span></button>
-        </div>
-    </div>-->
-<!-- /container -->
 <div class="modal fade" id="modal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->

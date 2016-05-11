@@ -15,7 +15,7 @@
 
     <!--Hojas de estilos-->
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link href="css/bootstrap.css" rel="stylesheet" />    
+    <link href="css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/cotizacion.css">
     <link rel="stylesheet" type="text/css" href="css/cita.css">
 
@@ -23,25 +23,17 @@
     <link href="css/toastr.css" rel="stylesheet" />
     <link href="css/angular-busy.css" rel="stylesheet" />
 
-    <!--Librearias JQuery y Bootstrap-->
-    <!--<script src="https://code.jquery.com/jquery-2.1.1.js" integrity="sha256-FA/0OOqu3gRvHOuidXnRbcmAWVcJORhz+pv3TX2+U6w=" crossorigin="anonymous"></script>-->
-    <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
-    <script src="js/libs/bootstrap/bootstrap.js"></script>
-
     <!--Menú INSPINIA-->
     <link href="fonts/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet">
-    
-   
 
     <!--Inspinia Elements-->
     <link href="css/inspinia/animate.css" rel="stylesheet">
     <link href="css/inspinia/styleInspinia.css" rel="stylesheet">
     <link href="css/inspinia/dataTables/datatables.min.css" rel="stylesheet">
     <link href="css/inspinia/datapicker/datepicker3.css" rel="stylesheet">
-     <link href="css/inspinia/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
 </head>
 
-<body ng-app="registrationModule">
+<body ng-app="registrationModule" ng-controller="mainController" ng-init="init()">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
@@ -197,6 +189,97 @@
         <div ng-view></div>
     </div>
 
+    <div id="wrapper" ng-if="showChat === '/cotizacionAutorizacion'">
+        <div class="small-chat-box fadeInRight animated">
+
+            <div class="heading" draggable="true">
+                <small class="chat-date pull-right">
+                    02.19.2015
+                </small> Chat
+            </div>
+
+            <div class="content" ng-repeat="msg in chat">
+
+                <div class="left">
+                    <div class="author-name">
+                        Monica Jackson <small class="chat-date">
+                        10:02 am
+                    </small>
+                    </div>
+                    <div class="chat-message active">
+                        Lorem Ipsum is simply dummy text input.
+                    </div>
+
+                </div>
+                <div class="right">
+                    <div class="author-name">
+                        Mick Smith
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        Lorem Ipsum is simpl.
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="author-name">
+                        Alice Novak
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        Check this stock char.
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="author-name">
+                        Anna Lamson
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        The standard chunk of Lorem Ipsum
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="author-name">
+                        Mick Lane
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        I belive that. Lorem Ipsum is simply dummy text.
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-chat">
+                <div class="input-group input-group-sm">
+                    <input type="text" ng-model="comentarios" class="form-control"> <span class="input-group-btn"> <button
+                        class="btn btn-primary" type="button">Enviar
+                </button> </span></div>
+            </div>
+
+        </div>
+        <div id="small-chat">
+
+            <span class="badge badge-warning pull-right">5</span>
+            <a class="open-small-chat">
+                <i class="fa fa-comments"></i>
+
+            </a>
+        </div>
+    </div>
+
+    <!--Librearias JQuery y Bootstrap-->
+    <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
+    <script src="js/libs/bootstrap/bootstrap.js"></script>
+
     <!-- Librerias Angular-->
     <script src="js/libs/angular/angular.js"></script>
     <script src="js/libs/angular/angular-route.min.js"></script>
@@ -222,6 +305,8 @@
     <script src="AngularJS/alertFactory.js"></script>
 
     <!--Controllers-->
+    <script src="AngularJS/Main/mainRepository.js"></script>
+    <script src="AngularJS/Main/mainController.js"></script>
     <script src="AngularJS/menu/menuController.js"></script>
     <script src="AngularJS/Cita/citaController.js"></script>
     <script src="AngularJS/Cita/citaRepository.js"></script>
@@ -238,6 +323,7 @@
     <script src="AngularJS/Cotizacion/cotizacionTrabajoRepository.js"></script>
     <script src="AngularJS/Cotizacion/cotizacionTrabajoController.js"></script>
     <script src="AngularJS/Servicio/servicioController.js"></script>
+    <script src="AngularJS/Cotizacion/cotizacionEvidenciasRepository.js"></script>
     <script src="AngularJS/Cotizacion/cotizacionEvidenciasController.js"></script>
 
     <!-- Mainly scripts -->
@@ -247,12 +333,10 @@
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia/inspinia.js"></script>
     <script src="js/inspinia/pace/pace.min.js"></script>
+    <script src="js/libs/jQuery/jquery-ui.js"></script>
     <script src="js/inspinia/dataTables/datatables.min.js"></script>
     <!-- Data picker -->
-   <script src="js/inspinia/datapicker/bootstrap-datepicker.js"></script>
-    
-    <!-- blueimp gallery -->
-    <script src="js/inspinia/blueimp/jquery.blueimp-gallery.min.js"></script>
+    <script src="js/inspinia/datapicker/bootstrap-datepicker.js"></script>
 
 
 </body>

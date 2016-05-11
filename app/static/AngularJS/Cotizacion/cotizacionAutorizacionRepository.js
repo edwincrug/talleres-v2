@@ -79,6 +79,12 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
                url: searchUrl + 'docs/' + idCotizacion,
                method: "GET"
            });
-       }
+       },
+        getDatosCliente: function (idCita) {
+            return $http({
+                url: searchUrl + 'datosCliente/' + idCita,
+                method: "GET"
+            });
+        }
     };
 });

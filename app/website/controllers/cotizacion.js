@@ -428,4 +428,24 @@ Cotizacion.prototype.post_mail = function (req, res, next) {
     });
 }
 
+Cotizacion.prototype.get_datosCliente_data = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    //Asigno a params el valor de mis variables
+    params = req.params.data;
+
+    this.model.datosCliente(params, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.datosCliente(res, object);
+    });
+}
+
 module.exports = Cotizacion;

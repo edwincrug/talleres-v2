@@ -1,4 +1,4 @@
-registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository, cotizacionConsultaRepository) {
+registrationModule.controller('cotizacionAutorizacionController', function ($scope, localStorageService, $location, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository, cotizacionConsultaRepository) {
 
     var cDetalles = [];
     var cPaquetes = [];
@@ -17,6 +17,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
 
 
     $scope.init = function () {
+        var ruta = $location.path();
         $scope.cargaFicha();
         $scope.cargaChat();
         $scope.getCotizacionByTrabajo();
@@ -24,6 +25,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         //$scope.lookUpTrabajo(idCita);
         $scope.cargaEvidencias();
         $scope.cargaDocs(idCotizacion);
+        $scope.cargaDatosCliente(idCita);
     }
 
     $scope.cargaChat = function () {
@@ -301,5 +303,15 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     
     $scope.Evidencias = function(){
        location.href = '/cotizacionevidencias';
+    }
+    
+    $scope.cargaDatosCliente = function (idCita) {
+        cotizacionAutorizacionRepository.getDatosCliente(idCita).then(function (result) {
+            if (result.data.length > 0) {
+                $scope.ClienteData = result.data[0];
+            }
+        }, function (error) {
+            alertFactory.error('No se pudo obtener los datos del cliente, inténtelo más tarde');
+        });
     }
 });
