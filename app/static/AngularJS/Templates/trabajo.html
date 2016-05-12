@@ -1,3 +1,5 @@
+
+<link href="../../css/inspinia/sweetalert/sweetalert.css" rel="stylesheet">
 <div ng-init="init()" class="animated bounceInRight">
     <div class="headTitleTallerCita">
         <span class="title"> Órdenes de servicio <span class="subtitle">Call Center / Taller</span></span>
@@ -36,7 +38,7 @@
                                                 <td>{{trabajo.fechaInicio | date:"dd-MM-yy HH:mm"}}</td>
                                                 <td>{{trabajo.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
                                                 <td>
-                                                    <button class="btn btn-info" type="button" ng-click="aprobacion(trabajo)"><span class="glyphicon glyphicon-sunglasses"></span> Ver</button>
+                                                    <button class="btn btn-info" type="button" ng-click="verTrabajo(trabajo)"><span class="glyphicon glyphicon-sunglasses"></span> Ver</button>
                                                 </td>
                                                 <td>
                                                       <button class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" ><span class="glyphicon glyphicon-ok-sign"></span> Finalizar
@@ -58,6 +60,7 @@
                                                 <th>Marca</th>
                                                 <th>Modelo</th>
                                                 <th>Trabajo</th>
+                                                <th>Observaciones</th>
                                                 <th>Estatus</th>
                                                 <th>Fecha de inicio</th>
                                                 <th>Fecha final</th>
@@ -71,6 +74,7 @@
                                                 <td>{{trabajo.marca}}</td>
                                                 <td>{{trabajo.modeloMarca}}</td>
                                                 <td>{{trabajo.trabajo}}</td>
+                                                <td>{{trabajo.observacion}}</td>
                                                 <td>{{trabajo.estatus}}</td>
                                                 <td>{{trabajo.fechaInicio | date:"dd-MM-yy HH:mm"}}</td>
                                                 <td>{{trabajo.fechaFin | date:"dd-MM-yy HH:mm"}}</td>
@@ -106,14 +110,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white demo3" ng-click="click()">click</button>
                 <button type="button" class="btn btn-white" data-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-danger" ng-click="updTerminaTrabajo(observacionTrabajo)">Finalizar trabajo</button>
+                <button type="button" class="btn btn-danger btnTerminarTrabajo">Finalizar trabajo</button>
             </div>
         </div>
     </div>
 </div>
-
-
-   
-

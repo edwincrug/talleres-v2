@@ -46,12 +46,12 @@ registrationModule.controller('trabajoController', function($scope, localStorage
 		});
     }
 	
-	$scope.aprobacion = function(trabajo){
+	$scope.verTrabajo = function(trabajo){
 		localStorageService.set('cita', trabajo.idCita);
     	localStorageService.set('cotizacion', trabajo.idCotizacion);
     	localStorageService.set('estado', 2);
     	localStorageService.set('objTrabajo', trabajo);
-		location.href = '/cotizacionTrabajo';
+		location.href = '/cotizacionAutorizacion';
 	}
     
     //espera que el documento se pinte para llenar el dataTable
@@ -86,7 +86,7 @@ registrationModule.controller('trabajoController', function($scope, localStorage
             if(trabajoTerminado.data[0].idHistorialProceso != 0){
                 getTrabajo();
                 getTrabajoTerminado();
-                controlTabs();
+                //controlTabs();
                 $('#finalizarTrabajoModal').modal('hide');
             }
         });
@@ -99,42 +99,31 @@ registrationModule.controller('trabajoController', function($scope, localStorage
     }
     
     var controlTabs = function () {
-      $scope.tabs = {tab1: false, tab2: true}; 
+        $scope.tabs = {tab1: false, tab2: true}; 
     }; 
     
-    $scope.click = function(){
-        $('.demo3').click(function () {
-            swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButstonText: "Yes, delete it!",
-                closeOnConfirm: false
-            }, function () {
-                swal("Deleted!", "Your imaginary file has been deleted.", "success");
-            });
-        });
-    }
-
-        /*$('.demo4').click(function () {
-            swal({
-                        title: "Are you sure?",
-                        text: "Your will not be able to recover this imaginary file!",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, delete it!",
-                        cancelButtonText: "No, cancel plx!",
-                        closeOnConfirm: false,
-                        closeOnCancel: false },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                        } else {
-                            swal("Cancelled", "Your imaginary file is safe :)", "error");
-                        }
-                    });
-        });*/
+    //confirm del trabajo para su terminación
+    $('.btnTerminarTrabajo').click(function () {
+        swal({
+                    title: "¿Está seguro de terminar el trabajo?",
+                    text: "Se cambiará el estatus del trabajo a TERMINADO",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Si",
+                    cancelButtonText: "No",
+                    closeOnConfirm: false,
+                    closeOnCancel: false },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $scope.updTerminaTrabajo($scope.observacionTrabajo);
+                        swal("Trabajo terminado!", "El trabajo se ha terminado", "success");
+                        $scope.observacionTrabajo = null;
+                    } else {
+                        swal("Cancelado", "", "error");
+                        $('#finalizarTrabajoModal').modal('hide');
+                        $scope.observacionTrabajo = null;
+                    }
+                });
+    });
 });
