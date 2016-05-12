@@ -1,12 +1,11 @@
 registrationModule.controller('mainController', function ($scope, $rootScope, $location, localStorageService, mainRepository) {
-    $scope.showChat = $location.path();
+    $rootScope.showChat = 0;
     $scope.idUsuario = 3;
     var idCita = localStorageService.get('cita');
     $scope.descripcion = localStorageService.get('desc');
     $scope.comentarios = '';
 
     $scope.init = function () {
-
         $scope.cargaChat();
     }
 

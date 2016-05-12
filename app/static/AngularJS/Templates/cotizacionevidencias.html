@@ -1,6 +1,73 @@
+<!--<style>
+    body {
+        margin: 0;
+        font-family: 'Lato', sans-serif;
+    }
+    
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+    
+    .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+    
+    .overlay a:hover,
+    .overlay a:focus {
+        color: #f1f1f1;
+    }
+    
+    .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px !important;
+    }
+    
+    @media screen and (max-height: 450px) {
+        .overlay a {
+            font-size: 20px
+        }
+        .closebtn {
+            font-size: 40px !important;
+            top: 15px;
+            right: 35px;
+        }
+    }
+</style>-->
+
+
+
 <div ng-init="init()" class="animated bounceInRight">
-    <div class="headTitleTallerCita">
-        <span class="title"> Evidencias<span class="subtitle">Call Center / Taller</span></span>
+    <div class="row headTitleTallerCita">
+        <div class="col-lg-10">
+            <span class="title"> Autorización<span class="subtitle">Call Center / Taller</span></span>
+        </div>
+        <div class="col-lg-2">
+            <a href="/cotizacionAutorizacion" class="btn btn-success"><i class="fa fa-chevron-left"></i> Regresar </a>
+        </div>
     </div>
     <div class="wrapper">
         <div class="wrapper wrapper-content animated fadeInRight">
@@ -16,7 +83,7 @@
                                         <a href="#" class="file-control">Documentos</a>
                                         <a href="#" class="file-control">Multimedia</a>
                                         <div class="hr-line-dashed"></div>
-                                        <button class="btn btn-primary btn-block">Adjuntar</button>
+                                        <button class="btn btn-primary btn-block" ng-click="adjuntarEvidencia()">Adjuntar</button>
                                         <div class="hr-line-dashed"></div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -30,7 +97,6 @@
                                         <div class="file">
                                             <a href="#">
                                                 <span class="corner"></span>
-
                                                 <div class="icon">
                                                     <i class="fa fa-file"></i>
                                                 </div>
@@ -41,7 +107,6 @@
                                                 </div>
                                             </a>
                                         </div>
-
                                     </div>
                                     <!--<div class="file-box">
                                     <div class="file">
@@ -378,12 +443,61 @@
         </div>
     </div>
 </div>
+<div id="cotizacionDetalle" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
 
+        <!-- Modal content-->
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detalle</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t">
+                    <table class="table invoice-table">
+                        <thead>
+                            <tr>
+                                <th>Artículos</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Precio Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="articulo in articulos">
+                                <td>
+                                    <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
+                                    <small>{{articulo.item}}</small></td>
+                                <td>{{articulo.cantidad}}</td>
+                                <td>{{ articulo.precio | currency }}</td>
+                                <td>{{(articulo.cantidad * articulo.precio) | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /table-responsive -->
+                <table class="table invoice-total">
+                    <tbody>
+                        <tr>
+                            <td><strong>TOTAL :</strong></td>
+                            <td>{{total | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script>
-    $(document).ready(function () {
-        $('.file-box').each(function () {
-            animationHover(this, 'pulse');
-        });
-    });
-</script>
+<!--<div id="myNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <div class="overlay-content">
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+</div>-->

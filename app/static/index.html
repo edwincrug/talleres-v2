@@ -16,7 +16,7 @@
     <!--Hojas de estilos-->
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link href="css/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="css/cotizacion.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/cotizacion.css"> -->
     <!-- <link rel="stylesheet" type="text/css" href="css/cita.css"> -->
 
     <!--Loading-->
@@ -31,17 +31,18 @@
     <link href="fonts/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet">
 
     <!--Inspinia Elements-->
+    <link href="css/inspinia/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
     <link href="css/inspinia/animate.css" rel="stylesheet">
     <link href="css/inspinia/styleInspinia.css" rel="stylesheet">
     <link href="css/inspinia/dataTables/datatables.min.css" rel="stylesheet">
     <link href="css/inspinia/datapicker/datepicker3.css" rel="stylesheet">
     <link href="css/inspinia/clockpicker/clockpicker.css" rel="stylesheet">
-    <link href="css/inspinia/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    
 
 </head>
 
-<body ng-app="registrationModule" ng-controller="mainController" ng-init="init()">
-    <nav class="navbar-default navbar-static-side" role="navigation">
+<body ng-app="registrationModule" ng-controller="mainController" ng-init="init()" ng-class="{ 'white': sesion == 0 }" class="mini-navbar">
+    <nav class="navbar-default navbar-static-side" role="navigation" ng-hide="sesion == 0">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
@@ -62,23 +63,23 @@
                     </div>
                 </li>
                 <li>
-                    <a href="cita"><i class="fa fa-diamond"></i> <span class="nav-label">Nueva Cita</span></a>
+                    <a href="cita" ng-click="showChat = 0"><i class="fa fa-diamond"></i> <span class="nav-label">Nueva Cita</span></a>
                 </li>
                 <li>
-                    <a href="tallerCita"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Cita</span></a>
+                    <a href="tallerCita" ng-click="showChat = 0"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Cita</span></a>
                 </li>
                 <li>
-                    <a href="cotizacionConsulta"><i class="fa fa-envelope"></i> <span class="nav-label">Aprobaciones </span><span class="label label-warning pull-right"></span></a>
+                    <a href="cotizacionConsulta" ng-click="showChat = 0"><i class="fa fa-envelope"></i> <span class="nav-label">Aprobaciones </span><span class="label label-warning pull-right"></span></a>
                 </li>
                 <li>
-                    <a href="trabajo"><i class="fa fa-pie-chart"></i> <span class="nav-label">Órdenes de servicio</span>  </a>
+                    <a href="trabajo" ng-click="showChat = 0"><i class="fa fa-pie-chart"></i> <span class="nav-label">Órdenes de servicio</span>  </a>
                 </li>
             </ul>
 
         </div>
     </nav>
     <div id="page-wrapper" class="gray-bg">
-        <div class="row border-bottom">
+        <div class="row border-bottom" ng-hide="sesion == 0">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
@@ -187,7 +188,7 @@
                     </li>-->
                     <li>
                         <a href="login.html">
-                            <i class="fa fa-sign-out"></i> Log out
+                            <i class="fa fa-sign-out"></i> Cerrar Sesión
                         </a>
                     </li>
                 </ul>
@@ -196,7 +197,7 @@
         <div ng-view></div>
     </div>
 
-    <div id="wrapper" ng-if="showChat === '/cotizacionAutorizacion'">
+    <div id="wrapper" ng-hide="showChat == 0">
         <div class="small-chat-box fadeInRight animated">
 
             <div class="heading" draggable="true">
