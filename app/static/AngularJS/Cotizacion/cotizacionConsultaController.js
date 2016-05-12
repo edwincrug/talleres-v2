@@ -11,6 +11,7 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
 
     $scope.init = function () {
         $scope.Maestro();
+        
     }
 
     $scope.Detalle = function (idCotizacion, idTaller) {

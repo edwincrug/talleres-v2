@@ -187,6 +187,28 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/AngularJS\/Cotizacion\/min\/cotizacionAutorizacionController-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Cotizacion\/min\/cotizacionAutorizacionController-min.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Cotizacion\/min\/min\/cotizacionAutorizacionController-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/Cotizacion\/min\/cotizacionConsultaController-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Cotizacion\/min\/cotizacionConsultaController-min.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Cotizacion\/min\/min\/cotizacionConsultaController-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/AngularJS\/Example\/exampleController.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -281,6 +303,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/AngularJS\/Main\/mainRepository.js",
 		"outputAbbreviatedPath": "\/AngularJS\/Main\/min\/mainRepository-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/Main\/min\/mainController-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Main\/min\/mainController-min.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Main\/min\/min\/mainController-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -3199,6 +3232,15 @@
 		"shouldRunAutoprefixer": 0,
 		"shouldRunBless": 0,
 		"useLibsass": false
+		},
+	"\/templateMail.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/templateMail.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
 		},
 	"\/uploads\/Files\/10\/30\/Multimedia\/atrás.jpg": {
 		"fileType": 16384,
