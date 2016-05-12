@@ -222,21 +222,32 @@ Cotizacion.prototype.aprobacionCotizacion = function (aprobacionObj, callback) {
 Cotizacion.prototype.evidencia = function (msgObj, callback) {
     var self = this.connection;
     this.connection.connect(function (err) {
-        // Stored Procedure 
-        var request = new sql.Request(self);
-        request.input('idTipoEvidencia', sql.Numeric(18, 0), msgObj.idTipoEvidencia);
-        request.input('idTipoArchivo', sql.Numeric(18, 0), msgObj.idTipoArchivo);
-        request.input('idUsuario', sql.Numeric(18, 0), msgObj.idUsuario);
-        request.input('idProcesoEvidencia', sql.Numeric(18, 0), msgObj.idProcesoEvidencia);
-        request.input('nombreArchivo', sql.VarChar(100), msgObj.nombreArchivo);
-        request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
-            if (recordsets != null) {
-                callback(err, recordsets[0]);
-            } else {
-                console.log('Error al insertar evidencia: ' + msgObj + ' mensaje: ' + err);
-            }
+        for (var i = 0; i < msgObj.length; i++) {
+            // Stored Procedure 
+            var request = new sql.Request(self);
+            request.stream = true;
+            request.input('idTipoEvidencia', sql.Numeric(18, 0), msgObj.idTipoEvidencia);
+            request.input('idTipoArchivo', sql.Numeric(18, 0), msgObj.idTipoArchivo);
+            request.input('idUsuario', sql.Numeric(18, 0), msgObj.idUsuario);
+            request.input('idProcesoEvidencia', sql.Numeric(18, 0), msgObj.idProcesoEvidencia);
+            request.input('nombreArchivo', sql.VarChar(100), msgObj.nombreArchivo);
+            request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
+
+            });
+
+            request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
+
+            });
+        }
+
+        request.on('done', function (returnValue, affected) {
+            callback(null, returnValue);
         });
 
+        request.on('error', function (err) {
+            callback(err, null);
+            console.log('Error al insertar evidencia, mensaje: ' + err);
+        });
     });
 };
 

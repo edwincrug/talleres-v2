@@ -364,17 +364,27 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
     var params = {};
     //Referencia a la clase para callback
     var self = this;
+    //Arreglo evidencia
+    var arrayEvidencia = [];
 
-    //Asigno a params el valor de mis variables
-    var msgObj = {
-        idTipoEvidencia: req.body.idTipoEvidencia,
-        idTipoArchivo: idTipoArchivo,
-        idUsuario: req.body.idUsuario,
-        idProcesoEvidencia: req.body.idCotizacion,
-        nombreArchivo: nameFile
-    }
+    for(var i=0; i < req.files.length;i++){
+        var ext = obtenerExtArchivo(req.files[i].originalname);
+        var idTipoArchivo = obtenerTipoArchivo(ext);
 
-    this.model.evidencia(msgObj, function (error, result) {
+        //Asigno a params el valor de mis variables
+        /*var msgObj = {
+            idTipoEvidencia: req.body.idTipoEvidencia,  
+            idTipoArchivo: idTipoArchivo,
+            idUsuario: req.body.idUsuario,
+            idProcesoEvidencia: req.body.idCotizacion,
+            nombreArchivo: req.files.originalname
+        }*/
+        arrayEvidencia.push({idTipoEvidencia: req.body.idTipoEvidencia,idTipoArchivo: idTipoArchivo,
+                            idUsuario:req.body.idUsuario,idProcesoEvidencia:req.body.idCotizacion,
+                            nombreArchivo:req.files[i].originalname}); 
+    } 
+
+    this.model.evidencia(arrayEvidencia, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
