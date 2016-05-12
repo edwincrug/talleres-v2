@@ -2,6 +2,7 @@ registrationModule.controller('mainController', function ($scope, $rootScope, $l
     $scope.showChat = $location.path();
     $scope.idUsuario = 3;
     var idCita = localStorageService.get('cita');
+    $scope.descripcion = localStorageService.get('desc');
     $scope.comentarios = '';
 
     $scope.init = function () {
