@@ -17,21 +17,16 @@ Trabajo.prototype.post_save = function(req,res,next){
 
 }
 
-//obtiene el trabajo de la cita
-Trabajo.prototype.get_unidadtrabajo_data = function(req, res, next){
+//obtiene los trabajos con estatus de terminado
+Trabajo.prototype.get_trabajoterminado = function(req, res, next){
 	//Objeto que almacena la respuesta
 	var object = {};
 	//Objeto que envía los parámetros
-	var params = {}; 
+	var params = null;
 	//Referencia a la clase para callback
 	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idUnidad';
-	params.value = req.params.data;
-	params.type = 1;
 	
-	this.model.get( 'SEL_TRABAJO_SP',params,function(error,result){
+	this.model.get('SEL_TRABAJO_TERMINADO_SP',params,function(error,result){
 		//Callback
 		object.error = error;
 		object.result = result;
@@ -39,5 +34,47 @@ Trabajo.prototype.get_unidadtrabajo_data = function(req, res, next){
 		self.view.see(res, object);
 	});
 }
+
+//realiza la actualización del trabajo a terminado
+Trabajo.prototype.post_updtrabajoterminado = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = {}; 
+	//Referencia a la clase para callback
+	var self = this;
+
+	var msgObj = {
+        idTrabajo: req.body.idTrabajo,
+        observacion: req.body.observacion
+    }
+	
+	this.model.updterminaTrabajo(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
+}
+
+//obtiene los trabajos con estatus diferente a terminado
+Trabajo.prototype.get_trabajo = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = null;
+	//Referencia a la clase para callback
+	var self = this;
+	
+	this.model.get( 'SEL_TRABAJO_SP', params,function(error,result){
+		//callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
 
 module.exports = Trabajo;

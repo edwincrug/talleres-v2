@@ -8,7 +8,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <tabset>	      	
-                            <tab heading="Trabajos pendientes">
+                            <tab heading="Trabajos pendientes" index="0">
                                 <br/>
                                 <br/>
                                 <div class="table-responsive">                         
@@ -39,7 +39,7 @@
                                                     <button class="btn btn-info" type="button" ng-click="aprobacion(trabajo)"><span class="glyphicon glyphicon-sunglasses"></span> Ver</button>
                                                 </td>
                                                 <td>
-                                                      <button class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal()" ><span class="glyphicon glyphicon-ok-sign"></span> Finalizar
+                                                      <button class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" ><span class="glyphicon glyphicon-ok-sign"></span> Finalizar
                                                       </button>
                                                 </td>
                                             </tr>
@@ -47,11 +47,11 @@
                                     </table>
                                 </div>
                             </tab>
-                            <tab heading="Trabajos finalizados">      	
+                            <tab heading="Trabajos finalizados" active="tabs.tab2">      	
                                 <br/>
                                 <br/>
                                 <div class="table-responsive">                         
-                                    <table class="table table-striped table-bordered table-hover dataTableTrabajo" cg-busy="{promise:promise,message:message}">
+                                    <table class="table table-striped table-bordered table-hover dataTableTrabajoTerminado" cg-busy="{promise:promise,message:message}">
                                         <thead>
                                             <tr>
                                                 <th>Número económico</th>
@@ -66,7 +66,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="trabajo in trabajos">
+                                            <tr ng-repeat="trabajo in trabajosTerminados">
                                                 <td>{{trabajo.numEconomico}}</td>
                                                 <td>{{trabajo.marca}}</td>
                                                 <td>{{trabajo.modeloMarca}}</td>
@@ -78,7 +78,7 @@
                                                     <button class="btn btn-info" type="button" ng-click="aprobacion(trabajo)"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
                                                 </td>
                                                 <td>
-                                                      <button class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal()" ><span class="glyphicon glyphicon-check"></span> Aprobar
+                                                      <button class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" ><span class="glyphicon glyphicon-check"></span> Aprobar
                                                       </button>
                                                 </td>
                                             </tr>
@@ -106,7 +106,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Finalizar trabajo</button>
+                <button type="button" class="btn btn-white demo3" ng-click="click()">click</button>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Salir</button>
+                <button type="button" class="btn btn-danger" ng-click="updTerminaTrabajo(observacionTrabajo)">Finalizar trabajo</button>
             </div>
         </div>
     </div>

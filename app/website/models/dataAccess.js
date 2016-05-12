@@ -137,4 +137,24 @@ DataAccess.prototype.postBuscaCita = function (objParams, callback) {
     });
 };
 
+//realiza la actualización del trabajo a estatus terminado
+DataAccess.prototype.updterminaTrabajo = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idTrabajo', sql.Numeric(18, 0), objParams.idTrabajo);
+        request.input('observacion', sql.VarChar(1000), objParams.observacion);
+
+        request.execute('UPD_TERMINA_TRABAJO_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error la realizar la actualización: ' + objParams + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 module.exports = DataAccess; 

@@ -239,25 +239,6 @@ Cita.prototype.get_del = function(req,res,next){
 
 }
 
-//obtiene el trabajo de la Trabajo
-Cita.prototype.get_unidadtrabajo = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = null;
-	//Referencia a la clase para callback
-	var self = this;
-	
-	this.model.get( 'SEL_TRABAJO_SP', params,function(error,result){
-		//callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
-
 //inserta cita servicio detalles
 Cita.prototype.post_addCitaServicioDetalle = function (req, res, next) {
     //Objeto que almacena la respuesta
