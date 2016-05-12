@@ -4,7 +4,7 @@
             <span class="title"> Autorización<span class="subtitle">Call Center / Taller</span></span>
         </div>
         <div class="col-lg-2">
-            <a href="/cotizacionevidencias" class="btn btn-info"><i class="fa fa-files-o"></i> Evidencias </a>
+            <a href="/cotizacionevidencias" class="btn btn-success"><i class="fa fa-files-o"></i> Evidencias </a>
         </div>
     </div>
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -12,27 +12,34 @@
             <div class="col-lg-12">
                 <div class="ibox-content p-xl">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <h5>Unidad:</h5>
-                            <address>
-                                        <strong>{{unidadInfo.marca}} - {{unidadInfo.modelo}}</strong><br>
-                                        No. Económico: {{unidadInfo.clienteNumEconomico}}<br>
-                                        No. Inventario: {{unidadInfo.clienteNumInventario}}<br>
-                                        No. TAR: {{unidadInfo.numTAR}}<br>
-                                        TAR:  {{unidadInfo.TAR}}<br>
-                                        GAR:  {{unidadInfo.GAR}}
-                                    </address>
-                        </div>
-
-                        <div class="col-sm-6 text-right">
-                            <h4>Cotización No.</h4>
-                            <h4 class="text-navy">{{descripcion}}</h4>
+                        <div class="col-sm-8">
                             <span>Cliente:</span>
                             <address>
                                         <strong>{{ClienteData.nombre}}</strong><br>
                                         {{ClienteData.direccion}}<br>
                                         <abbr title="Phone">Tel:</abbr>{{ClienteData.telefono}}<br>
                                     </address>
+                            <span>Unidad:</span>
+                            <address>
+                                        <strong>{{unidadInfo.marca}} - {{unidadInfo.modelo}}</strong><br>
+                                        No. Económico: {{unidadInfo.clienteNumEconomico}}<br>
+                                        No. Inventario: {{unidadInfo.clienteNumInventario}}<br>
+                                        No. TAR: {{unidadInfo.numTAR}}<br>
+                                        TAR:  {{unidadInfo.TAR}}<br>
+                                        GAR:  {{unidadInfo.GAR[0]}}
+                                    </address>
+                        </div>
+
+                        <div class="col-sm-4 text-right">
+                            <h4>Cotización No.</h4>
+                            <h4 class="text-navy">{{descripcion}}</h4>
+                            <span>Taller: </span>
+                            <address><strong>
+                               {{unidadInfo.razonSocial}}
+                           </strong><br>
+                           {{unidadInfo.direccion[1]}}
+                           </address>
+
                             <p>
                                 <span><strong>Fecha: </strong>{{articulos[0].fecha |  date:'dd-MM-yyyy HH:mm'}}</span>
                                 <br/>
@@ -77,7 +84,7 @@
             <button class="btn btn-primary" ng-click="Autorizar(comentario)"><i class="fa fa-check"></i> Autorizar</button>
             <button class="btn btn-danger" ng-click="Rechazar(comentario)"><i class="fa fa-times"></i> Rechazar</button>
             <button class="btn btn-success" ng-click="Editar()"><i class="fa fa-edit"></i> Editar</button>
-            <button class="btn btn-info" ng-click="Adjuntar()"><i class="fa fa-paperclip"></i> Adjuntar</button>
+            <button class="btn btn-success" ng-click="Adjuntar()"><i class="fa fa-paperclip"></i> Adjuntar</button>
         </div>
     </div>
     <br>
@@ -93,7 +100,7 @@
                 </div>
                 <div class="modal-body">
                     <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
-                    <button id="btnUploadAut" type="button" class="btn btn-info" data-toggle="tooltip" tooltip="Cargar Evidencia" tooltip-placement="top" ng-click="cargarArchivos()">
+                    <button id="btnUploadAut" type="button" class="btn btn-success" data-toggle="tooltip" tooltip="Cargar Evidencia" tooltip-placement="top" ng-click="cargarArchivos()">
                         <span class="glyphicon glyphicon-cloud-upload"></span>
                     </button>
                 </div>
