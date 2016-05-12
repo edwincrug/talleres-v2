@@ -141,7 +141,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
         var dia = date.substring(0,2);
         var mes = date.substring(3,5);
         var anio = date.substring(6,date.length);
-		var date = anio +''+ mes +''+ dia;
+		var date = anio +''+ dia +''+ mes;
 		getCitaTaller(date, 0);
 	}
 

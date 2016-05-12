@@ -9,7 +9,7 @@
                     <div class="ibox-content">
                         <br/>   
                         <div class="table-responsive">                         
-                            <table class="table table-striped table-bordered table-hover dataTableCita" cg-busy="{promise:promise,message:message}">
+                            <table class="table table-striped table-bordered table-hover dataTableCita" cg-busy="{ promise:promise,message:message } ">
                                 <thead>
                                     <tr>
                                         <th>Fecha</th>
@@ -43,6 +43,10 @@
         </div>
     </div>
 </div>
+
+<link href="../../css/timeline/timeline.css" rel="stylesheet" />
+<link href="../../css/timeline/plugin.css" rel="stylesheet" />
+
 <div class="modal inmodal fade " id="lineaTiempoModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated flipInY">
@@ -51,12 +55,43 @@
                 <h4 class="modal-title">Linea de tiempo</h4>
             </div>
             <div class="modal-body"  ng-init="initCitaServicio()">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-            </div>
+                <div id="timeline" class="timelineScope">
+                    <!-- Aquí va el NG repeat -->
+                    <div> 
+                        <label>Cotización: 138</label>
+                        <ol>
+                         <li>
+                            2016-04-21
+                            <span class="details">
+                               ABIERTO
+                           </span>
+                         </li>
+                         <li>
+                            2016-04-25
+                            <span class="details">
+                                CONFIRMADO
+                            </span>
+                        </li>
+                        <li>
+                            2016-04-25
+                            <span class="details">
+                                CANCELADO
+                            </span>
+                        </li>
+                        <li>
+                            2016-04-25
+                            <span class="details">
+                                CERRADO
+                            </span>
+                        </li>
+                    </ol>
+                </div>
         </div>
-    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+</div>
+</div>
+</div>
 </div>
