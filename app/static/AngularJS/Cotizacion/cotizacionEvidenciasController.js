@@ -22,4 +22,12 @@ registrationModule.controller('cotizacionEvidenciasController', function ($scope
             animationHover(this, 'pulse');
         });
     }
+    
+    $scope.openEvidencia = function(){
+        document.getElementById("myNav").style.width = "100%";
+    }
+    
+    $scope.adjuntarEvidencia = function(){
+        $('#cotizacionDetalle').appendTo('body').modal('show');
+    }
 });
