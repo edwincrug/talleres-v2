@@ -79,9 +79,10 @@
                                 <div class="ibox-content">
                                     <div class="file-manager">
                                         <h5>Mostrar:</h5>
-                                        <a href="#" class="file-control active">Todos</a>
-                                        <a href="#" class="file-control">Documentos</a>
-                                        <a href="#" class="file-control">Multimedia</a>
+                                        <a href="#" class="file-control active" ng-click="setValFiltro()">Todo</a>
+                                        <a href="#" class="file-control" ng-click="setValFiltro(1)">Documentos</a>
+                                        <a href="#" class="file-control" ng-click="setValFiltro(2)">Imágenes</a>
+                                        <a href="#" class="file-control" ng-click="setValFiltro(3)">Video</a>
                                         <div class="hr-line-dashed"></div>
                                         <button class="btn btn-primary btn-block" ng-click="adjuntarEvidencia()">Adjuntar</button>
                                         <div class="hr-line-dashed"></div>
@@ -93,13 +94,23 @@
                         <div class="col-lg-9 animated fadeInRight">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="file-box" ng-repeat="slide in slides">
+                                    <div class="file-box" ng-repeat="slide in slides | filter: filtro">
                                         <div class="file">
                                             <a href="#">
                                                 <span class="corner"></span>
-                                                <div class="icon">
-                                                    <i class="fa fa-file"></i>
+                                                <div ng-if="slide.idTipoArchivo === 1" class="icon">
+                                                    <a href="uploads/Files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/documentos/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent"><i class="fa fa-file"></i></a>
                                                 </div>
+                                                <div ng-if="slide.idTipoArchivo === 2" class="image">
+                                                    <a href="uploads/Files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent">
+                                                        <img src="uploads/Files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.nombreArchivo}}" alt="image" class="img-responsive"></a>
+                                                </div>
+                                                <div ng-if="slide.idTipoArchivo === 3" class="icon">
+                                                    <a href="uploads/Files/{{slide.idTrabajo}}/{{slide.idCotizacion}}/multimedia/{{slide.nombreArchivo}}" download="{{slide.nombreArchivo}}" target="_parent">
+                                                        <i class="img-responsive fa fa-film"></i>
+                                                    </a>
+                                                </div>
+
                                                 <div class="file-name">
                                                     {{slide.nombreArchivo}}
                                                     <br/>
@@ -450,49 +461,20 @@
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Detalle</h4>
+                <h4 class="modal-title">Carga de Evidencias</h4>
             </div>
             <div class="modal-body">
-                <div class="table-responsive m-t">
-                    <table class="table invoice-table">
-                        <thead>
-                            <tr>
-                                <th>Artículos</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Precio Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="articulo in articulos">
-                                <td>
-                                    <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
-                                    <small>{{articulo.item}}</small></td>
-                                <td>{{articulo.cantidad}}</td>
-                                <td>{{ articulo.precio | currency }}</td>
-                                <td>{{(articulo.cantidad * articulo.precio) | currency}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="table-responsive m-t" style="margin-left:10%">
+                    <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader" scrolling="no"></iframe>
                 </div>
-                <!-- /table-responsive -->
-                <table class="table invoice-total">
-                    <tbody>
-                        <tr>
-                            <td><strong>TOTAL :</strong></td>
-                            <td>{{total | currency}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivos()">Adjuntar Evidencia</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!--<div id="myNav" class="overlay">
+    <!--<div id="myNav" class="overlay">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
     <div class="overlay-content">
         <a href="#">About</a>
