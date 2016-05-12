@@ -31,6 +31,19 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.idCita = '';
 
     $scope.init = function(){
+        // Collapse ibox function
+        $('.collapse-link').click(function () {
+            var ibox = $(this).closest('div.ibox');
+            var button = $(this).find('i');
+            var content = ibox.find('div.ibox-content');
+            content.slideToggle(200);
+            button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+            ibox.toggleClass('').toggleClass('border-bottom');
+            setTimeout(function () {
+                ibox.resize();
+                ibox.find('[id^=map-]').resize();
+            }, 50);
+        });
         exist = false;
         //Se valida si la cotización es para editar
         if(localStorageService.get('objEditCotizacion') != null){
@@ -65,7 +78,40 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                     idTaller = $scope.objCita.idTaller;
                 }
                 $scope.promise = cotizacionRepository.buscarPieza(idTaller,pieza).then(function(result){
-                $scope.listaPiezas = result.data;             
+                    $scope.listaPiezas = result.data;
+                    setTimeout(function () {
+                    $('.dataTableItem').DataTable({
+                        dom: '<"html5buttons"B>lTfgitp',
+                        buttons: [
+                            {
+                                extend: 'copy'
+                            },
+                            {
+                                extend: 'csv'
+                            },
+                            {
+                                extend: 'excel',
+                                title: 'ExampleFile'
+                            },
+                            {
+                                extend: 'pdf',
+                                title: 'ExampleFile'
+                            },
+
+                            {
+                                extend: 'print',
+                                customize: function (win) {
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                                }
+                                        }
+                                    ]
+                    });
+                }, 2000);              
             }, function (error){
                 alertFactory.error('Error');
             }); 
@@ -213,13 +259,13 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                     alertFactory.error('Error');
                 });             
             });
-            cargarArchivos($scope.idCotizacion,$scope.idTrabajo);
-            cotizacionMailRepository.postMail($scope.idCotizacion,$scope.citaDatos.idTaller, 1,'');
-            location.href = '/cotizacionConsulta';
-            localStorageService.remove('objCita');
-            localStorageService.remove('cita');          
-        }, function (error){
-            alertFactory.error('Error');
+                cargarArchivos($scope.idCotizacion,$scope.idTrabajo);
+                cotizacionMailRepository.postMail($scope.idCotizacion,$scope.citaDatos.idTaller, 1,'');
+                localStorageService.remove('objCita');
+                localStorageService.remove('cita');
+                location.href = '/cotizacionConsulta';         
+            }, function (error){
+                alertFactory.error('Error');
         });         
     };
 
@@ -227,27 +273,6 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
     $scope.FinishSave = function(){
         alertFactory.success('Guardando Archivos');
         location.href = '/cotizacionConsulta'; 
-    }
-
-    //Se obtiene la extensión del archivo
-    var obtenerExtArchivo = function(file){
-        $scope.file = file;
-        var res = $scope.file.substring($scope.file.length-4, $scope.file.length)
-        return res;
-    }
-
-    //Obtener el tipo de archivo
-    var obtenerTipoArchivo = function(ext){
-        if(ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx' ||
-            ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX'
-            || ext == '.ppt' || ext == '.PPT'){
-            type = 1;
-        } else if(ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp' || ext == '.JPG' || ext == '.PNG' || ext == '.GIF' || ext == '.BMP'){
-            type = 2;
-        } else if(ext == '.mp4'){
-            type = 3;
-        }
-        return type;
     }
 
     //Carga los datos de la cotizacion a editar
@@ -302,26 +327,12 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             elements = contentForm.document.getElementById("uploadForm").elements;
             idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
             idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
+            idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
+            idUsuario = contentForm.document.getElementById("idUsuario");
             idTrabajoEdit.value = idTrabajo;
-            idCotizacionEdit.value = idCotizacion; 
-            for(var i = 0; i < elements.length; i++)
-            {
-                if(elements[i].value.lastIndexOf(".") > 0){
-                    $scope.nombreArchivo = elements[i].value;
-                    $scope.tipoArchivo = obtenerExtArchivo($scope.nombreArchivo);
-                    $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);                            
-                    cotizacionRepository.insertEvidencia(tipoEvidencia,
-                                                        $scope.idTipoArchivo,
-                                                        $scope.idUsuario,
-                                                        idCotizacion,
-                                                        $scope.nombreArchivo)
-                    .then(function(result){ 
-                        alertFactory.success('Evidencia Guardada Correctamente');                              
-                    },function(error){
-                        alertFactory.error('Error');
-                    });
-                }                        
-            }
+            idCotizacionEdit.value = idCotizacion;
+            idTipoEvidencia.value = 1;
+            idUsuario.value = 1;
             //Submit del botón del Form para subir los archivos        
             btnSubmit.click();
     }
@@ -351,7 +362,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             $scope.arrayItem = result.data;
             $scope.arrayCambios = $scope.arrayItem.slice();
             $scope.importe = calcularImporte();
-            $scope.total = calculaTotalEditar();            
+            $scope.total = calculaTotalEditar();
         },function(error){
             alertFactory.error('Error');
         }); 
