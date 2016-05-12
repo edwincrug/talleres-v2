@@ -1,144 +1,50 @@
-#tablaUnidad {
-  width: 100%;
-  height: 400px;
-}
+/*
+Error: Invalid CSS after "18px": expected expression (e.g. 1px, bold), was ";"
+        on line 49 of /Users/edwin/Documents/CodeKit/talleres-v2/app/static/sass/cita.sass
 
-#pagination {
-  margin-left: 40%;
-}
+44: 	border-radius: 1px
+45: #ficha
+46: 	font-weight: 100
+47: 	width:40%
+48: 	height:230px
+49: 	font-size: 18px;
+50: 	//border: 4px solid green
+51: #fotoFicha
+52: 	//border: 3px solid red
+53: 	width:60%
+54: 	height: 230px
 
-#paginationTaller {
-  margin-left: 30%;
-}
-
-.tableData {
-  border: solid 1px #D8C3C3;
-  width: 100%;
-  padding: 2px;
-}
-
-.tableData th {
-  background-color: #FAFAFA;
-  padding: 2px;
-}
-
-.tableData td {
-  padding: 5px;
-  border: solid 1px #D8C3C3;
-}
-
-tr.sub {
-  display: none;
-}
-
-.CX {
-  width: 35px;
-}
-
-.tableScroller {
-  max-height: 250px;
-  width: 100%;
-  overflow: scroll;
-}
-
-#agendarCita {
-  margin-left: 20%;
-}
-
-#tableTaller {
-  height: 180px;
-}
-
-#btnAgendar {
-  margin-left: 90%;
-  padding: 5px;
-}
-
-#borderTop {
-  margin: 0px;
-  padding: 0px 2px 2px 3px;
-  border-width: 2px;
-  border-top: 2px #013ADF solid;
-  width: 100%;
-}
-
-#contenedorUnidad {
-  width: 100%;
-  height: 100%;
-  border: 1px solid black;
-  border-radius: 1px;
-}
-
-#ficha {
-  font-weight: 100;
-  width: 40%;
-  height: 230px;
-  font-size: 18px;
-}
-
-#fotoFicha {
-  width: 60%;
-  height: 230px;
-}
-
-#fotoUnidad {
-  margin-left: 20%;
-  width: 80%;
-  height: 350px;
-}
-
-.close {
-  float: right;
-}
-
-div.showDiv {
-  display: none;
-}
-
-#closeDiv {
-  float: right;
-  padding: 10px;
-  cursor: pointer;
-}
-
-#divNuevaCita {
-  border: 1px solid gray;
-  border-radius: 10px;
-  padding: 10px;
-  width: 100%;
-  height: auto;
-}
-
-#divMapa {
-  border: 1px solid gray;
-  border-radius: 10px;
-  width: 95%;
-  height: auto;
-  padding: 10px;
-  margin-left: 5%;
-}
-
-#imgMapa {
-  width: 100%;
-  height: auto;
-}
-
-#tdFicha {
-  width: 40%;
-}
-
-#tdMapa {
-  width: 50%;
-}
-
-#generarServicio {
-  margin-left: 80%;
-}
-
-#bntAgendarCita {
-  margin-left: 27%;
-}
-
-#labelNumItems {
-  margin-left: 27%;
-}
+Backtrace:
+/Users/edwin/Documents/CodeKit/talleres-v2/app/static/sass/cita.sass:49
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/scss/parser.rb:1179:in `expected'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/script/lexer.rb:227:in `expected!'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/script/parser.rb:702:in `assert_done'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/script/parser.rb:64:in `parse'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/script/parser.rb:223:in `parse'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/script.rb:27:in `parse'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:1145:in `parse_script'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:718:in `parse_property'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:689:in `parse_property_or_rule'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:655:in `parse_line'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:533:in `build_tree'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:552:in `block in append_children'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:551:in `each'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:551:in `append_children'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:542:in `block in build_tree'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:535:in `each'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:535:in `build_tree'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:552:in `block in append_children'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:551:in `each'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:551:in `append_children'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:406:in `_to_tree'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/engine.rb:278:in `render'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/sass_scss.rb:423:in `run'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/base.rb:52:in `parse'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/lib/sass/exec/base.rb:19:in `parse!'
+/Applications/CodeKit.app/Contents/Resources/engines/scss/bin/sass:13:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"18px\": expected expression (e.g. 1px, bold), was \";\"\A         on line 49 of /Users/edwin/Documents/CodeKit/talleres-v2/app/static/sass/cita.sass\A \A 44: 	border-radius: 1px\A 45: #ficha\A 46: 	font-weight: 100\A 47: 	width:40%\A 48: 	height:230px\A 49: 	font-size: 18px;\A 50: 	//border: 4px solid green\A 51: #fotoFicha\A 52: 	//border: 3px solid red\A 53: 	width:60%\A 54: 	height: 230px"; }
