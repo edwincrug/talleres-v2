@@ -603,7 +603,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   color: #55B4F0;
 }
 .btn-info.btn-outline {
-  color: #23c6c8;
+  color: #FFD700;
 }
 .btn-warning.btn-outline {
   color: #f8ac59;
@@ -656,8 +656,8 @@ fieldset[disabled] .btn-primary:hover,
 fieldset[disabled] .btn-primary:focus,
 fieldset[disabled] .btn-primary:active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #FF8300;
-  border-color: #FF8300;
+  background-color: #FFB347;
+  border-color: #FFB347;
 }
 .btn-success {
   background-color: #55B4F0;
@@ -701,8 +701,8 @@ fieldset[disabled] .btn-success.active {
   border-color: #1f90d8;
 }
 .btn-info {
-  background-color: #23c6c8;
-  border-color: #23c6c8;
+  background-color: #FFD700;
+  border-color: #FFD700;
   color: #FFFFFF;
 }
 .btn-info:hover,
@@ -714,8 +714,8 @@ fieldset[disabled] .btn-success.active {
 .btn-info:active:hover,
 .btn-info.active:hover,
 .btn-info.active:focus {
-  background-color: #21b9bb;
-  border-color: #21b9bb;
+  background-color: #E6C200;
+  border-color: #E6C200;
   color: #FFFFFF;
 }
 .btn-info:active,
@@ -1081,7 +1081,7 @@ button.dim:active:before {
 }
 .label-info,
 .badge-info {
-  background-color: #23c6c8;
+  background-color: #FFD700;
   color: #FFFFFF;
 }
 .label-inverse,
@@ -2451,7 +2451,7 @@ label.error {
   background-color: #ed5565;
 }
 .toast-info {
-  background-color: #23c6c8;
+  background-color: #FFD700;
 }
 .toast-warning {
   background-color: #f8ac59;
@@ -3856,7 +3856,7 @@ table.table-mail tr td {
   color: #ffffff;
 }
 .lazur-bg {
-  background-color: #23c6c8;
+  background-color: #FFD700;
   color: #ffffff;
 }
 .yellow-bg {
@@ -3886,11 +3886,11 @@ table.table-mail tr td {
   color: #ffffff;
 }
 .panel-info {
-  border-color: #23c6c8;
+  border-color: #FFD700;
 }
 .panel-info > .panel-heading {
-  background-color: #23c6c8;
-  border-color: #23c6c8;
+  background-color: #FFD700;
+  border-color: #FFD700;
   color: #ffffff;
 }
 .panel-warning {
@@ -3932,7 +3932,7 @@ table.table-mail tr td {
   background-color: #55B4F0;
 }
 .progress-bar-info {
-  background-color: #23c6c8;
+  background-color: #FFD700;
 }
 .progress-bar-warning {
   background-color: #f8ac59;
@@ -3961,7 +3961,7 @@ table.table-mail tr td {
   color: #55B4F0;
 }
 .text-info {
-  color: #23c6c8;
+  color: #FFD700;
 }
 .text-warning {
   color: #f8ac59;
@@ -4689,7 +4689,7 @@ ul.notes li div {
   color: #55B4F0;
 }
 .category-list li a .text-info {
-  color: #23c6c8;
+  color: #FFD700;
 }
 .category-list li a .text-danger {
   color: #EF5352;
@@ -7018,8 +7018,8 @@ body.landing-page {
 .landing-page fieldset[disabled] .btn-primary:focus,
 .landing-page fieldset[disabled] .btn-primary:active,
 .landing-page fieldset[disabled] .btn-primary.active {
-  background-color: #FF8300;
-  border-color: #FF8300;
+  background-color: #FFB347;
+  border-color: #FFB347;
 }
 @media (min-width: 768px) {
   .landing-page {
@@ -7567,10 +7567,10 @@ body.skin-2 {
   margin-right: 25px;
 }
 .skin-2 .spin-icon {
-  background: #23c6c8 !important;
+  background: #FFD700 !important;
 }
 .skin-2 .nav-header {
-  background: #23c6c8;
+  background: #FFD700;
   background: url('patterns/header-profile-skin-2.png');
 }
 .skin-2.mini-navbar .nav-second-level {
@@ -7611,8 +7611,8 @@ body.skin-2 {
   background: #213a53;
 }
 .skin-2 .navbar-minimalize {
-  background: #23c6c8;
-  border-color: #23c6c8;
+  background: #FFD700;
+  border-color: #FFD700;
 }
 .skin-2 .border-bottom {
   border-bottom: none !important;
