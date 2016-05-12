@@ -1,5 +1,9 @@
 var CotizacionView = require('../views/cotizacion'),
     CotizacionModel = require('../models/cotizacion');
+var mkdirp = require('mkdirp');
+multer  = require('multer');
+var idTipoArchivo;
+var nameFile;
 
 var Cotizacion = function (conf) {
     this.conf = conf || {};
@@ -12,6 +16,76 @@ var Cotizacion = function (conf) {
     this.response = function () {
         this[this.conf.funcionalidad](this.conf.req, this.conf.res, this.conf.next);
     }
+
+    this.middlewares = [
+       upload.array('file[]', 20)
+   ]
+}
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    var dirname = 'C:/Desarrollo/talleres-v2/app';
+    var idTrabajo = req.body.idTrabajo;
+    var idCotizacion = req.body.idCotizacion;
+    var ext = obtenerExtArchivo(file.originalname);
+    idTipoArchivo = obtenerTipoArchivo(ext);
+    nameFile = file.originalname;
+    if(idCotizacion == ''){
+      mkdirp(dirname + '/static/uploads/files/' + idTrabajo, function (err) {
+           if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' 
+                || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4'){
+              mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia', function (err) {
+                cb(null, dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia')
+              });
+           } else{
+              mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/documentos', function (err) {
+                  cb(null, dirname + '/static/uploads/files/' + idTrabajo + '/documentos')
+              });
+           }
+    });
+    }else{
+      mkdirp(dirname + '/static/uploads/files/' + idTrabajo, function (err) {
+         mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion, function (err) {
+           if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' 
+                || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4'){
+              mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia', function (err) {
+                cb(null, dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia')
+              });
+           } else{
+              mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/documentos', function (err) {
+                  cb(null, dirname+ '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/documentos')
+              });
+           }
+         });
+    }); 
+    }       
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+
+var upload = multer({ storage: storage })
+
+//Obtener el tipo de archivo
+var obtenerTipoArchivo = function(ext){
+    if(ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx' ||
+        ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX'
+        || ext == '.ppt' || ext == '.PPT'){
+        type = 1;
+    } else if(ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp' || ext == '.JPG' || ext == '.PNG' || ext == '.GIF' || ext == '.BMP'){
+        type = 2;
+    } else if(ext == '.mp4'){
+        type = 3;
+    }
+    return type;
+}
+
+//Se obtiene la extensión del archivo
+var obtenerExtArchivo = function(file){
+    var file = file;
+    var res = file.substring(file.length-4, file.length)
+    return res;
 }
 
 Cotizacion.prototype.get_see = function (req, res, next) {
@@ -291,14 +365,14 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
     var params = {};
     //Referencia a la clase para callback
     var self = this;
-
+    
     //Asigno a params el valor de mis variables
     var msgObj = {
         idTipoEvidencia: req.body.idTipoEvidencia,  
-        idTipoArchivo: req.body.idTipoArchivo,
+        idTipoArchivo: idTipoArchivo,
         idUsuario: req.body.idUsuario,
-        idProcesoEvidencia: req.body.idProcesoEvidencia,
-        nombreArchivo: req.body.nombreArchivo
+        idProcesoEvidencia: req.body.idCotizacion,
+        nombreArchivo: nameFile
     }
 
     this.model.evidencia(msgObj, function (error, result) {
@@ -425,26 +499,6 @@ Cotizacion.prototype.post_mail = function (req, res, next) {
         object.result = result;
 
         self.view.mail(res, object);
-    });
-}
-
-Cotizacion.prototype.get_datosCliente_data = function (req, res, next) {
-    //Objeto que almacena la respuesta
-    var object = {};
-    //Objeto que envía los parámetros
-    var params = {};
-    //Referencia a la clase para callback
-    var self = this;
-
-    //Asigno a params el valor de mis variables
-    params = req.params.data;
-
-    this.model.datosCliente(params, function (error, result) {
-        //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.datosCliente(res, object);
     });
 }
 

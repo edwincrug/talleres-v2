@@ -6,7 +6,7 @@ middlewares = require('./middlewares/admin'),
 router = require('./website/router'),
 multer  = require('multer');
 var path = require('path');
-var mkdirp = require('mkdirp');
+/*var mkdirp = require('mkdirp');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     var idTrabajo = req.body.idTrabajo;
@@ -46,7 +46,7 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage })*/
 
     //Alta de opciones
     var done=false;
@@ -77,13 +77,14 @@ var upload = multer({ storage: storage })
     }
 
     for (var controller in router){
+      var middles = new router[controller](this.config).middlewares || [];
       for (var funcionalidad in router[controller].prototype){
         var method = funcionalidad.split('_')[0];
         var entorno = funcionalidad.split('_')[1];
         var data = funcionalidad.split('_')[2];
         data = (method == 'get' && data !== undefined) ? ':data' : '';
         var url = '/api/' + controller + '/' + entorno + '/' + data;
-        this.router(controller,funcionalidad,method,url);
+        this.router(controller,funcionalidad,method,url,middles);
       }
     } 
 
@@ -97,13 +98,13 @@ var upload = multer({ storage: storage })
      res.sendfile('app/static/success.htm');
     });
 
-    this.expressServer.post('/profile', upload.any(), function (req, res, next) {
+    /*this.expressServer.post('/profile', upload.any(), function (req, res, next) {
       // req.file is the `avatar` file 
       // req.body will hold the text fields, if there were any 
       var x = req.files;
       res.writeHead(301,{Location: '/AngularJS/Templates/uploader.html?response=1'});
       res.end();
-    })
+    })*/
 
     //Servimos el archivo angular
     this.expressServer.get('*', function(req, res){
@@ -111,11 +112,11 @@ var upload = multer({ storage: storage })
     });
   };
 
-  ExpressServer.prototype.router = function(controller,funcionalidad,method,url){
+  ExpressServer.prototype.router = function(controller,funcionalidad,method,url,middles){
     console.log(url);
     var parameters = this.config.parameters;
 
-    this.expressServer[method](url, function(req,res,next){
+    this.expressServer[method](url,middles,function(req,res,next){
      var conf = {
        'funcionalidad':funcionalidad,
        'req': req,

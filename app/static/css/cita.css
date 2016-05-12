@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Error: Invalid CSS after "18px": expected expression (e.g. 1px, bold), was ";"
         on line 49 of /Users/edwin/Documents/CodeKit/talleres-v2/app/static/sass/cita.sass
@@ -48,3 +49,6 @@ body:before {
   white-space: pre;
   font-family: monospace;
   content: "Error: Invalid CSS after \"18px\": expected expression (e.g. 1px, bold), was \";\"\A         on line 49 of /Users/edwin/Documents/CodeKit/talleres-v2/app/static/sass/cita.sass\A \A 44: 	border-radius: 1px\A 45: #ficha\A 46: 	font-weight: 100\A 47: 	width:40%\A 48: 	height:230px\A 49: 	font-size: 18px;\A 50: 	//border: 4px solid green\A 51: #fotoFicha\A 52: 	//border: 3px solid red\A 53: 	width:60%\A 54: 	height: 230px"; }
+=======
+#calendario{margin-left:75%}
+>>>>>>> origin/master

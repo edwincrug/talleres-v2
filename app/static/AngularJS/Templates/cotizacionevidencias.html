@@ -2,47 +2,48 @@
     <div class="headTitleTallerCita">
         <span class="title"> Evidencias<span class="subtitle">Call Center / Taller</span></span>
     </div>
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">                    
-                    <div class="col-lg-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-content">
-                                <div class="file-manager">
-                                    <h5>Mostrar:</h5>
-                                    <a href="#" class="file-control active">Todos</a>
-                                    <a href="#" class="file-control">Documentos</a>
-                                    <a href="#" class="file-control">Multimedia</a>
-                                    <div class="hr-line-dashed"></div>
-                                    <button class="btn btn-primary btn-block">Adjuntar</button>
-                                    <div class="hr-line-dashed"></div>
-                                    <div class="clearfix"></div>
+    <div class="wrapper">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="col-lg-3">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <div class="file-manager">
+                                        <h5>Mostrar:</h5>
+                                        <a href="#" class="file-control active">Todos</a>
+                                        <a href="#" class="file-control">Documentos</a>
+                                        <a href="#" class="file-control">Multimedia</a>
+                                        <div class="hr-line-dashed"></div>
+                                        <button class="btn btn-primary btn-block">Adjuntar</button>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="clearfix"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-9 animated fadeInRight">
-                        <div class="row">
-                            <div class="col-lg-12" >
-                                <div class="file-box">
-                                    <div class="file" ng-repeat="slide in slides">
-                                        <a href="#">
-                                            <span class="corner"></span>
+                        <div class="col-lg-9 animated fadeInRight">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="file-box" ng-repeat="slide in slides">
+                                        <div class="file">
+                                            <a href="#">
+                                                <span class="corner"></span>
 
-                                            <div class="icon">
-                                                <i class="fa fa-file"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                {{slide.nombreArchivo}}
-                                                <br/>
-                                                <small>Agregado: {{slide.fecha | date:'dd-MM-yyyy HH:mm'}}</small>
-                                            </div>
-                                        </a>
+                                                <div class="icon">
+                                                    <i class="fa fa-file"></i>
+                                                </div>
+                                                <div class="file-name">
+                                                    {{slide.nombreArchivo}}
+                                                    <br/>
+                                                    <small>Agregado: {{slide.fecha[0] | date:'dd-MM-yyyy HH:mm'}}</small>
+                                                </div>
+                                            </a>
+                                        </div>
+
                                     </div>
-
-                                </div>
-                                <!--<div class="file-box">
+                                    <!--<div class="file-box">
                                     <div class="file">
                                         <a href="#">
                                             <span class="corner"></span>
@@ -368,6 +369,7 @@
                                     </a>
                                 </div>-->
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -376,3 +378,12 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.file-box').each(function () {
+            animationHover(this, 'pulse');
+        });
+    });
+</script>

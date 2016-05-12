@@ -29,7 +29,7 @@
 
     <!--Menú INSPINIA-->
     <link href="fonts/font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet">
-    
+
     <!--Inspinia Elements-->
     <link href="css/inspinia/animate.css" rel="stylesheet">
     <link href="css/inspinia/styleInspinia.css" rel="stylesheet">
@@ -87,7 +87,7 @@
                     <li>
                         <span class="m-r-sm text-muted welcome-message">Talleres</span>
                     </li>
-                    <li class="dropdown">
+                    <!--<li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                             <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
                         </a>
@@ -184,7 +184,7 @@
                                 </div>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
                     <li>
                         <a href="login.html">
                             <i class="fa fa-sign-out"></i> Log out
@@ -201,65 +201,22 @@
 
             <div class="heading" draggable="true">
                 <small class="chat-date pull-right">
-                    02.19.2015
+                    {{descripcion}}
                 </small> Chat
             </div>
 
-            <div class="content" ng-repeat="msg in chat">
-
-                <div class="left">
-                    <div class="author-name">
-                        Monica Jackson <small class="chat-date">
-                        10:02 am
-                    </small>
-                    </div>
-                    <div class="chat-message active">
-                        Lorem Ipsum is simply dummy text input.
-                    </div>
-
-                </div>
-                <div class="right">
-                    <div class="author-name">
-                        Mick Smith
-                        <small class="chat-date">
-                            11:24 am
+            <div class="content">
+                <div ng-repeat="msg in chat">
+                    <div ng-class="msg.idUsuario === 3 ? 'right' : 'left'" >
+                        <div class="author-name">
+                            {{msg.nombreCompleto}}
+                            <small class="chat-date">
+                            {{msg.fecha | date:'dd-MM-yyyy HH:mm'}}
                         </small>
-                    </div>
-                    <div class="chat-message">
-                        Lorem Ipsum is simpl.
-                    </div>
-                </div>
-                <div class="left">
-                    <div class="author-name">
-                        Alice Novak
-                        <small class="chat-date">
-                            08:45 pm
-                        </small>
-                    </div>
-                    <div class="chat-message active">
-                        Check this stock char.
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="author-name">
-                        Anna Lamson
-                        <small class="chat-date">
-                            11:24 am
-                        </small>
-                    </div>
-                    <div class="chat-message">
-                        The standard chunk of Lorem Ipsum
-                    </div>
-                </div>
-                <div class="left">
-                    <div class="author-name">
-                        Mick Lane
-                        <small class="chat-date">
-                            08:45 pm
-                        </small>
-                    </div>
-                    <div class="chat-message active">
-                        I belive that. Lorem Ipsum is simply dummy text.
+                        </div>
+                        <div ng-class="msg.idUsuario === 3 ? 'chat-message' : 'chat-message active'">
+                            {{msg.mensaje}}
+                        </div>
                     </div>
                 </div>
 
@@ -268,7 +225,7 @@
             <div class="form-chat">
                 <div class="input-group input-group-sm">
                     <input type="text" ng-model="comentarios" class="form-control"> <span class="input-group-btn"> <button
-                        class="btn btn-primary" type="button">Enviar
+                        class="btn btn-primary" type="button" ng-click="EnviarComentario(comentarios)">Enviar
                 </button> </span></div>
             </div>
 
@@ -353,4 +310,5 @@
     <!-- Libreria de Google Maps -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
 </body>
+
 </html>
