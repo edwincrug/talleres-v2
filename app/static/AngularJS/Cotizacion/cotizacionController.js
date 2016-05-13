@@ -68,6 +68,13 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         } else {
             $scope.objCita = null;
         }
+
+        if(localStorageService.get('orden') != null){//Objeto de la pagina de orden servicio
+            $scope.orden = localStorageService.get('orden');
+            $scope.estado = 3;
+        } else {
+            $scope.orden = null;
+        }
     }
 
     //Busqueda de item (servicio/pieza/refacción)
@@ -273,10 +280,10 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                     alertFactory.error('Error');
                 });             
             });
-                cargarArchivos($scope.idCotizacion,$scope.idTrabajo);
                 cotizacionMailRepository.postMail($scope.idCotizacion,$scope.citaDatos.idTaller, 1,'');
                 localStorageService.remove('objCita');
                 localStorageService.remove('cita');
+                cargarArchivos($scope.idCotizacion,$scope.idTrabajo);
                 location.href = '/cotizacionConsulta';         
             }, function (error){
                 alertFactory.error('Error');
@@ -329,11 +336,11 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             },function(error){
                 alertFactory.error('Error');
             });
-        })
-        cargarArchivos($scope.editCotizacion.idCotizacion,$scope.editCotizacion.idTrabajo);
+        })        
         cotizacionMailRepository.postMail($scope.editCotizacion.idCotizacion,$scope.editCotizacion.idTaller, 1,'');
         localStorageService.remove('objEditCotizacion');
         localStorageService.remove('objFicha');
+        cargarArchivos($scope.editCotizacion.idCotizacion,$scope.editCotizacion.idTrabajo);
         location.href = '/cotizacionConsulta';        
     }
 
@@ -387,4 +394,39 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
             alertFactory.error('Error');
         }); 
     }
+
+    //Envia la cotización para autorización
+    $scope.enviarAutorizacionOrden = function(observaciones){
+        if($scope.arrayItem.length == 0){
+            alertFactory.info('Debe seleccionar items para la cotización');
+        } 
+        cotizacionRepository.insertCotizacionMaestro($scope.orden.idCita,
+                                                    $scope.idUsuario,
+                                                    observaciones,
+                                                    idUnidad)
+        .then(function(resultado){
+           alertFactory.success('Guardando Cotización Maestro');
+           $scope.idCotizacion = resultado.data[0].idCotizacion;
+           $scope.idTrabajo = resultado.data[0].idTrabajo;
+           $scope.arrayItem.forEach(function(item,i){
+                cotizacionRepository.insertCotizacionDetalle($scope.idCotizacion,
+                                                            item.idTipoElemento,
+                                                            item.idItem,
+                                                            item.precio,
+                                                            item.cantidad,
+                                                            item.idEstatus)
+                .then(function(result){
+                    alertFactory.success('Guardando Cotización Detalle');                                                      
+                },function(error){
+                    alertFactory.error('Error');
+                });             
+            });
+                cotizacionMailRepository.postMail($scope.idCotizacion,$scope.orden.idTaller, 1,'');
+                localStorageService.remove('orden');
+                cargarArchivos($scope.idCotizacion,$scope.idTrabajo);
+                location.href = '/cotizacionConsulta';         
+            }, function (error){
+                alertFactory.error('Error');
+        });         
+    };
 });
