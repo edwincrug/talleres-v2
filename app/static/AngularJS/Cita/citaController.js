@@ -534,8 +534,12 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         //obtiene los tabajos de la cita
         $scope.promise = citaRepository.getTrabajo(cita.idCita).then(function (trabajo) {
             if (trabajo.data.length > 0) {
-                location.href = '/ordenservicio'
+                var objBotonera = {};
+                objBotonera.accion = 0;
+                objBotonera.idCita = cita.idCita;
                 localStorageService.set("objTrabajo", trabajo.data);
+                localStorageService.set("botonera", objBotonera);
+                location.href = '/ordenservicio'
             } else {
                 alertFactory.info('Aún no existe un trabajo');
             }
