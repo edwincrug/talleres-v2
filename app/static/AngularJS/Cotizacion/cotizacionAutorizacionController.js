@@ -2,7 +2,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
 
     var cDetalles = [];
     var cPaquetes = [];
-    var idCita = localStorageService.get('cita');
+    var idCita = localStorageService.get('cita');    
     var idCotizacion = localStorageService.get('cotizacion');
     var idTrabajo = localStorageService.get('work');
     var idTaller = localStorageService.get('taller');

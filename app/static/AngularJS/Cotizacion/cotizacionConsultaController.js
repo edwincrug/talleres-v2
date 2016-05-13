@@ -88,6 +88,7 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
         localStorageService.set('desc', numeroCotizacion)
         localStorageService.set('work', idTrabajo1);
         localStorageService.set('taller', taller1);
+        localStorageService.set('citaMsg', idCita1);
         location.href = '/cotizacionAutorizacion';
     }
 
