@@ -51,8 +51,8 @@ registrationModule.controller('trabajoController', function($scope, localStorage
 		//localStorageService.set('cita', trabajo.idCita);
     	//localStorageService.set('cotizacion', trabajo.idCotizacion);
     	//localStorageService.set('estado', 2);
-    	//localStorageService.set('objTrabajo', trabajo);
-		location.href = '/cotizacionAutorizacion';
+    	localStorageService.set('objTrabajo', trabajo);
+		location.href = '/ordenservicio';
 	}
     
     //espera que el documento se pinte para llenar el dataTable
