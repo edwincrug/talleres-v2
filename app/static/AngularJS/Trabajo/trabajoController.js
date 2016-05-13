@@ -47,11 +47,11 @@ registrationModule.controller('trabajoController', function($scope, localStorage
 		});
     }
 	
-	$scope.verTrabajo = function(trabajo){
-		localStorageService.set('cita', trabajo.idCita);
-    	localStorageService.set('cotizacion', trabajo.idCotizacion);
-    	localStorageService.set('estado', 2);
-    	localStorageService.set('objTrabajo', trabajo);
+	$scope.aprobarTrabajo = function(trabajo){
+		//localStorageService.set('cita', trabajo.idCita);
+    	//localStorageService.set('cotizacion', trabajo.idCotizacion);
+    	//localStorageService.set('estado', 2);
+    	//localStorageService.set('objTrabajo', trabajo);
 		location.href = '/cotizacionAutorizacion';
 	}
     
@@ -128,5 +128,8 @@ registrationModule.controller('trabajoController', function($scope, localStorage
                 });
     });
     
-    //valida 
+    //sube archivo de la factura
+    $scope.uploadFactura = function(){
+        
+    }
 });

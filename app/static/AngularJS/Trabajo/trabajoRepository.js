@@ -17,6 +17,15 @@ registrationModule.factory('trabajoRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
+        },
+        cierraTrabajo: function(idTrabajo){
+            return $http({
+                url: trabajoUrl + 'updtrabajocerrado/',
+                method: "POST",
+                data: {idTrabajo:idTrabajo},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         }
     };
-});
