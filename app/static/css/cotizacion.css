@@ -6,10 +6,13 @@
   height: 100px; }
 
 #total {
-  padding-left: 900px; }
+  position: absolute;
+  right: 0;
+  margin-right: 40px;
+  font-size: 20px; }
 
 #totalInput {
-  width: 150px;}
+  width: 150px; }
 
 .form {
   padding-left: 20%; }
