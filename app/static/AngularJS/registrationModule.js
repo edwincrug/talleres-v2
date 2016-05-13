@@ -5,8 +5,8 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module("registrationModule", ["ngRoute","LocalStorageModule",
-        "ui.bootstrap", "angularUtils.directives.dirPagination","cgBusy"])
+var registrationModule = angular.module("registrationModule", ["ngRoute", "LocalStorageModule",
+        "ui.bootstrap", "angularUtils.directives.dirPagination", "cgBusy"])
     .config(function ($routeProvider, $locationProvider) {
 
         /*change the routes*/
@@ -54,7 +54,7 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","LocalS
             templateUrl: 'AngularJS/Templates/cotizacionAutorizacion.html',
             controller: 'cotizacionAutorizacionController'
         });
-        
+
         $routeProvider.when('/trabajo', {
             templateUrl: 'AngularJS/Templates/trabajo.html',
             controller: 'trabajoController'
@@ -66,14 +66,20 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","LocalS
         });
 
         $routeProvider.when('/ordenservicio', {
-           templateUrl: 'AngularJS/Templates/ordenservicio.html',
-           controller: 'ordenServicioController'
-       });
-        
+            templateUrl: 'AngularJS/Templates/ordenservicio.html',
+            controller: 'ordenServicioController'
+        });
+
         $routeProvider.when('/cotizacionevidencias', {
-           templateUrl: 'AngularJS/Templates/cotizacionEvidencias.html',
-           controller: 'cotizacionEvidenciasController'
-       });
+            templateUrl: 'AngularJS/Templates/cotizacionEvidencias.html',
+            controller: 'cotizacionEvidenciasController'
+        });
+
+        $routeProvider.when('/ordenservicioevidencias', {
+            templateUrl: 'AngularJS/Templates/ordenservicioevidencias.html',
+            controller: 'ordenServicioEvidenciaController'
+        });
+
 
         $locationProvider.html5Mode({
             enabled: true,
