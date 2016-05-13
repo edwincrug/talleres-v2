@@ -10,6 +10,7 @@ registrationModule.controller('trabajoController', function($scope, localStorage
 	$scope.init = function(){
 		getTrabajo();
         getTrabajoTerminado();
+        $scope.habilitaBtnAprobar = true;
 	}
 
 	var getTrabajo = function(){
@@ -126,4 +127,6 @@ registrationModule.controller('trabajoController', function($scope, localStorage
                     }
                 });
     });
+    
+    //valida 
 });
