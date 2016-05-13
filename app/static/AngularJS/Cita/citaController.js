@@ -5,7 +5,7 @@
 // -- Modificó: V. Vladimir Juárez Juárez
 // -- Fecha: 30/03/2016
 // -- =============================================
-registrationModule.controller('citaController', function($scope, $route,$rootScope, localStorageService, alertFactory,citaRepository, cotizacionRepository){
+registrationModule.controller('citaController', function($scope, $route,$rootScope, localStorageService, alertFactory,citaRepository, cotizacionRepository,trabajoRepository){
 	$scope.message = 'Buscando...';
 
 	$scope.init = function(){
@@ -510,7 +510,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
     //timeLine
 	var getTimeLine = function(idCita){
-		citaRepository.getTimeLine(idCita).then(function(timeLine){
+		trabajoRepository.getTimeLine(idCita).then(function(timeLine){
 			$scope.timeLine = timeLine.data;
 		}, function(error){
 			alertFactory.error("Error al obtener timeLine");

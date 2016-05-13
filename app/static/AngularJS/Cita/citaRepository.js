@@ -85,19 +85,6 @@ registrationModule.factory('citaRepository', function ($http) {
         },
         validaConfirmacionCita: function(idCita){
             return $http.get(citaUrl +'validaconfirmacioncita/'+ idCita)
-        },
-        getTimeLine: function(idCita){
-            var msgObj = {
-                idCita: idCita
-            }
-            return $http({
-                url: trabajoUrl + 'timeLine/',
-                method: "POST",
-                data: msgObj,
-                headers: {
-                'Content-Type': 'application/json'
-                }
-            });
-        },
+        }
     };
 });

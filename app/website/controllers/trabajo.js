@@ -117,22 +117,25 @@ Trabajo.prototype.post_updtrabajofacturado = function(req, res, next){
 }
 
 //TimeLine
-Trabajo.prototype.post_timeLine = function(req, res, next){
+Trabajo.prototype.get_timeLine_data = function(req, res, next){
 	//Objeto que almacena la respuesta
 	var object = {};
 	//Referencia a la clase para callback
 	var self = this;
+	//Objeto que envía los parámetros
+	var params = {}; 
 
-	var msgObj = {
-        idCita: req.body.idCita,
-    }
+	//Asigno a params el valor de mis variables
+	params.name = 'idCita';
+	params.value = req.params.data;
+	params.type = 1;
 	
-	this.model.timeLine(msgObj, function (error, result) {
+	this.model.get('SEL_TIMELINE_SP',params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.post(res, object);
+        self.view.see(res, object);
     });
 }
 
