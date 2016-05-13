@@ -177,6 +177,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     //obtiene los talleres con su especialidad
     $scope.lookUpTaller = function(datoTaller){
     	if(datoTaller !== '' && datoTaller !== undefined){
+            $('.dataTableTaller').DataTable().destroy();
 			$scope.promise = citaRepository.getTaller(datoTaller).then(function(taller){
 	    		$scope.talleres = taller.data;
 	    		if(taller.data.length > 0){
