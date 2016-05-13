@@ -167,7 +167,12 @@ registrationModule.controller('ordenServicioController', function ($scope, local
     }
 
     $scope.nuevaCotizacion = function () {
-        localStorageService.set('cita', localStorageService.get('objTrabajo'));
+        var objOrden = {};
+        objOrden.idTaller = 1;  
+        objOrden.idUsuario = 1;
+        objOrden.idTrabajo = $scope.idTrabajoOrden.idTrabajo;
+        objOrden.idUnidad = 1;
+        localStorageService.set('orden', objOrden);
         location.href = '/cotizacionNueva';
     }
 
