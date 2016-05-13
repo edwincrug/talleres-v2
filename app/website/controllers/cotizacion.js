@@ -27,7 +27,7 @@ var storage = multer.diskStorage({
         var dirname = 'C:/Desarrollo/talleres-v2/app';
         var idTrabajo = req.body.idTrabajo;
         var idCotizacion = req.body.idCotizacion;
-        
+
         if (idCotizacion == '') {
             mkdirp(dirname + '/static/uploads/files/' + idTrabajo, function (err) {
                 if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4') {
@@ -68,7 +68,8 @@ var upload = multer({
 //Obtener el tipo de archivo
 var obtenerTipoArchivo = function (ext) {
     if (ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx' ||
-        ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX' || ext == '.ppt' || ext == '.PPT') {
+        ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX' || 
+        ext == '.ppt' || ext == '.PPT' || ext == '.xml' || ext == '.XML') {
         type = 1;
     } else if (ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp' || ext == '.JPG' || ext == '.PNG' || ext == '.GIF' || ext == '.BMP') {
         type = 2;
