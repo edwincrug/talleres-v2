@@ -738,8 +738,8 @@ fieldset[disabled] .btn-info:hover,
 fieldset[disabled] .btn-info:focus,
 fieldset[disabled] .btn-info:active,
 fieldset[disabled] .btn-info.active {
-  background-color: #26d7d9;
-  border-color: #26d7d9;
+  background-color: #FFEB3B;
+  border-color: #FFEB3B;
 }
 .btn-default {
   color: inherit;
