@@ -209,6 +209,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/AngularJS\/Cotizacion\/min\/cotizacionController-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Cotizacion\/min\/cotizacionController-min.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Cotizacion\/min\/min\/cotizacionController-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/AngularJS\/Example\/exampleController.js": {
 		"fileType": 64,
 		"ignore": 0,

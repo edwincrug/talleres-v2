@@ -5500,7 +5500,7 @@ body.body-small .vote-icon {
   border: 1px solid #e7eaec;
   width: 230px;
   height: 320px;
-  border-radius: 0px 0px 0px 20px;
+  border-radius: 0px 0px 0px 5px;
   box-shadow: 1.5px 1.5px rgba(68, 67, 67, 0.38);
 }
 .small-chat-box.ng-small-chat {
@@ -5514,7 +5514,7 @@ body.body-small .vote-icon {
   display: block;
 }
 .small-chat-box .heading {
-  background: #444343;
+  background: #55B4F0;
   padding: 8px 15px;
   font-weight: bold;
   color: #fff;

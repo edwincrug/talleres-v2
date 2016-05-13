@@ -226,15 +226,11 @@ Cotizacion.prototype.evidencia = function (msgObj, callback) {
             // Stored Procedure 
             var request = new sql.Request(self);
             request.stream = true;
-            request.input('idTipoEvidencia', sql.Numeric(18, 0), msgObj.idTipoEvidencia);
-            request.input('idTipoArchivo', sql.Numeric(18, 0), msgObj.idTipoArchivo);
-            request.input('idUsuario', sql.Numeric(18, 0), msgObj.idUsuario);
-            request.input('idProcesoEvidencia', sql.Numeric(18, 0), msgObj.idProcesoEvidencia);
-            request.input('nombreArchivo', sql.VarChar(100), msgObj.nombreArchivo);
-            request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
-
-            });
-
+            request.input('idTipoEvidencia', sql.Numeric(18, 0), msgObj[i].idTipoEvidencia);
+            request.input('idTipoArchivo', sql.Numeric(18, 0), msgObj[i].idTipoArchivo);
+            request.input('idUsuario', sql.Numeric(18, 0), msgObj[i].idUsuario);
+            request.input('idProcesoEvidencia', sql.Numeric(18, 0), msgObj[i].idProcesoEvidencia);
+            request.input('nombreArchivo', sql.VarChar(100), msgObj[i].nombreArchivo);
             request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
 
             });

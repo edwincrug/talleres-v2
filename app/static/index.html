@@ -16,8 +16,6 @@
     <!--Hojas de estilos-->
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link href="css/bootstrap.css" rel="stylesheet" />
-    <!-- <link rel="stylesheet" type="text/css" href="css/cotizacion.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="css/cita.css"> -->
 
     <!--Loading-->
     <link href="css/toastr.css" rel="stylesheet" />
@@ -50,8 +48,8 @@
                             <img alt="image" class="img-circle" src="image/profile/man2.jpg" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Edwin Cruz</strong>
-                             </span> <span class="text-muted text-xs block">Talleres <b class="caret"></b></span> </span>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Usuario Sistema</strong>
+                             </span> <span class="text-muted text-xs block">Administrador <b class="caret"></b></span> </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="profile.html">Profile</a></li>
@@ -63,16 +61,16 @@
                     </div>
                 </li>
                 <li>
-                    <a href="cita" ng-click="showChat = 0"><i class="fa fa-diamond"></i> <span class="nav-label">Nueva Cita</span></a>
+                    <a href="cita" ng-click="showChat = 0"><i class="fa fa-car"></i> <span class="nav-label">Nueva Cita</span></a>
                 </li>
                 <li>
-                    <a href="tallerCita" ng-click="showChat = 0"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Cita</span></a>
+                    <a href="tallerCita" ng-click="showChat = 0"><i class="fa fa-money"></i> <span class="nav-label">Cotizar</span></a>
                 </li>
                 <li>
-                    <a href="cotizacionConsulta" ng-click="showChat = 0"><i class="fa fa-envelope"></i> <span class="nav-label">Aprobaciones </span><span class="label label-warning pull-right"></span></a>
+                    <a href="cotizacionConsulta" ng-click="showChat = 0"><i class="fa fa-check"></i> <span class="nav-label">Aprobaciones</span><span class="label label-warning pull-right"></span></a>
                 </li>
                 <li>
-                    <a href="trabajo" ng-click="showChat = 0"><i class="fa fa-pie-chart"></i> <span class="nav-label">Órdenes de servicio</span>  </a>
+                    <a href="trabajo" ng-click="showChat = 0"><i class="fa fa-clipboard"></i> <span class="nav-label">Órdenes de Servicio</span>  </a>
                 </li>
             </ul>
 
@@ -86,7 +84,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">Talleres</span>
+                        <span class="m-r-sm text-muted welcome-message">Talleres Externos</span>
                     </li>
                     <!--<li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -187,7 +185,7 @@
                         </ul>
                     </li>-->
                     <li>
-                        <a href="login.html">
+                        <a href="/">
                             <i class="fa fa-sign-out"></i> Cerrar Sesión
                         </a>
                     </li>
@@ -233,7 +231,7 @@
         </div>
         <div id="small-chat">
 
-            <span class="badge badge-warning pull-right">5</span>
+            <!-- <span class="badge badge-warning pull-right">5</span> -->
             <a class="open-small-chat">
                 <i class="fa fa-comments"></i>
 

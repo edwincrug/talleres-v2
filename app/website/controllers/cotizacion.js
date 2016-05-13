@@ -370,15 +370,7 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
     for(var i=0; i < req.files.length;i++){
         var ext = obtenerExtArchivo(req.files[i].originalname);
         var idTipoArchivo = obtenerTipoArchivo(ext);
-
-        //Asigno a params el valor de mis variables
-        /*var msgObj = {
-            idTipoEvidencia: req.body.idTipoEvidencia,  
-            idTipoArchivo: idTipoArchivo,
-            idUsuario: req.body.idUsuario,
-            idProcesoEvidencia: req.body.idCotizacion,
-            nombreArchivo: req.files.originalname
-        }*/
+        
         arrayEvidencia.push({idTipoEvidencia: req.body.idTipoEvidencia,idTipoArchivo: idTipoArchivo,
                             idUsuario:req.body.idUsuario,idProcesoEvidencia:req.body.idCotizacion,
                             nombreArchivo:req.files[i].originalname}); 
