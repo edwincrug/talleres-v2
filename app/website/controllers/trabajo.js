@@ -96,4 +96,24 @@ Trabajo.prototype.post_updtrabajocerrado = function(req, res, next){
     });
 }
 
+//realiza la actualización del trabajo a cerrado
+Trabajo.prototype.post_updtrabajofacturado = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Referencia a la clase para callback
+	var self = this;
+
+	var msgObj = {
+        idTrabajo: req.body.idTrabajo,
+    }
+	
+	this.model.updFacturaTrabajo(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
+}
+
 module.exports = Trabajo;

@@ -27,6 +27,16 @@ registrationModule.factory('trabajoRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
+        },
+        facturaTrabajo: function(idTrabajo){
+            return $http({
+                url: trabajoUrl + 'updtrabajofacturado/',
+                method: "POST",
+                data: {idTrabajo:idTrabajo},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

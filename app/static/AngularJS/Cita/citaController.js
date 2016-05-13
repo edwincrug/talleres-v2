@@ -454,7 +454,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
         //obtiene los tabajos de la cita
         $scope.promise = citaRepository.getTrabajo(cita.idCita).then(function(trabajo){
 			if(trabajo.data.length > 0){
-				location.href = '/cotizacionTrabajo'
+				location.href = '/ordenservicio'
                 localStorageService.set("objTrabajo", trabajo.data);
 			}
 			else{

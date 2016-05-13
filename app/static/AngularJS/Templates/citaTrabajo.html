@@ -16,6 +16,7 @@
                                         <th>Taller</th>
                                         <th>Dirección</th>
                                         <th>Trabajo</th>
+                                        <th>Estatus</th>
                                         <th>Agendó</th>
                                         <th>Trabajo</th>
                                         <th>Historial</th>
@@ -26,7 +27,8 @@
                                         <td>{{cita.fecha | date:'dd-MM-yyyy HH:mm'}}</td>
                                         <td>{{cita.razonSocial}}</td>
                                         <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{cita.direccion}}" tooltip-placement="top-right"></span></td>
-                                        <td>{{cita.trabajo}}</td>					
+                                        <td>{{cita.trabajo}}</td>
+                                        <td>{{cita.estatus}}</td>
                                         <td>{{cita.nombreCompleto}}</td>
                                         <td><button type="button" class="btn btn-primary" ng-click="goToCotizacionTrabajo(cita)" data-toggle="tooltip" tooltip="Ver trabajo" tooltip-placement="top"><span class="glyphicon glyphicon-folder-open"></span></button></td>
                                         <td><button type="button" class="btn btn-success" ng-click="showLineTime(cita.idCita)" data-toggle="tooltip" tooltip="Ver historial" tooltip-placement="top"><span class="glyphicon glyphicon-align-left"></span></button></td>
