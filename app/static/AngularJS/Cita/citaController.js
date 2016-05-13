@@ -6,8 +6,8 @@
 // -- Fecha: 30/03/2016
 // -- =============================================
 
-registrationModule.controller('citaController', function($scope, $route,$rootScope, localStorageService, alertFactory,citaRepository, cotizacionRepository,trabajoRepository){
-	$scope.message = 'Buscando...';
+registrationModule.controller('citaController', function ($scope, $route, $rootScope, localStorageService, alertFactory, citaRepository, cotizacionRepository, trabajoRepository) {
+    $scope.message = 'Buscando...';
 
     $scope.init = function () {
         $scope.habilitaBtnBuscar = true;
@@ -183,6 +183,7 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
 
     //obtiene las citas de la unidad
     var getCita = function (idUnidad) {
+        $('.dataTableCita').DataTable().destroy();
         $scope.promise = citaRepository.getCita(idUnidad).then(function (cita) {
             $scope.citas = cita.data;
             if (cita.data.length > 0) {
@@ -217,29 +218,39 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     }
 
     $scope.busquedaCita = function (fecha) {
+        var fechaCita = '';
+        var dateHoy = new Date();
+        var fechaHoy = ('0' + dateHoy.getDate()).slice(-2) + '/' + ('0' + (dateHoy.getMonth() + 1)).slice(-2) + '/' + dateHoy.getFullYear();
         var date = fecha.toString();
         var dia = date.substring(0, 2);
         var mes = date.substring(3, 5);
         var anio = date.substring(6, date.length);
-        var date = anio + '' + dia + '' + mes;
-        getCitaTaller(date, 0);
+        if (fechaHoy == date) {
+            fechaCita = anio + '' + mes + '' + dia;
+        } else {
+            fechaCita = anio + '' + dia + '' + mes;
+        }
+        getCitaTaller(fechaCita, 0);
     }
 
+    //Se obtienen las citas de la fecha seleccionada
     var getCitaTaller = function (fecha, idCita) {
-            $scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function (cita) {
-                if (cita.data.length > 0) {
-                    $scope.listaCitas = cita.data;
-                    waitDrawDocument("dataTableCitaTaller");
-                    alertFactory.success('Datos de citas cargados.');
-                } else {
-                    $scope.listaCitas = '';
-                    alertFactory.info('No hay citas en la fecha seleccionada.');
-                }
-            }, function (error) {
-                alertFactory.error("Error al obtener citas");
-            });
-        }
-        //realiza el cambio de estatus de la cita en CONFIRMADA
+        $('.dataTableCitaTaller').DataTable().destroy();
+        $scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function (cita) {
+            if (cita.data.length > 0) {
+                $scope.listaCitas = cita.data;
+                waitDrawDocument("dataTableCitaTaller");
+                alertFactory.success('Datos de citas cargados.');
+            } else {
+                $scope.listaCitas = '';
+                alertFactory.info('No hay citas en la fecha seleccionada.');
+            }
+        }, function (error) {
+            alertFactory.error("Error al obtener citas");
+        });
+    }
+
+    //realiza el cambio de estatus de la cita en CONFIRMADA
     var confirmarCita = function (confCita) {
         citaRepository.confirmarCita(confCita).then(function (citaConfirmada) {
             if (citaConfirmada.data.length > 0) {
@@ -255,115 +266,10 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     //obtiene los talleres con su especialidad
     $scope.lookUpTaller = function (datoTaller) {
         if (datoTaller !== '' && datoTaller !== undefined) {
+            $('.dataTableTaller').DataTable().destroy();
             $scope.promise = citaRepository.getTaller(datoTaller).then(function (taller) {
                 $scope.talleres = taller.data;
                 if (taller.data.length > 0) {
-				alertFactory.success('Datos encontrados');
-				$('#btnBuscar').button('reset');
-			}
-			else{
-				alertFactory.info('No se encontraron datos');
-				$('#btnBuscar').button('reset');
-			}
-		}, function(error){
-			alertFactory.error('Error al obtener los datos');
-			$('#btnBuscar').button('reset');
-		});
-	}
-
-	//obtiene las citas de la unidad
-	var getCita = function(idUnidad){
-		$('.dataTableCita').DataTable().destroy();
-		$scope.promise = citaRepository.getCita(idUnidad).then(function(cita){
-			$scope.citas = cita.data;
-			if(cita.data.length > 0){
-                waitDrawDocument("dataTableCita");
-				alertFactory.success('Datos encontrados');
-			}
-			else{
-				alertFactory.info('No se encontraron datos');
-			}
-		}, function(error){
-			alertFactory.error('Error al obtener datos');
-		});
-	}
-
-	//regresa a la pantalla de cita
-	$scope.backToCita = function(){
-		location.href = '/cita';
-	}
-
-	//Obtiene información de la unidad
-	$scope.lookUpUnidad = function(datoUnidad){
-		if(datoUnidad !== '' && datoUnidad !== undefined){
-			getUnidad(datoUnidad);
-		}
-		else{
-			alertFactory.info('Llene el campo de búsqueda');
-		}		
-	} 
-
-	//obtiene las citas y servicios de la unidad
-	$scope.lookUpCita = function(unidad){
-		location.href = '/citatrabajo';
-		localStorageService.set('unidad', unidad);
-	}
-
-	$scope.busquedaCita = function(fecha){
-		var fechaCita = '';
-		var dateHoy = new Date();
-		var fechaHoy = ('0' + dateHoy.getDate()).slice(-2) + '/' + ('0' + (dateHoy.getMonth() + 1)).slice(-2) + '/' + dateHoy.getFullYear();
-        var date = fecha.toString();
-        var dia = date.substring(0,2);
-        var mes = date.substring(3,5);
-        var anio = date.substring(6,date.length);
-        if(fechaHoy == date){
-        	fechaCita = anio +''+ mes +''+ dia;
-        } else{
-        	fechaCita = anio +''+ dia +''+ mes;
-        }
-		getCitaTaller(fechaCita, 0);
-	}
-
-	//Se obtienen las citas de la fecha seleccionada
-	var getCitaTaller = function(fecha, idCita){
-		$('.dataTableCitaTaller').DataTable().destroy();
-		$scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function(cita){
-			if(cita.data.length > 0){
-				$scope.listaCitas = cita.data;
-                waitDrawDocument("dataTableCitaTaller");   
-				alertFactory.success('Datos de citas cargados.');
-			}			
-			else{		
-				$scope.listaCitas = '';
-	    		alertFactory.info('No hay citas en la fecha seleccionada.');
-			}	
-		},function(error){
-			alertFactory.error("Error al obtener citas");
-		});	
-	}
-
-	//realiza el cambio de estatus de la cita en CONFIRMADA
-	var confirmarCita = function(confCita){
-		citaRepository.confirmarCita(confCita).then(function(citaConfirmada){
-			if(citaConfirmada.data.length > 0){
-				alertFactory.success("Cita confirmada");
-			}	
-			else{
-				alertFactory.info("No se encontró la cita");
-			}
-		},function(error){
-			alertFactory.error("Error al confirmar la cita");
-		});
-	}
-
-    //obtiene los talleres con su especialidad
-    $scope.lookUpTaller = function(datoTaller){
-    	if(datoTaller !== '' && datoTaller !== undefined){
-    		$('.dataTableTaller').DataTable().destroy();
-			$scope.promise = citaRepository.getTaller(datoTaller).then(function(taller){
-	    		$scope.talleres = taller.data;
-	    		if(taller.data.length > 0){
                     waitDrawDocument("dataTableTaller");
                     alertFactory.success('Datos encontrados');
                 } else {
@@ -628,12 +534,8 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
         //obtiene los tabajos de la cita
         $scope.promise = citaRepository.getTrabajo(cita.idCita).then(function (trabajo) {
             if (trabajo.data.length > 0) {
-                var objBotonera = {};
-                objBotonera.accion = 0;
-                objBotonera.idCita = cita.idCita;
+                location.href = '/ordenservicio'
                 localStorageService.set("objTrabajo", trabajo.data);
-                localStorageService.set("botonera", objBotonera);
-                location.href = '/ordenservicio';
             } else {
                 alertFactory.info('Aún no existe un trabajo');
             }
@@ -697,11 +599,11 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     }
 
     //timeLine
-	var getTimeLine = function(idCita){
-		trabajoRepository.getTimeLine(idCita).then(function(timeLine){
-			$scope.timeLine = timeLine.data;
-		}, function(error){
-			alertFactory.error("Error al obtener timeLine");
-		})
-	}    
+    var getTimeLine = function (idCita) {
+        trabajoRepository.getTimeLine(idCita).then(function (timeLine) {
+            $scope.timeLine = timeLine.data;
+        }, function (error) {
+            alertFactory.error("Error al obtener timeLine");
+        })
+    }
 });
