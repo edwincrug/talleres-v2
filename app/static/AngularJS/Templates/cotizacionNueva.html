@@ -1,36 +1,40 @@
 <link rel="stylesheet" type="text/css" href="../../css/cotizacion.css">
 <div ng-init="init()" class="animated bounceInRight">
-   <div class="headTitle">
-        <span class="title"> Cotización<span class="subtitle">Taller</span> </span>
-    </div> 
-    <div id="contenedor" class="contenedor">                                    
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <input type="text" ng-model="pieza" class="form-control">
-                                </div>
-                                    <div class="col-xs-0">
-                                    <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="buscarPieza(pieza)" data-toggle="tooltip" tooltip="Buscar: Servicio/Paquete/Refacción" id="btnCotizar" tooltip-placement="right"><span class="glyphicon glyphicon-search dim"></span></button>
-                                </div>
+ <div class="headTitle">
+    <span class="title"> Cotización<span class="subtitle">Taller</span> </span>
+</div> 
+<div id="contenedor" class="contenedor">                                    
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                    <br/>
+                    <br/>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <input type="text" ng-model="pieza" class="form-control">
                             </div>
-                            <br/>
-                            <div class="table-responsive">                   
+                            <div class="col-xs-0">
+                                <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="buscarPieza(pieza)" data-toggle="tooltip" tooltip="Buscar: Servicio/Paquete/Refacción" id="btnCotizar" tooltip-placement="right"><span class="glyphicon glyphicon-search dim"></span></button>
+                            </div>
+                        </div>
+                        
+                        <br/>
+                        <br/>
+                        <div class="table-responsive">                   
                             <table class="table table-striped table-bordered table-hover dataTableItem" >
                                 <thead>
-                                   <tr> 
+                                 <tr> 
                                     <th>No.Partida</th>
                                     <th>No.Parte</th>                        
                                     <th>Descripción</th>
                                     <th>Precio</th> 
                                     <th>Agregar</th>                  
                                 </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="piezas in listaPiezas">
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="piezas in listaPiezas">
                                     <td>{{ piezas.numeroPartida }}</td> 
                                     <td>{{ piezas.numeroParte }}</td> 
                                     <td>{{ piezas.item }}</td>
@@ -40,109 +44,93 @@
                                           <span class="glyphicon glyphicon-plus"></span>
                                       </button>                      
                                   </td>
-                                </tr> 
-                                </tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>                    
-    </div>
-    <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row animated bounceInRight">
-                <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                    <table class="table table-striped table-bordered table-hover" >
-                    <thead>
-                        <tr> 
-                            <th>No.Partida</th>
-                            <th>No.Parte</th>                        
-                            <th>Descripción</th>
-                            <th>Cantidad</th>  
-                            <th>Precio Unitario</th>
-                            <th>Importe</th>
-                            <th>Quitar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="piezas in arrayItem">
-                            <td>{{piezas.numeroPartida }}</td> 
-                            <td>{{piezas.numeroParte}}</td> 
-                            <td>{{piezas.item}}</td>
-                            <td>{{piezas.cantidad}}</td>
-                            <td>{{piezas.precio | currency}}</td>
-                            <td>{{piezas.importe | currency}}</td>                    
-                            <td>
-                              <button class="btn btn-danger" type="button" id="btnCotizar" ng-click="quitarPieza(piezas)" data-toggle="tooltip" tooltip-placement="top" tooltip="Quitar">
-                                  <span class="glyphicon glyphicon-remove"></span>
-                              </button>
-                          </td>
-                        </tr>    
-                    </tbody>
-                    </table>
-                </div>
-                </div>
-                </div>
-            </div>
-            </div>                    
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-          <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Adjuntar Evidencia</h5>
-                <div class="ibox-content">
-                    <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
-                </div>
-            </div>
+                              </tr> 
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
           </div>
       </div>
-      <div class="col-md-6">
-           <textarea id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
-           <button ng-hide="estado==2" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
-             <span class="glyphicon glyphicon-saved"></span> Guardar Cotización
-            </button>
-            <button ng-hide="estado==1" id="buttonEnviar" type="button" 
-            data-toggle="tooltip" tooltip-placement="top" tooltip="Actualizar Cotización" class="btn btn-info" ng-click="updateCotizacion(observaciones)"> Actualizar Cotización
-                <span class="glyphicon glyphicon-floppy-saved"></span>
-            </button>
+  </div>
+</div>                    
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row animated bounceInRight">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover" >
+                        <thead>
+                            <tr> 
+                                <th>No.Partida</th>
+                                <th>No.Parte</th>                        
+                                <th>Descripción</th>
+                                <th>Cantidad</th>  
+                                <th>Precio Unitario</th>
+                                <th>Importe</th>
+                                <th>Quitar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="piezas in arrayItem">
+                                <td>{{piezas.numeroPartida }}</td> 
+                                <td>{{piezas.numeroParte}}</td> 
+                                <td>{{piezas.item}}</td>
+                                <td>{{piezas.cantidad}}</td>
+                                <td>{{piezas.precio | currency}}</td>
+                                <td>{{piezas.importe | currency}}</td>                    
+                                <td>
+                                  <button class="btn btn-danger" type="button" id="btnCotizar" ng-click="quitarPieza(piezas)" data-toggle="tooltip" tooltip-placement="top" tooltip="Quitar">
+                                      <span class="glyphicon glyphicon-remove"></span>
+                                  </button>
+                              </td>
+                          </tr>    
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
-    </div>  
-    <div class="wrapper wrapper-content animated fadeIn datosUnidad">
-        <div class="col-lg-12" >
-            <div class="ibox collapsed">
-                <div class="ibox-title">
-                    <h5>Datos de la Unidad</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
-                </div>
-                 <div class="ibox-content">
-                 <div>
-                    <label>Trabajo:</label>
-                    <span>{{trabajo}}</span><br/>
-                    <label>Número Economico: </label>
-                    <span>{{numEconomico}}</span><br/>
-                    <label>Marca-Modelo: </label>
-                    <span>{{modeloMarca}}</span>
-                    </div>
-                 </div>     
+  </div>
+</div>                    
+</div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Adjuntar Evidencia</h5>
+            <div class="ibox-content">
+                <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
             </div>
-        </div> 
-    </div>    
-    <script type="text/javascript">
-        function buttonReset() {
-            var scope = angular.element($("#contenedor")).scope();
-            scope.$apply(function(){
-                scope.FinishSave();
-            })
-        }
-    </script>
-    
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+ <textarea id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
+ <button ng-hide="estado==2" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
+   <span class="glyphicon glyphicon-saved"></span> Guardar Cotización
+</button>
+<button ng-hide="estado==1" id="buttonEnviar" type="button" 
+data-toggle="tooltip" tooltip-placement="top" tooltip="Actualizar Cotización" class="btn btn-info" ng-click="updateCotizacion(observaciones)"> Actualizar Cotización
+<span class="glyphicon glyphicon-floppy-saved"></span>
+</button>
+</div>
+</div>  
+<div class="wrapper wrapper-content animated fadeIn datosUnidad">
+    <label>Trabajo:</label>
+    <span>{{trabajo}}</span><br/>
+    <label>Número Economico: </label>
+    <span>{{numEconomico}}</span><br/>
+    <label>Marca-Modelo: </label>
+    <span>{{modeloMarca}}</span>
+</div>    
+<script type="text/javascript">
+    function buttonReset() {
+        var scope = angular.element($("#contenedor")).scope();
+        scope.$apply(function(){
+            scope.FinishSave();
+        })
+    }
+</script>
+
 

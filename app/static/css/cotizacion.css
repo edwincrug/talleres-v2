@@ -1,1 +1,52 @@
-.form-right{padding-left:78%}#textArea{width:400px;height:100px}#total{padding-left:1050px}#totalInput{width:150px}.form{padding-left:20%}#button{margin-left:80%}#buttonEnviar{margin-left:60%;margin-top:43%}#observaciones{width:360px;height:90px;margin-left:25%;margin-top:12%}#uploader{width:650px;height:390px}#eco{padding-left:450px}#marca{padding-left:50px}.btnNueva{position:absolute;bottom:0;right:0}.datosUnidad{position:absolute;margin-left:70%;z-index:1;top:0;margin-top:37px}
+.form-right {
+  padding-left: 78%; }
+
+#textArea {
+  width: 400px;
+  height: 100px; }
+
+#total {
+  padding-left: 1050px; }
+
+#totalInput {
+  width: 150px; }
+
+.form {
+  padding-left: 20%; }
+
+#button {
+  margin-left: 80%; }
+
+#buttonEnviar {
+  margin-left: 60%;
+  margin-top: 43%; }
+
+#observaciones {
+  width: 360px;
+  height: 90px;
+  margin-left: 25%;
+  margin-top: 12%; }
+
+#uploader {
+  width: 650px;
+  height: 390px; }
+
+#eco {
+  padding-left: 450px; }
+
+#marca {
+  padding-left: 50px; }
+
+.btnNueva {
+  position: absolute;
+  bottom: 0;
+  right: 0; }
+
+.datosUnidad {
+  position: absolute;
+  right: 0;
+  margin-right: 36px;
+  z-index: 1;
+  top: 0;
+  margin-top: 146px;
+  text-align: right; }
