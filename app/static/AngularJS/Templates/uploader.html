@@ -13,6 +13,7 @@
       <input type="text" id="idCotizacion" name="idCotizacion" hidden="true" />
       <input type="text" id="idTipoEvidencia" name="idTipoEvidencia" hidden="true" />
       <input type="text" id="idUsuario" name="idUsuario" hidden="true" />
+      <input type="text" id="vTrabajo" name="vTrabajo" hidden="true" />
   </div>  
   <button type="submit" id="submit2" name="submit2" hidden="true">Cargar</button>
 </form>
@@ -39,9 +40,11 @@
 					});
 		            this.on("error", function(file)
 		            	{
-		            		if (!file.accepted)
-		            		alert();						    
-		            		this.removeFile(file);
+		            		if (!file.accepted){
+                                alert();
+                                //this.hide(file);
+                                $("this").hide();
+                            }						    
 		            	});
 		        }
 		    });

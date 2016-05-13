@@ -364,13 +364,19 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
     var self = this;
     //Arreglo evidencia
     var arrayEvidencia = [];
-
+    var sIdProcesoEvidencia = "";
     for(var i=0; i < req.files.length;i++){
         var ext = obtenerExtArchivo(req.files[i].originalname);
         var idTipoArchivo = obtenerTipoArchivo(ext);
         
+        if(req.body.vTrabajo === "1"){
+            sIdProcesoEvidencia =  req.body.idTrabajo;
+        }
+        else{
+            sIdProcesoEvidencia = req.body.idCotizacion;
+        }
         arrayEvidencia.push({idTipoEvidencia: req.body.idTipoEvidencia,idTipoArchivo: idTipoArchivo,
-                            idUsuario:req.body.idUsuario,idProcesoEvidencia:req.body.idCotizacion,
+                            idUsuario:req.body.idUsuario,idProcesoEvidencia:sIdProcesoEvidencia,
                             nombreArchivo:req.files[i].originalname}); 
     } 
 

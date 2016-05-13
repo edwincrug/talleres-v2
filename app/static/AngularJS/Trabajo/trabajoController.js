@@ -156,19 +156,26 @@ registrationModule.controller('trabajoController', function ($scope, localStorag
         //Se obtienen los datos de los archivos a subir
         formArchivos = document.getElementById("uploader");
         contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
-        if (contentForm.document)
+        if (contentForm.document){
             btnSubmit = contentForm.document.getElementById("submit2");
-        elements = contentForm.document.getElementById("uploadForm").elements;
-        idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
-        //idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
-        idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
-        idUsuario = contentForm.document.getElementById("idUsuario");
-        idTrabajoEdit.value = $scope.idTrabajo;
-        //idCotizacionEdit.value = idCotizacion;
-        idTipoEvidencia.value = 1;
-        idUsuario.value = 1;
-        //Submit del botón del Form para subir los archivos        
-        btnSubmit.click();
+            elements = contentForm.document.getElementById("uploadForm").elements;
+            idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
+            //idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
+            idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
+            vTrabajo = contentForm.document.getElementById("vTrabajo");
+            idUsuario = contentForm.document.getElementById("idUsuario");
+            idTrabajoEdit.value = $scope.idTrabajo;
+            //idCotizacionEdit.value = idCotizacion;
+            vTrabajo.value = "1";
+            idTipoEvidencia.value = 1;
+            idUsuario.value = 1;
+            //Submit del botón del Form para subir los archivos        
+            btnSubmit.click();
+            setTimeout(function(){
+                facturaTrabajo($scope.idTrabajo);
+            },2000);
+            
+        }
     }
 
     //cambia el trabajo a estatus a facturado
