@@ -77,41 +77,48 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                 } else{
                     idTaller = $scope.objCita.idTaller;
                 }
+                $('.dataTableItem').DataTable().destroy();
                 $scope.promise = cotizacionRepository.buscarPieza(idTaller,pieza).then(function(result){
                     $scope.listaPiezas = result.data;
-                    setTimeout(function () {
-                    $('.dataTableItem').DataTable({
-                        dom: '<"html5buttons"B>lTfgitp',
-                        buttons: [
-                            {
-                                extend: 'copy'
-                            },
-                            {
-                                extend: 'csv'
-                            },
-                            {
-                                extend: 'excel',
-                                title: 'ExampleFile'
-                            },
-                            {
-                                extend: 'pdf',
-                                title: 'ExampleFile'
-                            },
+                    if(result.data.length > 0){
+                        setTimeout(function () {
+                            $('.dataTableItem').DataTable({
+                                dom: '<"html5buttons"B>lTfgitp',
+                                buttons: [
+                                    {
+                                        extend: 'copy'
+                                    },
+                                    {
+                                        extend: 'csv'
+                                    },
+                                    {
+                                        extend: 'excel',
+                                        title: 'ExampleFile'
+                                    },
+                                    {
+                                        extend: 'pdf',
+                                        title: 'ExampleFile'
+                                    },
 
-                            {
-                                extend: 'print',
-                                customize: function (win) {
-                                    $(win.document.body).addClass('white-bg');
-                                    $(win.document.body).css('font-size', '10px');
+                                    {
+                                        extend: 'print',
+                                        customize: function (win) {
+                                            $(win.document.body).addClass('white-bg');
+                                            $(win.document.body).css('font-size', '10px');
 
-                                    $(win.document.body).find('table')
-                                        .addClass('compact')
-                                        .css('font-size', 'inherit');
-                                }
+                                            $(win.document.body).find('table')
+                                                .addClass('compact')
+                                                .css('font-size', 'inherit');
                                         }
-                                    ]
-                    });
-                }, 2000);              
+                                                }
+                                            ]
+                            });
+                        }, 2000);
+                        alertFactory.success('Datos encontrados');
+                    } else{
+                        alertFactory.info('Datos no encontrados');
+                        $scope.listaPiezas = '';
+                    }                                 
             }, function (error){
                 alertFactory.error('Error');
             }); 
