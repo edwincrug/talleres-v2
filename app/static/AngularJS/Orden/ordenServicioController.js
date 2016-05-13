@@ -1,4 +1,4 @@
-registrationModule.controller('ordenServicioController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository) {
+registrationModule.controller('ordenServicioController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository, trabajoRepository) {
 
     var cDetalles = [];
     var cPaquetes = [];
@@ -262,4 +262,20 @@ registrationModule.controller('ordenServicioController', function ($scope, local
         });
 
     }
+     
+    //cambia el estatus del trabajo a cerrado
+     $scope.cierraTrabajo = function(){
+        var idTrabajo = localStorageService.get("objTrabajo").idTrabajo;
+        trabajoRepository.cierraTrabajo(idTrabajo).then(function(trabajoCerrado){
+             if(trabajoCerrado.data[0].idHistorialProceso > 0){
+                 alertFactory.success("Trabajo cerrado");
+                 setTimeout(function(){
+                     localStorageService.remove('objTrabajo');
+                     location.href = '/trabajo'
+                 },1000);
+             }
+         },function(error){
+             alertFactory.error("Error al cerrar el trabajo");
+         });
+     }
 });

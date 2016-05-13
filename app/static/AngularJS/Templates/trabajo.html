@@ -75,19 +75,19 @@
                                                 <td>{{trabajo.estatus}}</td>
                                                 <td>{{trabajo.fecha | date:"dd-MM-yy HH:mm"}}</td>
                                                 <td>
-                                                    <div ng-if="trabajo.estatus == 'CERRADO'">
+                                                    <div ng-if="trabajo.estatus == 'Cerrado'">
                                                         <button class="btn btn-info" type="button" ng-click="uploadFactura(trabajo.idTrabajo)" ng-disabled="false"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
                                                     </div>
-                                                    <div ng-if="trabajo.estatus != 'CERRADO'">
+                                                    <div ng-if="trabajo.estatus != 'Cerrado'">
                                                         <button class="btn btn-info" type="button" ng-disabled="true"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div ng-if="trabajo.estatus == 'CERRADO'">
+                                                    <div ng-if="trabajo.estatus == 'Cerrado'">
                                                         <button class="btn btn-success" type="button" ng-click="" ng-disabled="true"><span class="glyphicon glyphicon-check"></span> Aprobar
                                                         </button>
                                                     </div>
-                                                    <div ng-if="trabajo.estatus != 'CERRADO'">
+                                                    <div ng-if="trabajo.estatus != 'Cerrado'">
                                                         <button class="btn btn-success" type="button" ng-click="aprobarTrabajo(trabajo, 2)" ng-disabled="false"><span class="glyphicon glyphicon-check"></span> Aprobar
                                                         </button>
                                                     </div>
