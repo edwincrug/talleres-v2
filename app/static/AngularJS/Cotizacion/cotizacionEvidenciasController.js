@@ -57,6 +57,5 @@ registrationModule.controller('cotizacionEvidenciasController', function ($scope
         idUsuario.value = 1;
         //Submit del botón del Form para subir los archivos        
         btnSubmit.click();
-        $scope.cargaEvidencias();
     }
 });

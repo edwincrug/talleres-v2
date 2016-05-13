@@ -27,9 +27,6 @@ var storage = multer.diskStorage({
         var dirname = 'C:/Desarrollo/talleres-v2/app';
         var idTrabajo = req.body.idTrabajo;
         var idCotizacion = req.body.idCotizacion;
-        var ext = obtenerExtArchivo(file.originalname);
-        idTipoArchivo = obtenerTipoArchivo(ext);
-        nameFile = file.originalname;
         if (idCotizacion == '') {
             mkdirp(dirname + '/static/uploads/files/' + idTrabajo, function (err) {
                 if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4') {
