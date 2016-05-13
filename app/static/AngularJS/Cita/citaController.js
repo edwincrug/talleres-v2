@@ -505,6 +505,15 @@ registrationModule.controller('citaController', function($scope, $route,$rootSco
     //muestra el modal para la linea de tiempo
     $scope.showLineTime = function(idCita){
         $('#lineaTiempoModal').appendTo("body").modal('show');
+        getTimeLine(idCita);
     }
-    
+
+    //timeLine
+	var getTimeLine = function(idCita){
+		citaRepository.getTimeLine(idCita).then(function(timeLine){
+			$scope.timeLine = timeLine.data;
+		}, function(error){
+			alertFactory.error("Error al obtener timeLine");
+		})
+	}    
 });

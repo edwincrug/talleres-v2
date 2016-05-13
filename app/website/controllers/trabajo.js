@@ -116,4 +116,24 @@ Trabajo.prototype.post_updtrabajofacturado = function(req, res, next){
     });
 }
 
+//TimeLine
+Trabajo.prototype.post_timeLine = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Referencia a la clase para callback
+	var self = this;
+
+	var msgObj = {
+        idCita: req.body.idCita,
+    }
+	
+	this.model.timeLine(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
+}
+
 module.exports = Trabajo;
