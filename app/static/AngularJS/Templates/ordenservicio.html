@@ -1,0 +1,129 @@
+<div ng-init="init()" class="animated bounceInRight">
+    <div class="row headTitleTallerCita">
+        <div class="col-lg-10">
+            <span class="title"> Órden de Servicio<span class="subtitle">Call Center / Taller</span></span>
+        </div>
+        <div class="col-lg-2">
+            <a href="/cotizacionevidencias" class="btn btn-success"><i class="fa fa-files-o"></i> Evidencias </a>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox-content p-xl">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <span>Cliente:</span>
+                            <address>
+                                        <strong>{{ClienteData.nombre}}</strong><br>
+                                        {{ClienteData.direccion}}<br>
+                                        <abbr title="Phone">Tel:</abbr>{{ClienteData.telefono}}<br>
+                                    </address>
+                            <span>Unidad:</span>
+                            <address>
+                                        <strong>{{unidadInfo.marca}} - {{unidadInfo.modelo}}</strong><br>
+                                        No. Económico: {{unidadInfo.clienteNumEconomico}}<br>
+                                        No. Inventario: {{unidadInfo.clienteNumInventario}}<br>
+                                        No. TAR: {{unidadInfo.numTAR}}<br>
+                                        TAR:  {{unidadInfo.TAR}}<br>
+                                        GAR:  {{unidadInfo.GAR[0]}}
+                                    </address>
+                        </div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-5 text-right">
+                            <h4>Orden de Servicio No.</h4>
+                            <h4 class="text-navy">{{descripcion}}</h4>
+                            <span>Taller: </span>
+                            <address><strong>
+                               {{unidadInfo.razonSocial}}
+                           </strong><br>
+                           {{unidadInfo.direccion[1]}}
+                           </address>
+
+                            <p>
+                                <span><strong>Fecha: </strong>{{articulos[0].fecha |  date:'dd-MM-yyyy HH:mm'}}</span>
+                                <br/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="table-responsive m-t">
+                        <table class="table invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Artículos</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Precio Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="articulo in articulos">
+                                    <td>
+                                        <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
+                                        <small>{{articulo.item}}</small></td>
+                                    <td>{{articulo.cantidad}}</td>
+                                    <td>{{ articulo.precio | currency }}</td>
+                                    <td>{{(articulo.cantidad * articulo.precio) | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <table class="table invoice-total">
+                        <tbody>
+                            <td><strong>TOTAL :</strong></td>
+                            <td>{{total | currency}}</td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="text-right" ng-show="objBotonera.accion == 1">
+            <button type="button" class="btn btn-success" ng-click="Cotizacion()">
+                <span class="fa fa-usd">Nueva Cotización</span>
+            </button>
+        </div>
+        <div class="text-right" ng-show="objBotonera.accion == 2">
+            <button type="button" class="btn btn-success" ng-click="">
+                <span class="fa fa-check"> Aprobar Cierre de Orden</span>
+            </button>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Adjuntar Evidencia</h4>
+                </div>
+                <div class="modal-body">
+                    <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
+                    <button id="btnUploadAut" type="button" class="btn btn-success" data-toggle="tooltip" tooltip="Cargar Evidencia" tooltip-placement="top" ng-click="cargarArchivos()">
+                        <span class="glyphicon glyphicon-cloud-upload"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Adjuntar Evidencia</h4>
+                </div>
+                <div class="modal-body">
+                    <iframe src="/AngularJS/Templates/uploader.html" frameborder="0" id="uploader"></iframe>
+                    <button id="btnUploadAut" type="button" class="btn btn-info" data-toggle="tooltip" tooltip="Cargar Evidencia" tooltip-placement="top" ng-click="cargarArchivos()">
+                        <span class="glyphicon glyphicon-cloud-upload"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

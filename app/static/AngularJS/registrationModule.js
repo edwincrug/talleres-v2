@@ -65,9 +65,9 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","LocalS
             controller: 'citaController'
         });
 
-        $routeProvider.when('/cotizacionTrabajo', {
-           templateUrl: 'AngularJS/Templates/cotizacionTrabajo.html',
-           controller: 'cotizacionTrabajoController'
+        $routeProvider.when('/ordenservicio', {
+           templateUrl: 'AngularJS/Templates/ordenservicio.html',
+           controller: 'ordenServicioController'
        });
         
         $routeProvider.when('/cotizacionevidencias', {
