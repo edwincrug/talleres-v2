@@ -56,6 +56,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         } else{
             $scope.citaDatos = localStorageService.get('cita');//Objeto de la pagina de tallerCita 
             $scope.estado = 1;
+            $scope.editar = 0;
             datosCita();
             busquedaServicioDetalle($scope.citaDatos.idCita);            
             localStorageService.remove('objEditCotizacion');
@@ -64,6 +65,8 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
 
         if(localStorageService.get('objCita') != null){//Objeto de la pagina de cita
             $scope.objCita = localStorageService.get('objCita');
+        } else {
+            $scope.objCita = null;
         }
     }
 
@@ -72,11 +75,15 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
         if(pieza == '' || pieza == null){
             alertFactory.info("Ingrese un dato para búsqueda");
         } else{
-                if($scope.objCita == null){
-                    idTaller = $scope.citaDatos.idTaller;
+                if($scope.editar == 1){
+                    idTaller = $scope.editCotizacion.idTaller;
                 } else{
-                    idTaller = $scope.objCita.idTaller;
-                }
+                    if($scope.objCita == null){
+                        idTaller = $scope.citaDatos.idTaller;
+                    }else{
+                        idTaller = $scope.objCita.idTaller;
+                    }
+                }                
                 $('.dataTableItem').DataTable().destroy();
                 $scope.promise = cotizacionRepository.buscarPieza(idTaller,pieza).then(function(result){
                     $scope.listaPiezas = result.data;
@@ -227,7 +234,7 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                     $scope.total = calculaTotal();
                     $scope.importe = 0;
                     if($scope.editar == 1){
-                        $scope.arrayCambios[i].idEstatus = 10;//Estatus Eliminado
+                        $scope.arrayCambios[i].idEstatus = 13;//Estatus Eliminado
                     }                     
                 }
             }
@@ -288,10 +295,16 @@ registrationModule.controller('cotizacionController', function($scope, $rootScop
                                               $scope.editCotizacion.idTaller)
         .then(function(result){
             $scope.arrayItem = result.data;
-            $scope.arrayCambios = $scope.arrayItem.slice();
-            $scope.observaciones = result.data[0].observaciones;
-            $scope.total = calculaTotalEditar();
-            $scope.importe = calcularImporte();
+            if(result.data.length > 0){
+                $scope.arrayCambios = $scope.arrayItem.slice();
+                $scope.observaciones = result.data[0].observaciones;
+                $scope.total = calculaTotalEditar();
+                $scope.importe = calcularImporte();
+                alertFactory.success('Datos Cargados');
+            } else{
+                alertFactory.error('No hay datos para editar');
+            }
+            
         },function(error){
             alertFactory.error('Error');
         }); 
