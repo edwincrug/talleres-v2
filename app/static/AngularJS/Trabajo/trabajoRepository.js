@@ -29,3 +29,4 @@ registrationModule.factory('trabajoRepository', function ($http) {
             });
         }
     };
+});

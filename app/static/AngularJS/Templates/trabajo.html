@@ -76,10 +76,10 @@
                                                 <td>{{trabajo.fecha | date:"dd-MM-yy HH:mm"}}</td>
                                                 <td>
                                                     <div ng-if="trabajo.estatus == 'CERRADO'">
-                                                        <button class="btn btn-info" type="button" ng-click="uploadFactura(trabajo)" ng-disabled="false"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
+                                                        <button class="btn btn-info" type="button" ng-click="uploadFactura(trabajo.idTrabajo)" ng-disabled="false"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
                                                     </div>
                                                     <div ng-if="trabajo.estatus != 'CERRADO'">
-                                                        <button class="btn btn-info" type="button" ng-click="uploadFactura(trabajo)" ng-disabled="true"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
+                                                        <button class="btn btn-info" type="button" ng-disabled="true"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -119,6 +119,26 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Salir</button>
                 <button type="button" class="btn btn-danger btnTerminarTrabajo">Finalizar trabajo</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cargarFacturaModal" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Factura</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t" style="margin-left:10%">
+                    <iframe src="/AngularJS/Templates/uploader.html" width="680px" height="380px" frameborder="0" id="uploader" scrolling="no" ></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivos(); cargaEvidencias()">Cargar factura</button>
+                </div>
             </div>
         </div>
     </div>
