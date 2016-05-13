@@ -169,7 +169,6 @@ registrationModule.controller('trabajoController', function ($scope, localStorag
         idUsuario.value = 1;
         //Submit del botón del Form para subir los archivos        
         btnSubmit.click();
-        facturaTrabajo($scope.idTrabajo);
     }
 
     //cambia el trabajo a estatus a facturado
