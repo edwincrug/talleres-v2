@@ -23,7 +23,7 @@
                                                 <th>Trabajo</th>
                                                 <th>Estatus</th>
                                                 <th>Fecha de inicio</th>
-                                                <th>Factura</th>
+                                                <th>Orden</th>
                                                 <th>Trabajo</th>
                                             </tr>
                                         </thead>
@@ -36,7 +36,7 @@
                                                 <td>{{trabajo.estatus}}</td>
                                                 <td>{{trabajo.fechaInicio | date:"dd-MM-yy HH:mm"}}</td>
                                                 <td>
-                                                    <button class="btn btn-info" type="button" ng-click="verTrabajo(trabajo)"><span class="glyphicon glyphicon-sunglasses"></span> Ver</button>
+                                                    <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo)"><span class="glyphicon glyphicon-sunglasses"></span> Ver</button>
                                                 </td>
                                                 <td>
                                                       <button class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" ><span class="glyphicon glyphicon-ok-sign"></span> Finalizar
@@ -62,7 +62,7 @@
                                                 <th>Estatus</th>
                                                 <th>Fecha</th>
                                                 <th>Factura</th>
-                                                <th>Trabajo</th>
+                                                <th>Orden</th>
                                             </tr>
                                         </thead>
                                         <tbody>
