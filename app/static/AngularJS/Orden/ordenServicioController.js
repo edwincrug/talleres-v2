@@ -49,12 +49,16 @@ registrationModule.controller('ordenServicioController', function ($scope, local
     }
 
     $scope.getCotizacionByTrabajo = function () {
-            cotizacionAutorizacionRepository.getCotizacionByTrabajo($scope.objBotonera.idCita).then(function (result) {
-                    if (result.data.length > 0) {
-                        $scope.articulos = result.data;
+        cotizacionAutorizacionRepository.getCotizacionByTrabajo($scope.objBotonera.idCita).then(function (result) {
+                if (result.data.length > 0) {
+                    $scope.total = 0;
+                    $scope.articulos = result.data;
+                    for (var i = 0; i < result.data.length; i++) {
+                        $scope.total += (result.data[i].precio * result.data[i].cantidad)
                     }
-                },
-                function (error) {});
+                }
+            },
+            function (error) {});
     }
 
     $('#myTabs a').click(function (e) {
@@ -243,8 +247,8 @@ registrationModule.controller('ordenServicioController', function ($scope, local
             alertFactory.error('No se pudo obtener los datos del cliente, inténtelo más tarde');
         });
     }
-    
-     $scope.Detalle = function (idCotizacion, idTaller) {
+
+    $scope.Detalle = function (idCotizacion, idTaller) {
         cotizacionConsultaRepository.getDetail(idCotizacion, idTaller).then(function (result) {
             if (result.data.length > 0) {
                 $scope.total = 0;

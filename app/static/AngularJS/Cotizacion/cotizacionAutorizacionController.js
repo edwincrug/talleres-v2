@@ -197,10 +197,6 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         location.href = '/cotizacionNueva';
     }
 
-    $scope.Adjuntar = function () {
-        $('#modal').appendTo('body').modal('show');
-    }
-
     $scope.Editar = function () {
         var objEditCotizacion = {
             idCotizacion: idCotizacion,
