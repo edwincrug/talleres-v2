@@ -34,12 +34,12 @@
 /* ---- Timeline elements ---- */
 
 .timelineScope li {
-  position: relative;
-  top: -77px;
-  display: inline-block;
-  float: left;
-  width: 148px;
-  transform: rotate(-45deg);
+    position: relative;
+    top: -52px;
+    display: inline-block;
+    float: left;
+    width: 74px;
+    transform: rotate(-45deg);
 }
 .timelineScope li::before {
   content: "";
@@ -57,18 +57,17 @@
 /* ---- Details ---- */
 
 .timelineScope .details {
- /*display: none;*/
- position: absolute;
- left: 38px;
- top: 45px;
- padding: 15px;
- border-radius: 3px;
- border-right: 2px solid rgba(0,0,0,.1);
- border-bottom: 2px solid rgba(0,0,0,.1);
- transform: rotate(45deg);
- font: 12px arial;
- background: #fff;
- margin-left: -125px;
+    position: absolute;
+    left: -19px;
+    top: 9px;
+    padding: 7px;
+    border-radius: 3px;
+    border-right: 2px solid rgba(0,0,0,.1);
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    /* transform: rotate(45deg); */
+    font: 12px arial;
+    background: #f5f5f5;
+    margin-left: -127px;
 }
 
 

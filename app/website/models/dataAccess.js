@@ -195,4 +195,23 @@ DataAccess.prototype.updFacturaTrabajo = function (objParams, callback) {
     });
 };
 
+//TimeLine
+DataAccess.prototype.timeLine = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCita', sql.Numeric(18, 0), objParams.idCita);
+
+        request.execute('SEL_TIMELINE_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al obtener timeLine: ' + objParams + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 module.exports = DataAccess; 

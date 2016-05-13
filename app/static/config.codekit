@@ -3244,6 +3244,15 @@
 		"shouldRunBless": 0,
 		"useLibsass": false
 		},
+	"\/templateCotizacion.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/templateCotizacion.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/templateMail.html": {
 		"fileType": 8192,
 		"ignore": 0,

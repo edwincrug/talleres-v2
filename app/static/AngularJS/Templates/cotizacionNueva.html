@@ -89,6 +89,9 @@
                   </table>
               </div>
           </div>
+          <div id="total" >
+            <h3 class"control-label text-precio" ng-model="total">Total: <strong>{{total}}</strong></h3>
+          </div> 
       </div>
   </div>
 </div>                    
@@ -106,7 +109,7 @@
     </div>
 </div>
 <div class="col-md-6">
- <textarea id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
+ <textarea class="form-control" id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
  <button ng-hide="estado==2" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
    <span class="glyphicon glyphicon-saved"></span> Guardar Cotización
 </button>

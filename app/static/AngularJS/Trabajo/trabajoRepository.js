@@ -37,6 +37,10 @@ registrationModule.factory('trabajoRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
+        
+        },
+        getTimeLine: function(idCita){
+            return $http.get(trabajoUrl +'timeLine/' + idCita)
         }
     };
 });

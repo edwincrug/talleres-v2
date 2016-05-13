@@ -58,34 +58,15 @@
             </div>
             <div class="modal-body"  ng-init="initCitaServicio()">
                 <div id="timeline" class="timelineScope">
-                    <!-- Aquí va el NG repeat -->
+                    <label>Cita: 30</label>
                     <div> 
-                        <label>Cotización: 138</label>
                         <ol>
-                         <li>
-                            2016-04-21
-                            <span class="details">
-                               ABIERTO
+                         <li ng-repeat="timeLine in timeLine">
+                            {{timeLine.fechaHist | date:'dd-MM-yy HH:mm'}}
+                            <span class="details" tooltip="{{timeLine.agendo}}">
+                               {{timeLine.proceso  + ' ' + timeLine.estatus}}
                            </span>
                          </li>
-                         <li>
-                            2016-04-25
-                            <span class="details">
-                                CONFIRMADO
-                            </span>
-                        </li>
-                        <li>
-                            2016-04-25
-                            <span class="details">
-                                CANCELADO
-                            </span>
-                        </li>
-                        <li>
-                            2016-04-25
-                            <span class="details">
-                                CERRADO
-                            </span>
-                        </li>
                     </ol>
                 </div>
         </div>

@@ -1,4 +1,5 @@
 var citaUrl = global_settings.urlCORS + '/api/cita/';
+var trabajoUrl = global_settings.urlCORS + '/api/trabajo/';
 
 registrationModule.factory('citaRepository', function ($http) {
     return {
