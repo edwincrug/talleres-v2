@@ -110,10 +110,10 @@
 </div>
 <div class="col-md-6">
  <textarea class="form-control" id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
- <button ng-hide="estado==2" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
+ <button ng-show="estado==1" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
    <span class="glyphicon glyphicon-saved"></span> Guardar Cotización
 </button>
-<button ng-hide="estado==1" id="buttonEnviar" type="button" 
+<button ng-show="estado==2" id="buttonEnviar" type="button" 
 data-toggle="tooltip" tooltip-placement="top" tooltip="Actualizar Cotización" class="btn btn-info" ng-click="updateCotizacion(observaciones)"> Actualizar Cotización
 <span class="glyphicon glyphicon-floppy-saved"></span>
 </button>
