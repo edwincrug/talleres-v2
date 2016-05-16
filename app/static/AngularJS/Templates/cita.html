@@ -8,11 +8,17 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <div class="row">
+                             <!--<label class="col-xs-1 control-label">Select</label>-->
+                            <div class="col-xs-4">
+                                <select class="form-control" name="cliente" ng-model="selectedCliente" ng-options="cliente.nombre for cliente in clientes">
+                                    <option value="">Selecionar cliente</option><!--default option -->
+                                </select>
+                            </div>
                             <div class="col-xs-4">
                                 <input type="text" placeholder="Buscar unidad" ng-model="datoUnidad" ng-change="habilitaBuscar(datoUnidad)" class="form-control">
                             </div>
                             <div class="col-xs-0">
-                                <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(datoUnidad)" ng-disabled="habilitaBtnBuscar"><span class="glyphicon glyphicon-search"></span></button>
+                                <button id="btnBuscar" busy="Buscando.." type="button" class="btn btn-primary" ng-click="lookUpUnidad(selectedCliente.idCliente, datoUnidad)" ng-disabled="habilitaBtnBuscar"><span class="glyphicon glyphicon-search"></span></button>
                             </div>
                         </div>
                         <br/>   
@@ -22,7 +28,6 @@
                                     <tr>
                                         <th>Número económico</th>
                                         <th>Número económico cliente</th>
-                                        <th>Activo fijo</th>
                                         <th>Número de inventario</th>
                                         <th>Número de TAR</th>
                                         <th>TAR</th>
@@ -38,7 +43,6 @@
                                     <tr ng-repeat="unidad in unidades ">
                                         <td>{{unidad.numEconomico}}</td>
                                         <td>{{unidad.clienteNumEconomico}}</td>
-                                        <td>{{unidad.activoFijo}}</td>
                                         <td>{{unidad.clienteNumInventario}}</td>
                                         <td>{{unidad.numTAR}}</td>
                                         <td>{{unidad.TAR}}</td>

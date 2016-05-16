@@ -214,4 +214,24 @@ DataAccess.prototype.timeLine = function (objParams, callback) {
     });
 };
 
+//obtiene la información de unidad
+DataAccess.prototype.unidadInfor = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCliente', sql.Numeric(18, 0), objParams.idCliente);
+        request.input('datoUnidad', sql.VarChar(500), objParams.datoUnidad);
+
+        request.execute('SEL_UNIDAD_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al obtener timeLine: ' + objParams + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 module.exports = DataAccess; 

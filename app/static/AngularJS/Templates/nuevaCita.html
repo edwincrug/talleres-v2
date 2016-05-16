@@ -28,7 +28,7 @@
                                         <tbody>
                                             <tr ng-repeat="taller in talleres">
                                                 <td>{{taller.razonSocial}}</td>
-                                                <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{taller.direccion}}" tooltip-placement="top-right"></span></td>
+                                                <td>{{taller.direccion}}</td>
                                                 <td>
                                                     <input type="radio" name="optTaller" ng-click="getTaller(taller.idTaller)" />
                                                 </td>
@@ -107,7 +107,7 @@
                                 <tr ng-repeat="pieza in piezas">
                                     <td>{{ pieza.numeroPartida }}</td>
                                     <td>{{ pieza.numeroParte }}</td>
-                                    <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{pieza.item}}" tooltip-placement="top-right"></span></td>
+                                    <td>{{pieza.item}}</td>
                                     <td>
                                         <button class="btn btn-success glyphicon glyphicon-plus" type="button" id="btnCotizar" ng-click="addPieza(pieza)">
                                         </button>

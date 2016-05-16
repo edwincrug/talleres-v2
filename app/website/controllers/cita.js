@@ -62,27 +62,25 @@ Cita.prototype.post_buscaCita = function(req,res,next){
     });
 }
 
-//obtiene datos de la unidad
-Cita.prototype.get_unidad_data = function(req, res, next){
+//devuelve la cita confirmada
+Cita.prototype.post_unidad = function(req, res, next){
 	//Objeto que almacena la respuesta
 	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
 	//Referencia a la clase para callback
 	var self = this;
 
-	//Asigno a params el valor de mis variables
-	params.name = 'datoUnidad';
-	params.value = req.params.data;
-	params.type = 3;
+	var msgObj = {
+        idCliente: req.body.idCliente,
+        datoUnidad: req.body.datoUnidad
+    }
 	
-	this.model.get( 'SEL_UNIDAD_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
+	this.model.unidadInfor(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
 }
 
 //obtiene las cotizaciones por unidad
@@ -225,18 +223,6 @@ Cita.prototype.post_addcita = function (req, res, next) {
 
         self.view.post(res, object);
     });
-}
-
-Cita.prototype.get_add = function(req,res,next){
-
-}
-
-Cita.prototype.get_edit_data = function(req,res,next){
-
-}
-
-Cita.prototype.get_del = function(req,res,next){
-
 }
 
 //inserta cita servicio detalles
@@ -415,6 +401,24 @@ Cita.prototype.get_validaconfirmacioncita_data = function(req, res, next){
 	params.type = 1;
 	
 	this.model.get('SEL_VALIDA_CONIFIRMACION_CITA_SP',params,function(error,result){
+		//Callback
+		object.error = error;
+		object.result = result;
+		
+		self.view.see(res, object);
+	});
+}
+
+//obtiene los clientes
+Cita.prototype.get_cliente = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Objeto que envía los parámetros
+	var params = null; 
+	//Referencia a la clase para callback
+	var self = this;
+	
+	this.model.get('SEL_CLIENTE_SP',params,function(error,result){
 		//Callback
 		object.error = error;
 		object.result = result;

@@ -17,9 +17,6 @@ registrationModule.factory('citaRepository', function ($http) {
                 }
             });
         },
-        getUnidadInformation: function (datoUnidad) {
-            return $http.get(citaUrl +'unidad/'+ datoUnidad);
-        },
         getCita: function(idUnidad){
         	return $http.get(citaUrl+'cita/'+idUnidad);
         },
@@ -85,6 +82,19 @@ registrationModule.factory('citaRepository', function ($http) {
         },
         validaConfirmacionCita: function(idCita){
             return $http.get(citaUrl +'validaconfirmacioncita/'+ idCita)
+        },
+        getCliente: function () {
+            return $http.get(citaUrl +'cliente/');
+        },
+        getUnidadInformation: function(idCliente, datoUnidad){
+            return $http({
+                url: citaUrl + 'unidad/',
+                method: "POST",
+                data: {idCliente: idCliente, datoUnidad: datoUnidad},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });
