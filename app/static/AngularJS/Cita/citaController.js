@@ -10,6 +10,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
     $scope.message = 'Buscando...';
 
     $scope.init = function () {
+        getCliente();
         $scope.habilitaBtnBuscar = true;
     }
 
@@ -162,9 +163,9 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
     }
 
     //obtiene la unidad mediante el dato buscado
-    var getUnidad = function (datoUnidad) {
+    var getUnidad = function (selectedCliente, datoUnidad) {
         $('#btnBuscar').button('Buscando...');
-        $scope.promise = citaRepository.getUnidadInformation(datoUnidad).then(function (unidadInfo) {
+        $scope.promise = citaRepository.getUnidadInformation(selectedCliente, datoUnidad).then(function (unidadInfo) {
             $('.dataTableUnidad').DataTable().destroy();
             $scope.unidades = unidadInfo.data;
             if (unidadInfo.data.length > 0) {
@@ -203,11 +204,11 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
     }
 
     //Obtiene información de la unidad
-    $scope.lookUpUnidad = function (datoUnidad) {
-        if (datoUnidad !== '' && datoUnidad !== undefined) {
-            getUnidad(datoUnidad);
+    $scope.lookUpUnidad = function (selectedCliente, datoUnidad) {
+        if (selectedCliente != '' && selectedCliente != undefined && datoUnidad !== '' && datoUnidad !== undefined) {
+            getUnidad(selectedCliente, datoUnidad);
         } else {
-            alertFactory.info('Llene el campo de búsqueda');
+            alertFactory.info('Todos los campos son obligatorios');
         }
     }
 
@@ -609,5 +610,20 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         }, function (error) {
             alertFactory.error("Error al obtener timeLine");
         })
+    }
+    
+    //obtiene los clientes
+    var getCliente = function(){
+        citaRepository.getCliente().then(function(cliente){
+            if(cliente.data.length > 0){
+                $scope.clientes = cliente.data;
+                alertFactory.success("Clientes cargados");
+            }
+            else{
+                alertFactory.info("No se encontraron clientes");
+            }
+        }, function(error){
+            alertFactory.error("Error al cargar clientes");
+        });
     }
 });
