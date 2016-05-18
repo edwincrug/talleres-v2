@@ -41,6 +41,16 @@ registrationModule.factory('trabajoRepository', function ($http) {
         },
         getTimeLine: function(idCita){
             return $http.get(trabajoUrl +'timeLine/' + idCita)
+        },
+        hojaCalidadTrabajo: function(idTrabajo){
+            return $http({
+                url: trabajoUrl + 'updtrabajohojacalidad/',
+                method: "POST",
+                data: {idTrabajo: idTrabajo},
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });

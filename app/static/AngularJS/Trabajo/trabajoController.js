@@ -46,9 +46,6 @@ registrationModule.controller('trabajoController', function ($scope, localStorag
     }
 
     $scope.aprobarTrabajo = function (trabajo, valBotonera) {
-        //localStorageService.set('cita', trabajo.idCita);
-        //localStorageService.set('cotizacion', trabajo.idCotizacion);
-        //localStorageService.set('estado', 2);
         var objBotonera = {};
         objBotonera.accion = valBotonera;
         objBotonera.idCita = trabajo.idCita;
@@ -146,8 +143,15 @@ registrationModule.controller('trabajoController', function ($scope, localStorag
     });
 
     //sube archivo de la factura
-    $scope.uploadFactura = function (idTrabajo) {
+    $scope.archivoTrabajoModal = function (idTrabajo, hojaCalidad) {
+        if(hojaCalidad == 1){
+            $scope.modalTittle = "Hoja de calidad";   
+        }
+        else{
+            $scope.modalTittle = "Factura";
+        }
         $scope.idTrabajo = idTrabajo;
+        $scope.hojaCalidad = hojaCalidad;
         $('#cargarFacturaModal').appendTo("body").modal('show');
     }
 
@@ -165,6 +169,7 @@ registrationModule.controller('trabajoController', function ($scope, localStorag
             vTrabajo = contentForm.document.getElementById("vTrabajo");
             idUsuario = contentForm.document.getElementById("idUsuario");
             idTrabajoEdit.value = $scope.idTrabajo;
+            idTrabajoEdit.value = $scope.idTrabajo;
             //idCotizacionEdit.value = idCotizacion;
             vTrabajo.value = "1";
             idTipoEvidencia.value = 1;
@@ -172,17 +177,27 @@ registrationModule.controller('trabajoController', function ($scope, localStorag
             //Submit del botón del Form para subir los archivos        
             btnSubmit.click();
             setTimeout(function(){
-                facturaTrabajo($scope.idTrabajo);
+                archivoTrabajo($scope.idTrabajo, $scope.hojaCalidad);
             },2000);
             
         }
     }
 
     //cambia el trabajo a estatus a facturado
-    var facturaTrabajo = function (idTrabajo) {
-        trabajoRepository.facturaTrabajo(idTrabajo).then(function () {}, function (error) {
-            alertFactory.error("Error al cargar la factura");
-        });
-        getTrabajoTerminado();
+    var archivoTrabajo = function (idTrabajo, hojaCalidad) {
+        if(hojaCalidad == 1){
+            $scope.modalTittle = "Hoja de calidad"; 
+            trabajoRepository.hojaCalidadTrabajo(idTrabajo).then(function () {}, function (error) {
+                alertFactory.error("Error al cargar el archivo");
+            });
+            getTrabajo();
+        } 
+        else{
+            $scope.modalTittle = "Factura";
+            trabajoRepository.facturaTrabajo(idTrabajo).then(function () {}, function (error) {
+                alertFactory.error("Error al cargar el archivo");
+            });
+            getTrabajoTerminado();
+        }
     }
 });

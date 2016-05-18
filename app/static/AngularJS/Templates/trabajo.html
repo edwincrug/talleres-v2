@@ -22,9 +22,11 @@
                                                 <th>Modelo</th>
                                                 <th>Descripción</th>
                                                 <th>Estatus</th>
-                                                <th>Fecha de inicio</th>
-                                                <th>Orden</th>
-                                                <th>Trabajo</th>
+                                                <th>Fecha</th>
+                                                <th>Acción</th>
+                                                <!--<th>Orden</th>
+                                                <th>Hoja de calidad</th>
+                                                <th>Trabajo</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -34,13 +36,16 @@
                                                 <td>{{trabajo.modeloMarca}}</td>
                                                 <td>{{trabajo.trabajo}}</td>
                                                 <td>{{trabajo.estatus}}</td>
-                                                <td>{{trabajo.fechaInicio | date:"dd-MM-yy HH:mm"}}</td>
+                                                <td>{{trabajo.fecha | date:"dd-MM-yy HH:mm"}}</td>   
                                                 <td>
-                                                    <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)"><span class="glyphicon glyphicon-sunglasses"></span> Ver</button>
-                                                </td>
-                                                <td>
-                                                      <button class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" ><span class="glyphicon glyphicon-ok-sign"></span> Finalizar
-                                                      </button>
+                                                    
+                                                        <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span>&nbsp;Ver&nbsp;&nbsp;</button>
+                                                        
+                                                        <button ng-if="trabajo.estatus == 'HojaCalidad'" class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" data-toggle="tooltip" tooltip="Terminar trabajo" tooltip-placement="up"><span class="glyphicon glyphicon-ok-sign"></span> Terminar
+                                                        </button>
+                                                        
+                                                        <button ng-if="trabajo.estatus == 'Iniciado'" class="btn btn-primary" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo, 1)" data-toggle="tooltip" tooltip="Cargar hoja de calidad" tooltip-placement="up"><span class="glyphicon glyphicon-upload"></span>&nbsp;Hoja</button>
+                                                                                        
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -61,8 +66,9 @@
                                                 <th>Observaciones</th>
                                                 <th>Estatus</th>
                                                 <th>Fecha</th>
-                                                <th>Factura</th>
-                                                <th>Orden</th>
+                                                <th>Acción</th>
+                                                <!--<th>Factura</th>
+                                                <th>Orden</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -75,14 +81,19 @@
                                                 <td>{{trabajo.estatus}}</td>
                                                 <td>{{trabajo.fecha | date:"dd-MM-yy HH:mm"}}</td>
                                                 <td>
-                                                    <div ng-if="trabajo.estatus == 'Cerrado'">
-                                                        <button class="btn btn-info" type="button" ng-click="uploadFactura(trabajo.idTrabajo)" ng-disabled="false"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
+                                                    <button ng-if="trabajo.estatus == 'Cerrado'" class="btn btn-info" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo,0)" data-toggle="tooltip" tooltip="Cargar factura" tooltip-placement="up"><span class="glyphicon glyphicon-upload"></span> Factura</button>
+                                                    
+                                                    <button ng-if="trabajo.estatus == 'Terminado'" class="btn btn-success" type="button" ng-click="aprobarTrabajo(trabajo, 2)" data-toggle="tooltip" tooltip="Aprobar órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-check"></span> Aprobar
+                                                    </button>
+                                                    
+                                                    <!--<div ng-if="trabajo.estatus == 'Cerrado'">
+                                                        <button class="btn btn-info" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo,0)" ng-disabled="false"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
                                                     </div>
                                                     <div ng-if="trabajo.estatus != 'Cerrado'">
                                                         <button class="btn btn-info" type="button" ng-disabled="true"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
-                                                    </div>
+                                                    </div>-->
                                                 </td>
-                                                <td>
+                                                <!--<td>
                                                     <div ng-if="trabajo.estatus == 'Cerrado'">
                                                         <button class="btn btn-success" type="button" ng-click="" ng-disabled="true"><span class="glyphicon glyphicon-check"></span> Aprobar
                                                         </button>
@@ -91,7 +102,7 @@
                                                         <button class="btn btn-success" type="button" ng-click="aprobarTrabajo(trabajo, 2)" ng-disabled="false"><span class="glyphicon glyphicon-check"></span> Aprobar
                                                         </button>
                                                     </div>
-                                                </td>
+                                                </td>-->
                                             </tr>
                                         </tbody>
                                     </table>
@@ -109,7 +120,7 @@
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Finalizar trabajo</h4>
+                <h4 class="modal-title">Terminar trabajo</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -118,7 +129,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-danger btnTerminarTrabajo">Finalizar trabajo</button>
+                <button type="button" class="btn btn-danger btnTerminarTrabajo">Terminar trabajo</button>
             </div>
         </div>
     </div>
@@ -130,14 +141,14 @@
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Factura</h4>
+                <h4 class="modal-title">{{modalTittle}}</h4>
             </div>
             <div class="modal-body">
                 <div class="table-responsive m-t" style="margin-left:10%">
                     <iframe src="/AngularJS/Templates/uploader.html" width="680px" height="380px" frameborder="0" id="uploader" scrolling="no" ></iframe>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivos()">Cargar factura</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivos()">Cargar archivo</button>
                 </div>
             </div>
         </div>

@@ -234,4 +234,22 @@ DataAccess.prototype.unidadInfor = function (objParams, callback) {
     });
 };
 
+//actualiza el trabajo a estatus HojaCalidad
+DataAccess.prototype.updHojaCalidadTrabajo = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idTrabajo', sql.Numeric(18, 0), objParams.idTrabajo);
+
+        request.execute('UPD_TRABAJO_HOJACALIDAD_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al obtener timeLine: ' + objParams + ' mensaje: ' + err);
+            }
+        });
+    });
+};
+
 module.exports = DataAccess; 

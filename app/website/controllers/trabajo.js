@@ -139,4 +139,23 @@ Trabajo.prototype.get_timeLine_data = function(req, res, next){
     });
 }
 
+//realiza la actualización del trabajo a cerrado
+Trabajo.prototype.post_updtrabajohojacalidad = function(req, res, next){
+	//Objeto que almacena la respuesta
+	var object = {};
+	//Referencia a la clase para callback
+	var self = this;
+
+	var msgObj = {
+        idTrabajo: req.body.idTrabajo,
+    }
+	
+	this.model.updHojaCalidadTrabajo(msgObj, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.post(res, object);
+    });
+}
 module.exports = Trabajo;
