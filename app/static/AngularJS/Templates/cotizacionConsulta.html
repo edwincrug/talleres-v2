@@ -71,8 +71,8 @@
                                 <tr>
                                     <th>Artículos</th>
                                     <th>Cantidad</th>
-                                    <th>Precio</th>
-                                    <th>IVA</th>
+                                    <th>Precio Unitario</th>
+                                    <th>I.V.A</th>
                                     <th>Precio Total</th>
                                 </tr>
                             </thead>
@@ -81,10 +81,11 @@
                                     <td>
                                         <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
                                         <small>{{articulo.item}}</small></td>
-                                    <td>{{articulo.cantidad}}</td>
+                                    <td>{{ articulo.cantidad }}</td>
                                     <td>{{ articulo.precio | currency }}</td>
                                     <td>{{articulo.precio * (articulo.iva / 100)}}</td>
                                     <td>{{articulo.cantidad * (articulo.precio*(articulo.iva / 100)) | currency}}</td>
+                                    <td>{{ (articulo.cantidad * articulo.precio) + (articulo.cantidad * (articulo.precio * (articulo.valorIva / 100))) | currency }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -93,8 +94,16 @@
                     <table class="table invoice-total">
                         <tbody>
                             <tr>
+                                <td><strong>Sub Total :</strong></td>
+                                <td>{{sumaPrecioTotal | currency}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>I.V.A :</strong></td>
+                                <td>{{sumaIvaTotal | currency}}</td>
+                            </tr>
+                            <tr>
                                 <td><strong>TOTAL :</strong></td>
-                                <td>{{total | currency}}</td>
+                                <td>{{sumaGranTotal | currency}}</td>
                             </tr>
                         </tbody>
                     </table>
