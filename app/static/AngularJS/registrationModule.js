@@ -80,6 +80,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             controller: 'ordenServicioEvidenciaController'
         });
 
+        $routeProvider.when('/ordenesporcobrar', {
+            templateUrl: 'AngularJS/Templates/ordenesporcobrar.html',
+            controller: 'ordenPorCobrarController'
+        });
+
 
         $locationProvider.html5Mode({
             enabled: true,
