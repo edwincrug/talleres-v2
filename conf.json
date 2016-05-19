@@ -2,7 +2,7 @@
 	"port": 4100,
 	"SQL_user": "sa",
     "SQL_password": "S0p0rt3",
-    "SQL_server": "192.168.20.9",
+    "SQL_server": "192.168.20.18",
     "SQL_database": "Talleres",
     "SQL_connectionTimeout": 60000
 } 
