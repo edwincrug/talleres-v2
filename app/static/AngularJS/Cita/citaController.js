@@ -637,7 +637,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
     }
 
     //Se realiza la carga de archivos
-    var cargarArchivos = function () {
+    var cargarArchivos = function (idTrabajoNew) {
         //Se obtienen los datos de los archivos a subir
         formArchivos = document.getElementById("uploader");
         contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
@@ -648,7 +648,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
         vTrabajo = contentForm.document.getElementById("vTrabajo");
         idUsuario = contentForm.document.getElementById("idUsuario");
-        idTrabajoEdit.value = $scope.idTrabajoUpl;
+        idTrabajoEdit.value = idTrabajoNew;
         idTipoEvidencia.value = 1;
         idUsuario.value = 1;
         vTrabajo.value = "1";
@@ -659,13 +659,12 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
     //Cargar comprobante de recepción
     $scope.recepcion = function () {
         trabajoRepository.insertTrabajo($scope.idCitaUpld, 1, $scope.idUnidadUpl)
-            .then(function (id) {
-                idTrabajoNew = id.data;
+            .then(function (trabajo) {
+                idTrabajoNew = trabajo.data[0].idTrabajo;
+                cargarArchivos(idTrabajoNew);
+                $scope.busquedaCita($scope.fecha);
             }, function (error) {
                 alertFactory.error("Error al insertar el trabajo");
-            });
-        cargarArchivos();
-        $scope.busquedaCita($scope.fecha);
-        
+            });        
     }
 });

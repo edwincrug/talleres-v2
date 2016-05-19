@@ -141,6 +141,10 @@ Trabajo.prototype.get_timeLine_data = function(req, res, next){
 
 //inserta el trabajo de la cita
 Trabajo.prototype.post_insertTrabajo = function(req, res, next){
+    //Objeto que almacena la respuesta
+	var object = {};
+	//Referencia a la clase para callback
+	var self = this;
     //Objeto que envía los parámetros
     var params = {};
     

@@ -84,7 +84,7 @@
                                     <td>{{articulo.cantidad}}</td>
                                     <td>{{ articulo.precio | currency }}</td>
                                     <td>{{articulo.precio * (articulo.iva / 100)}}</td>
-                                    <td>{{(articulo.cantidad * (articulo.precio*(articulo.iva / 100)) | currency}}</td>
+                                    <td>{{articulo.cantidad * (articulo.precio*(articulo.iva / 100)) | currency}}</td>
                                 </tr>
                             </tbody>
                         </table>

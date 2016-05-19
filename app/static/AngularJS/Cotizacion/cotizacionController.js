@@ -96,7 +96,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 idTaller = $scope.orden.idTaller;
             }
             $('.dataTableItem').DataTable().destroy();
-            $scope.promise = cotizacionRepository.buscarPieza(idTaller, pieza).then(function (result) {
+            $scope.promise = cotizacionRepository.buscarPieza(1, pieza).then(function (result) {
                 $scope.listaPiezas = result.data;
                 if (result.data.length > 0) {
                     setTimeout(function () {
@@ -152,7 +152,9 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     if (item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento) {
                         $scope.arrayItem[i].cantidad = item.cantidad + 1;
                         $scope.arrayItem[i].importe = ($scope.arrayItem[i].cantidad) * ($scope.arrayItem[i].precio)
-                        $scope.importe = $scope.arrayItem[i].importe;
+                        //$scope.importe = $scope.arrayItem[i].importe;
+                        $scope.sub = calcularSubtotal();
+                        $scope.iva = calcularIva();
                         $scope.total = calculaTotal();
                     }
                 });
@@ -168,6 +170,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     cantidad: 1,
                     importe: pieza.precio * 1,
                     idTipoElemento: pieza.idTipoElemento,
+                    valorIva: pieza.valorIva,
                     idEstatus: 9
                 });
                 if ($scope.editar == 1) {
@@ -180,10 +183,13 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                         cantidad: 1,
                         importe: pieza.precio * 1,
                         idTipoElemento: pieza.idTipoElemento,
+                        valorIva: pieza.valorIva,
                         idEstatus: 9
                     });
                 }
                 calcularImporte();
+                $scope.sub = calcularSubtotal();
+                $scope.iva = calcularIva();
                 $scope.total = calculaTotal();
                 exist = false;
             }
@@ -198,6 +204,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 cantidad: 1,
                 importe: pieza.precio * 1,
                 idTipoElemento: pieza.idTipoElemento,
+                valorIva: pieza.valorIva,
                 idEstatus: 9
             });
             if ($scope.editar == 1) {
@@ -210,10 +217,13 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     cantidad: 1,
                     importe: pieza.precio * 1,
                     idTipoElemento: pieza.idTipoElemento,
+                    valorIva: pieza.valorIva,
                     idEstatus: 9
                 });
             }
             calcularImporte();
+            $scope.sub = calcularSubtotal();
+            $scope.iva = calcularIva();
             $scope.total = calculaTotal();
             exist = false;
         }
@@ -232,9 +242,9 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     var calculaTotal = function () {
         var total = 0;
         $scope.arrayItem.forEach(function (item) {
-            total = total + item.importe;
+            total = total + item.cantidad * (parseFloat(item.precio) * parseFloat(item.valorIva / 100))) + (parseFloat(item.precio)));
         })
-        return formatoMoneda(total);
+        return total;
     };
 
     //Calcula el total de la cotización en modo editar
@@ -243,21 +253,34 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         $scope.arrayItem.forEach(function (item) {
             total = total + item.importe;
         })
-        return formatoMoneda(total);
+        return total;//formatoMoneda(total);
     };
 
     //Calcula el importe de la cotización
     var calcularImporte = function () {
         var importe = 0;
         $scope.arrayItem.forEach(function (item) {
-            item.importe = parseFloat(item.precio) * parseFloat(item.cantidad);
+            item.importe = (item.cantidad * (parseFloat(item.precio) * parseFloat(item.valorIva / 100))) + parseFloat(item.precio)
         })
     }
-
-    //Da el formato de moneda
-    var formatoMoneda = function (monto) {
-        return "$" + monto.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-    };
+    
+    //Calcula el Subtotal
+    var calcularSubtotal = function(){
+        var sub = 0;
+        $scope.arrayItem.forEach(function(item){
+            sub = sub + (item.cantidad * parseFloat(item.precio));
+        })
+        return sub;
+    }
+    
+    //Calcula el IVA
+    var calcularIva = function(){
+        var iva = 0;
+        $scope.arrayItem.forEach(function(item){
+            iva = iva + ((item.cantidad)*(parseFloat(item.precio) * parseFloat(item.valorIva / 100)));
+        })
+        return iva;
+    }
 
     //Eliminar la pieza de la cotización
     $scope.quitarPieza = function (pieza) {
@@ -267,12 +290,16 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     $scope.arrayItem[i].cantidad = item.cantidad - 1;
                     $scope.arrayItem[i].importe = ($scope.arrayItem[i].cantidad) * ($scope.arrayItem[i].precio)
                     $scope.total = calculaTotal();
+                    $scope.sub = calcularSubtotal();
+                    $scope.iva = calcularIva();
                     if ($scope.editar == 1) {
                         $scope.arrayCambios[i].cantidad = $scope.arrayItem[i].cantidad;
                     }
                 } else {
                     $scope.arrayItem.splice(i, 1);
                     $scope.total = calculaTotal();
+                    $scope.sub = calcularSubtotal();
+                    $scope.iva = calcularIva();
                     $scope.importe = 0;
                     if ($scope.editar == 1) {
                         $scope.arrayCambios[i].idEstatus = 13; //Estatus Eliminado
@@ -341,6 +368,8 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     $scope.observaciones = result.data[0].observaciones;
                     $scope.total = calculaTotalEditar();
                     $scope.importe = calcularImporte();
+                    $scope.sub = calcularSubtotal();
+                    $scope.iva = calcularIva();
                     alertFactory.success('Datos Cargados');
                 } else {
                     alertFactory.error('No hay datos para editar');
@@ -424,6 +453,8 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 $scope.arrayCambios = $scope.arrayItem.slice();
                 $scope.importe = calcularImporte();
                 $scope.total = calculaTotalEditar();
+                $scope.sub = calcularSubtotal();
+                $scope.iva = calcularIva();
             }, function (error) {
                 alertFactory.error('Error');
             });
