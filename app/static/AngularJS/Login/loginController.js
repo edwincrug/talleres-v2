@@ -1,17 +1,21 @@
-registrationModule.controller('loginController', function($scope, $rootScope){
-	var vuser = 'admin'
-	var vpassword = '12345admin';
-	$rootScope.sesion = 0;
+registrationModule.controller('loginController', function ($scope, $rootScope, loginRepository) {
+    $rootScope.sesion = 0;
 
-	$scope.init = function(){
+    $scope.init = function () {
 
-	}
+    }
 
-	$scope.login = function(user, password){
-		if(vuser == user &&  vpassword == password)
-		{
-			location.href = '/cita';
-			$rootScope.sesion = 1;
-		}
-	}
+    $scope.login = function (username, password) {
+        loginRepository.login(username, password)
+            .then(function (result) {
+                if (result.length > 0) {
+                    alertFactory.success('Bienvenido a Talleres: ' + result.data[0].nombreCompleto);
+                } else {
+                    alertFactory.error('Valide el usuario y/o contraseña');
+                }
+
+            }, function (error) {
+                alertFactory.error('Error');
+            });
+    }
 });

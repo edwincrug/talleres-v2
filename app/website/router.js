@@ -2,5 +2,6 @@
      cita: require('./controllers/cita'),
      cotizacion: require('./controllers/cotizacion'),
      trabajo: require('./controllers/trabajo'),
-     orden: require('./controllers/ordenes')
+     orden: require('./controllers/ordenes'),
+     login: require('./controllers/login')
  }

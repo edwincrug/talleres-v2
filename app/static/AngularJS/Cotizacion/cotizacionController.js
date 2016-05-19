@@ -187,7 +187,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                         idEstatus: 9
                     });
                 }
-                calcularImporte();
+                //calcularImporte();
                 $scope.sub = calcularSubtotal();
                 $scope.iva = calcularIva();
                 $scope.total = calculaTotal();
@@ -221,7 +221,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     idEstatus: 9
                 });
             }
-            calcularImporte();
+            //calcularImporte();
             $scope.sub = calcularSubtotal();
             $scope.iva = calcularIva();
             $scope.total = calculaTotal();
@@ -367,7 +367,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     $scope.arrayCambios = $scope.arrayItem.slice();
                     $scope.observaciones = result.data[0].observaciones;
                     $scope.total = calculaTotalEditar();
-                    $scope.importe = calcularImporte();
+                    //$scope.importe = calcularImporte();
                     $scope.sub = calcularSubtotal();
                     $scope.iva = calcularIva();
                     alertFactory.success('Datos Cargados');
@@ -451,7 +451,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             .then(function (result) {
                 $scope.arrayItem = result.data;
                 $scope.arrayCambios = $scope.arrayItem.slice();
-                $scope.importe = calcularImporte();
+                //$scope.importe = calcularImporte();
                 $scope.total = calculaTotalEditar();
                 $scope.sub = calcularSubtotal();
                 $scope.iva = calcularIva();
