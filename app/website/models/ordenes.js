@@ -34,4 +34,21 @@ Orden.prototype.ordenesporcobrar = function (callback) {
     });
 };
 
+Orden.prototype.trabajocobrado = function (objTrabajoCobrado, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idTrabajo', sql.Numeric(18, 0), objTrabajoCobrado.idTrabajo);
+        request.execute('INS_TRABAJO_CONCLUIDO_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al actualizar el trabajo cobrado: ' + params + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 module.exports = Orden;

@@ -8,20 +8,29 @@
 registrationModule.controller('cotizacionConsultaController', function ($scope, localStorageService, alertFactory, cotizacionConsultaRepository) {
 
     $scope.message = "Buscando...";
+    $scope.sumaIvaTotal = 0;
+    $scope.sumaPrecioTotal = 0;
+    $scope.sumaGranTotal = 0;
 
     $scope.init = function () {
         $scope.Maestro();
-        
+
     }
 
     $scope.Detalle = function (idCotizacion, idTaller) {
+        $scope.sumaIvaTotal = 0;
+        $scope.sumaPrecioTotal = 0;
+        $scope.sumaGranTotal = 0;
         cotizacionConsultaRepository.getDetail(idCotizacion, idTaller).then(function (result) {
             if (result.data.length > 0) {
                 $scope.total = 0;
                 $scope.articulos = result.data;
                 for (var i = 0; i < result.data.length; i++) {
-                    $scope.total += (result.data[i].precio * result.data[i].cantidad)
+                    $scope.sumaIvaTotal += (result.data[i].cantidad * result.data[i].precio) * (result.data[i].valorIva / 100);
+
+                    $scope.sumaPrecioTotal += (result.data[i].cantidad * result.data[i].precio);
                 }
+                $scope.sumaGranTotal = ($scope.sumaPrecioTotal + $scope.sumaIvaTotal);
 
                 $('#cotizacionDetalle').appendTo('body').modal('show');
                 alertFactory.success('Datos cargados.');

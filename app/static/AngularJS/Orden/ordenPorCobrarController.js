@@ -56,9 +56,18 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
         $scope.idTrabajo = idTrabajo;
         $('#subirAdenda').appendTo('body').modal('show');
     }
-    
-     $scope.actualizarOrdenPorCobrar = function () {
-        
+
+    $scope.trabajoCobrado = function () {
+        $('.dataTableOrdenesPorCobrar').DataTable().destroy();
+        ordenPorCobrarRepository.putTrabajoCobrado($scope.idTrabajo).then(function (result) {
+            if (result.data.length > 0) {
+                alertFactory.success('Trabajo cobrado exitosamente');
+            } else {
+                alertFactory.info('No se pudo actualizar el trabajo cobrado');
+            }
+        }, function (error) {
+            alertFactory.error("Error al actualizar el trabajo cobrado");
+        });
     }
 
     //Se realiza la carga de archivos
@@ -80,8 +89,9 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
         idUsuario.value = 1;
         //Submit del botón del Form para subir los archivos        
         btnSubmit.click();
-        
-        setTimeout(function () {            
+
+        setTimeout(function () {
+            $scope.trabajoCobrado();
             $scope.getOrdenesPorCobrar();
         }, 2000);
     }
