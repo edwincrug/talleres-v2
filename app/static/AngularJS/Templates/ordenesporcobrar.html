@@ -1,0 +1,70 @@
+<div ng-init="init()" class="animated bounceInRight">
+    <div class="headTitleTallerCita">
+        <span class="title">Órdenes por Cobrar<span class="subtitle">Call Center / Taller</span></span>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTableOrdenesPorCobrar" cg-busy="{promise:promise,message:message, minDuration: minDuration,
+   delay:delay}">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha Ingreso Unidad</th>
+                                        <th>Taller</th>
+                                        <th>Dirección</th>
+                                        <th>Fecha Inicio Trabajo</th>
+                                        <th>Fecha Fin Trabajo</th>
+                                        <th>No. Trabajo</th>
+                                        <th>Trabajo</th>
+                                        <th>Estatus</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="orden in ordenes | filter: cotizacion">
+                                        <td>{{ orden.fechaIngresoUnidad | date:'dd-MM-yyyy HH:mm'}}</td>
+                                        <td>{{orden.razonSocial}}</td>
+                                        <td>{{orden.direccion}}</td>
+                                        <td>{{orden.fechaInicio | date:'dd-MM-yyyy HH:mm'}}</td>
+                                        <td>{{orden.fechaFin | date:'dd-MM-yyyy HH:mm'}}</td>
+                                        <td>{{ orden.numeroTrabajo }}</td>
+                                        <td>{{orden.trabajo}}</td>
+                                        <td>{{ orden.descripcionLarga }}</td>
+                                        <td>
+                                            <button class="btn btn-success" type="button" id="btnEnviar" data-toggle="tooltip" tooltip="Subir Adenda, COPADE" tooltip-placement="left" ng-click="subir(orden.idTrabajo)">
+                                                <span class="fa fa-paperclip" aria-hidden="true" data-toggle="modal"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="subirAdenda" class="modal inmodal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Subir Adenda, COPADE</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive m-t" style="margin-left:10%">
+                        <iframe src="/AngularJS/Templates/uploader.html" width="680px" height="380px" frameborder="0" id="uploader" scrolling="no"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivos()">Adjuntar Archivos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

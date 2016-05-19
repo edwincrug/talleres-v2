@@ -35,7 +35,7 @@
     <link href="css/inspinia/dataTables/datatables.min.css" rel="stylesheet">
     <link href="css/inspinia/datapicker/datepicker3.css" rel="stylesheet">
     <link href="css/inspinia/clockpicker/clockpicker.css" rel="stylesheet">
-    
+
 
 </head>
 
@@ -71,6 +71,9 @@
                 </li>
                 <li>
                     <a href="trabajo" ng-click="showChat = 0"><i class="fa fa-clipboard"></i> <span class="nav-label">Órdenes de Servicio</span>  </a>
+                </li>
+                <li>
+                    <a href="ordenesporcobrar" ng-click="showChat = 0"><i class="fa fa-credit-card"></i> <span class="nav-label">Órdenes por Cobrar</span><span class="label label-warning pull-right"></span></a>
                 </li>
             </ul>
 
@@ -206,7 +209,7 @@
 
             <div class="content">
                 <div ng-repeat="msg in chat">
-                    <div ng-class="msg.idUsuario === 3 ? 'right' : 'left'" >
+                    <div ng-class="msg.idUsuario === 3 ? 'right' : 'left'">
                         <div class="author-name">
                             {{msg.nombreCompleto}}
                             <small class="chat-date">
@@ -290,6 +293,8 @@
     <script src="AngularJS/Orden/ordenServicioController.js"></script>
     <script src="AngularJS/Orden/ordenServicioEvidenciaRepository.js"></script>
     <script src="AngularJS/Orden/ordenServicioEvidenciaController.js"></script>
+    <script src="AngularJS/Orden/ordenPorCobrarRepository.js"></script>
+    <script src="AngularJS/Orden/ordenPorCobrarController.js"></script>
 
     <!-- Mainly scripts -->
     <script src="js/inspinia/metisMenu/jquery.metisMenu.js"></script>

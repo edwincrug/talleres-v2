@@ -238,20 +238,36 @@ DataAccess.prototype.unidadInfor = function (objParams, callback) {
 DataAccess.prototype.insertTrabajo = function (objParams, callback) {
     var self = this.connection;
     this.connection.connect(function (err) {
+    // Stored Procedure
+    var request = new sql.Request(self);
+    request.input('idCita', sql.Numeric(18, 0), objParams.idCita);
+    request.input('idUsuario', sql.Numeric(18, 0), objParams.idUsuario);
+    request.input('idUnidad', sql.Numeric(18, 0), objParams.idUnidad);
+
+    request.execute('INS_TRABAJO_SP', function (err, recordsets, returnValue) {
+        if (recordsets != null) {
+            callback(err, recordsets[0]);
+        } else {
+            console.log('Error al insertar el trabajo: ' + objParams + ' mensaje: ' + err);
+        }
+    });
+};
+
+//actualiza el trabajo a estatus HojaCalidad
+DataAccess.prototype.updHojaCalidadTrabajo = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
         // Stored Procedure 
         var request = new sql.Request(self);
-        request.input('idCita', sql.Numeric(18, 0), objParams.idCita);
-        request.input('idUsuario', sql.Numeric(18, 0), objParams.idUsuario);
-        request.input('idUnidad', sql.Numeric(18, 0), objParams.idUnidad);
+        request.input('idTrabajo', sql.Numeric(18, 0), objParams.idTrabajo);
 
-        request.execute('INS_TRABAJO_SP', function (err, recordsets, returnValue) {
+        request.execute('UPD_TRABAJO_HOJACALIDAD_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);
             } else {
-                console.log('Error al insertar el trabajo: ' + objParams + ' mensaje: ' + err);
+                console.log('Error al obtener timeLine: ' + objParams + ' mensaje: ' + err);
             }
         });
-
     });
 };
 

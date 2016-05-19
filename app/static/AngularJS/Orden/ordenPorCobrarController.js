@@ -1,0 +1,88 @@
+registrationModule.controller('ordenPorCobrarController', function ($scope, localStorageService, alertFactory, ordenPorCobrarRepository) {
+
+    $scope.message = "Buscando...";
+
+    $scope.init = function () {
+        $scope.getOrdenesPorCobrar();
+    }
+
+    //Devuelve las órdenes por cobrar
+    $scope.getOrdenesPorCobrar = function () {
+        $scope.promise =
+            ordenPorCobrarRepository.getOrdenesPorCobrar().then(function (result) {
+                if (result.data.length > 0) {
+                    $scope.ordenes = result.data;
+                    setTimeout(function () {
+                        $('.dataTableOrdenesPorCobrar').DataTable({
+                            buttons: [
+                                {
+                                    extend: 'copy'
+                                    },
+                                {
+                                    extend: 'csv'
+                                    },
+                                {
+                                    extend: 'excel',
+                                    title: 'ExampleFile'
+                                    },
+                                {
+                                    extend: 'pdf',
+                                    title: 'ExampleFile'
+                                    },
+
+                                {
+                                    extend: 'print',
+                                    customize: function (win) {
+                                        $(win.document.body).addClass('white-bg');
+                                        $(win.document.body).css('font-size', '10px');
+
+                                        $(win.document.body).find('table')
+                                            .addClass('compact')
+                                            .css('font-size', 'inherit');
+                                    }
+                            }
+                        ]
+                        });
+                    }, 1000);
+                } else {
+                    alertFactory.info('No se encontraron ordenes por cobrar.');
+                }
+            }, function (error) {
+                alertFactory.error("No se pudieron obtener las órdenes por cobrar");
+            });
+    }
+
+    $scope.subir = function (idTrabajo) {
+        $scope.idTrabajo = idTrabajo;
+        $('#subirAdenda').appendTo('body').modal('show');
+    }
+    
+     $scope.actualizarOrdenPorCobrar = function () {
+        
+    }
+
+    //Se realiza la carga de archivos
+    $scope.cargarArchivos = function () {
+        //Se obtienen los datos de los archivos a subir
+        formArchivos = document.getElementById("uploader");
+        contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
+        if (contentForm.document)
+            btnSubmit = contentForm.document.getElementById("submit2");
+        elements = contentForm.document.getElementById("uploadForm").elements;
+        idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
+        idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
+        idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
+        vTrabajo = contentForm.document.getElementById("vTrabajo");
+        idUsuario = contentForm.document.getElementById("idUsuario");
+        idTrabajoEdit.value = $scope.idTrabajo;
+        vTrabajo.value = "1";
+        idTipoEvidencia.value = 1;
+        idUsuario.value = 1;
+        //Submit del botón del Form para subir los archivos        
+        btnSubmit.click();
+        
+        setTimeout(function () {            
+            $scope.getOrdenesPorCobrar();
+        }, 2000);
+    }
+});

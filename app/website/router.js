@@ -1,5 +1,6 @@
  module.exports = {
      cita: require('./controllers/cita'),
      cotizacion: require('./controllers/cotizacion'),
-     trabajo: require('./controllers/trabajo')
+     trabajo: require('./controllers/trabajo'),
+     orden: require('./controllers/ordenes')
  }

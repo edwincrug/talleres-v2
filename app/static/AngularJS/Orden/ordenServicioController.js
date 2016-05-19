@@ -168,7 +168,7 @@ registrationModule.controller('ordenServicioController', function ($scope, local
 
     $scope.nuevaCotizacion = function () {
         var objOrden = {};
-        objOrden.idTaller = 1;  
+        objOrden.idTaller = 1;
         objOrden.idUsuario = 1;
         objOrden.idTrabajo = $scope.idTrabajoOrden.idTrabajo;
         objOrden.idUnidad = 1;
@@ -273,20 +273,31 @@ registrationModule.controller('ordenServicioController', function ($scope, local
         });
 
     }
-     
+
     //cambia el estatus del trabajo a cerrado
-     $scope.cierraTrabajo = function(){
+    $scope.cierraTrabajo = function () {
         var idTrabajo = localStorageService.get("objTrabajo").idTrabajo;
-        trabajoRepository.cierraTrabajo(idTrabajo).then(function(trabajoCerrado){
-             if(trabajoCerrado.data[0].idHistorialProceso > 0){
-                 alertFactory.success("Trabajo cerrado");
-                 setTimeout(function(){
-                     localStorageService.remove('objTrabajo');
-                     location.href = '/trabajo'
-                 },1000);
-             }
-         },function(error){
-             alertFactory.error("Error al cerrar el trabajo");
-         });
-     }
+        trabajoRepository.cierraTrabajo(idTrabajo).then(function (trabajoCerrado) {
+            if (trabajoCerrado.data[0].idHistorialProceso > 0) {
+                alertFactory.success("Trabajo cerrado");
+                setTimeout(function () {
+                    localStorageService.remove('objTrabajo');
+                    location.href = '/trabajo'
+                }, 1000);
+            }
+        }, function (error) {
+            alertFactory.error("Error al cerrar el trabajo");
+        });
+    }
+    
+    //Devuelve las órdenes por cobrar
+    $scope.getOrdenesPorCobrar = function () {
+        ordenServicioRepository.getOrdenesPorCobrar().then(function (result) {
+            if(result.data.lenght > 0){
+                var algo = result.data;
+            }
+        }, function (error) {
+            alertFactory.error("No se pudieron obtener las órdenes por cobrar");
+        });
+    }
 });

@@ -1,4 +1,5 @@
 var searchUrl = global_settings.urlCORS + '/api/cotizacion/';
+var ordenUrl = global_settings.urlCORS + '/api/ordenes/';
 
 registrationModule.factory('ordenServicioRepository', function ($http) {
     return {
@@ -75,10 +76,16 @@ registrationModule.factory('ordenServicioRepository', function ($http) {
             });
         },
         getDocs: function (idCotizacion) {
-           return $http({
-               url: searchUrl + 'docs/' + idCotizacion,
-               method: "GET"
-           });
-       }
+            return $http({
+                url: searchUrl + 'docs/' + idCotizacion,
+                method: "GET"
+            });
+        },
+        getOrdenesPorCobrar: function () {
+            return $http({
+                url: ordenUrl + 'ordenesporcobrar',
+                method: "GET"
+            });
+        }
     };
 });
