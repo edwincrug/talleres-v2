@@ -8,7 +8,7 @@ registrationModule.factory('loginRepository', function ($http) {
                 password: password
         }
             return $http({
-                url: citaUrl + 'validaCredenciales/',
+                url: loginUrl + 'validaCredenciales/',
                 method: "POST",
                 data: msgObj,
                 headers: {

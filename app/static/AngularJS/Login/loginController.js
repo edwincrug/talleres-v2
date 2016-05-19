@@ -1,4 +1,4 @@
-registrationModule.controller('loginController', function ($scope, $rootScope, loginRepository) {
+registrationModule.controller('loginController', function ($scope, alertFactory, $rootScope, loginRepository) {
     $rootScope.sesion = 0;
 
     $scope.init = function () {
