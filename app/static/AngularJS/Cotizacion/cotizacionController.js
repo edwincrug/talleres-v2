@@ -242,7 +242,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     var calculaTotal = function () {
         var total = 0;
         $scope.arrayItem.forEach(function (item) {
-            total = total + item.cantidad * (parseFloat(item.precio) * parseFloat(item.valorIva / 100))) + (parseFloat(item.precio)));
+            total = total + (item.cantidad * parseFloat(item.precio)) + ((item.cantidad)*(parseFloat(item.precio) * parseFloat(item.valorIva / 100)));
         })
         return total;
     };
@@ -251,9 +251,9 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     var calculaTotalEditar = function () {
         var total = 0;
         $scope.arrayItem.forEach(function (item) {
-            total = total + item.importe;
+            total = total + (item.cantidad * parseFloat(item.precio)) + ((item.cantidad)*(parseFloat(item.precio) * parseFloat(item.valorIva / 100)))
         })
-        return total;//formatoMoneda(total);
+        return total;
     };
 
     //Calcula el importe de la cotización
