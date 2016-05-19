@@ -234,4 +234,25 @@ DataAccess.prototype.unidadInfor = function (objParams, callback) {
     });
 };
 
+//inserta el trabajo
+DataAccess.prototype.insertTrabajo = function (objParams, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCita', sql.Numeric(18, 0), objParams.idCita);
+        request.input('idUsuario', sql.Numeric(18, 0), objParams.idUsuario);
+        request.input('idUnidad', sql.Numeric(18, 0), objParams.idUnidad);
+
+        request.execute('INS_TRABAJO_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al insertar el trabajo: ' + objParams + ' mensaje: ' + err);
+            }
+        });
+
+    });
+};
+
 module.exports = DataAccess; 

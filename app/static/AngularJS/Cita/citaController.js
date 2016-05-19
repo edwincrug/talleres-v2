@@ -7,6 +7,7 @@
 // -- =============================================
 
 registrationModule.controller('citaController', function ($scope, $route, $rootScope, localStorageService, alertFactory, citaRepository, cotizacionRepository, trabajoRepository) {
+    var idTrabajoNew = '';
     $scope.message = 'Buscando...';
 
     $scope.init = function () {
@@ -218,6 +219,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         localStorageService.set('unidad', unidad);
     }
 
+    //Búsqueda de citas
     $scope.busquedaCita = function (fecha) {
         var fechaCita = '';
         var dateHoy = new Date();
@@ -611,19 +613,59 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
             alertFactory.error("Error al obtener timeLine");
         })
     }
-    
+
     //obtiene los clientes
-    var getCliente = function(){
-        citaRepository.getCliente().then(function(cliente){
-            if(cliente.data.length > 0){
+    var getCliente = function () {
+        citaRepository.getCliente().then(function (cliente) {
+            if (cliente.data.length > 0) {
                 $scope.clientes = cliente.data;
                 alertFactory.success("Clientes cargados");
-            }
-            else{
+            } else {
                 alertFactory.info("No se encontraron clientes");
             }
-        }, function(error){
+        }, function (error) {
             alertFactory.error("Error al cargar clientes");
         });
+    }
+
+    //Modal Adjuntar Formato
+    $scope.formatoRecepcion = function (cita) {
+        $scope.idTrabajoUpl = cita.idTrabajo;
+        $scope.idCitaUpld = cita.idCita;
+        $scope.idUnidadUpl = cita.idUnidad;
+        $('#evidencia').appendTo('body').modal('show');
+    }
+
+    //Se realiza la carga de archivos
+    var cargarArchivos = function () {
+        //Se obtienen los datos de los archivos a subir
+        formArchivos = document.getElementById("uploader");
+        contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
+        if (contentForm.document)
+            btnSubmit = contentForm.document.getElementById("submit2");
+        elements = contentForm.document.getElementById("uploadForm").elements;
+        idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
+        idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
+        vTrabajo = contentForm.document.getElementById("vTrabajo");
+        idUsuario = contentForm.document.getElementById("idUsuario");
+        idTrabajoEdit.value = $scope.idTrabajoUpl;
+        idTipoEvidencia.value = 1;
+        idUsuario.value = 1;
+        vTrabajo.value = "1";
+        //Submit del botón del Form para subir los archivos        
+        btnSubmit.click();
+    }
+
+    //Cargar comprobante de recepción
+    $scope.recepcion = function () {
+        trabajoRepository.insertTrabajo($scope.idCitaUpld, 1, $scope.idUnidadUpl)
+            .then(function (id) {
+                idTrabajoNew = id.data;
+            }, function (error) {
+                alertFactory.error("Error al insertar el trabajo");
+            });
+        cargarArchivos();
+        $scope.busquedaCita($scope.fecha);
+        
     }
 });

@@ -29,26 +29,34 @@
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
-                                            <th>Num.Economico</th>
-                                            <th>Marca-Modelo</th>
+                                            <th>Taller</th>
+                                            <th>Dirección Taller</th>
+                                            <th># Eco</th>
+                                            <th>Marca - Modelo</th>
                                             <th>Trabajo</th>
                                             <th>Observaciones</th>
                                             <th>Estatus</th>
                                             <th>Agendó</th>
-                                            <th>Cotizar</th>
+                                            <th>Acción</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="cita in listaCitas">
                                             <td>{{ cita.Fecha | date:'dd-MM-yyyy HH:mm'}} </td>
+                                            <td>{{ cita.razonSocial }}</td>
+                                            <td>{{ cita.direccion }}</td>
                                             <td>{{ cita.numEconomico }}</td>
                                             <td>{{ cita.modeloMarca }}</td>
                                             <td>{{ cita.trabajo }}</td>
-                                            <td>{{ cita.observacion}}</td>
-                                            <td>{{ cita.estatus}}</td>
+                                            <td>{{ cita.observacion }}</td>
+                                            <td>{{ cita.estatus }}</td>
                                             <td>{{ cita.nombreCompleto }} </td>
                                             <td>
-                                                <button class="btn btn-info" type="button" data-toggle="tooltip" tooltip="Cotizar" id="btnCotizar" tooltip-placement="top" ng-click="nuevaCotizacion(cita)">
+                                                <button ng-disabled="cita.idTrabajo != null" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Formato" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
+                                                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                                                </button>
+                                                <button ng-disabled="cita.idTrabajo == null" class="btn btn-info" type="button" data-toggle="tooltip" tooltip="Cotizar" id="btnCotizar" tooltip-placement="top" ng-click="nuevaCotizacion(cita)">
                                                     <span class="glyphicon glyphicon-usd"></span>
                                                 </button>
                                             </td>
@@ -65,5 +73,25 @@
                     </div> -->
                 </div>
             </div>
+    </div>
+</div>
+<div id="evidencia" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Carga de Formato</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t" style="margin-left:10%">
+                    <iframe src="/AngularJS/Templates/uploader.html" width="680px" height="380px" frameborder="0" id="uploader" scrolling="no" ></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="recepcion()">Guardar</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
