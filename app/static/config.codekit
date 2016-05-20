@@ -363,12 +363,56 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/AngularJS\/Orden\/ordenPorCobrarController.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Orden\/ordenPorCobrarController.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Orden\/min\/ordenPorCobrarController-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/Orden\/ordenPorCobrarRepository.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Orden\/ordenPorCobrarRepository.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Orden\/min\/ordenPorCobrarRepository-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/AngularJS\/Orden\/ordenServicioController.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/AngularJS\/Orden\/ordenServicioController.js",
 		"outputAbbreviatedPath": "\/AngularJS\/Orden\/min\/ordenServicioController-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/Orden\/ordenServicioEvidenciaController.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Orden\/ordenServicioEvidenciaController.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Orden\/min\/ordenServicioEvidenciaController-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/AngularJS\/Orden\/ordenServicioEvidenciaRepository.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Orden\/ordenServicioEvidenciaRepository.js",
+		"outputAbbreviatedPath": "\/AngularJS\/Orden\/min\/ordenServicioEvidenciaRepository-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -637,11 +681,29 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/AngularJS\/Templates\/ordenesporcobrar.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Templates\/ordenesporcobrar.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/AngularJS\/Templates\/ordenservicio.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/AngularJS\/Templates\/ordenservicio.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/AngularJS\/Templates\/ordenservicioevidencias.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/AngularJS\/Templates\/ordenservicioevidencias.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0

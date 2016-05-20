@@ -5,9 +5,9 @@
 .timelineScope ol {
   position: relative;
   display: block;
-  margin: 100px;
+  margin: 50px;
   height: 4px;
-  background: #46b8da;  
+  background: #46b8da;
 }
 .timelineScope ol::before,
 .timelineScope ol::after {

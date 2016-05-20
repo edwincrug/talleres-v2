@@ -63,11 +63,12 @@
                         <ol>
                          <li ng-repeat="timeLine in timeLine">
                             {{timeLine.fechaHist | date:'dd-MM-yy HH:mm'}}
-                            <span class="details" tooltip="{{timeLine.agendo}}">
+                            <span class="details">
                                {{timeLine.proceso  + ' ' + timeLine.estatus}}
                            </span>
                          </li>
                     </ol>
+                    <br>
                 </div>
         </div>
 </div>
