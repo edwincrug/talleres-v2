@@ -1,6 +1,7 @@
 registrationModule.controller('ordenServicioEvidenciaController', function ($scope, localStorageService, alertFactory, ordenServicioEvidenciaRepository) {
     var idCotizacion = localStorageService.get('cotizacion');
-    var idTrabajo = localStorageService.get('work');
+    var trabajo = localStorageService.get('objTrabajo');
+    var idTrabajo = trabajo.idTrabajo;
 
     $scope.init = function () {
         $scope.cargaEvidencias();
