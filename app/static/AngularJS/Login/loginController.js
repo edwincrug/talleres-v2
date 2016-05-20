@@ -1,4 +1,4 @@
-registrationModule.controller('loginController', function ($scope, alertFactory, $rootScope, loginRepository) {
+registrationModule.controller('loginController', function ($scope, alertFactory, $rootScope, localStorageService, loginRepository) {
     $rootScope.sesion = 0;
 
     $scope.init = function () {
@@ -10,8 +10,11 @@ registrationModule.controller('loginController', function ($scope, alertFactory,
             .then(function (result) {
                 if (result.data.length > 0) {
                     alertFactory.success('Bienvenido a Talleres: ' + result.data[0].nombreCompleto);
+                    $scope.login = result.data;
+                    localStorageService.set('login', $scope.login);
+                    location.href = '/cita';
                 } else {
-                    alertFactory.error('Valide el usuario y/o contraseña');
+                    alertFactory.info('Valide el usuario y/o contraseña');
                 }
 
             }, function (error) {
