@@ -5,7 +5,7 @@
 // -- Modificó: Vladimir Juárez Juárez
 // -- Fecha: 10/04/2016
 // -- =============================================
-registrationModule.controller('trabajoController', function ($scope, localStorageService, alertFactory, trabajoRepository) {
+registrationModule.controller('trabajoController', function ($scope, $rootScope,localStorageService, alertFactory, trabajoRepository) {
     //this is the first method executed in the view
     $scope.init = function () {
         getTrabajo();
