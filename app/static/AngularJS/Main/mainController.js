@@ -7,6 +7,7 @@ registrationModule.controller('mainController', function ($scope, $rootScope, $l
 
     $scope.init = function () {
         $scope.cargaChat();
+        $rootScope.userData = localStorageService.get('userData');
     }
 
     $scope.cargaChat = function () {

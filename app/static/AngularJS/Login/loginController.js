@@ -11,12 +11,11 @@ registrationModule.controller('loginController', function ($scope, alertFactory,
                 if (result.data.length > 0) {
                     alertFactory.success('Bienvenido a Talleres: ' + result.data[0].nombreCompleto);
                     $scope.login = result.data;
-                    localStorageService.set('login', $scope.login);
+                    localStorageService.set('userData', $scope.login);
                     location.href = '/cita';
                 } else {
                     alertFactory.info('Valide el usuario y/o contraseña');
                 }
-
             }, function (error) {
                 alertFactory.error('Error');
             });

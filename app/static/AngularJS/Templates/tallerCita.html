@@ -53,7 +53,7 @@
                                             <td>{{ cita.estatus }}</td>
                                             <td>{{ cita.nombreCompleto }} </td>
                                             <td>
-                                                <button ng-hide="cita.idEstatus == 1" ng-disabled="cita.idTrabajo != null" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Formato" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
+                                                <button ng-hide="cita.idEstatus == 1" ng-disabled="cita.idTrabajo != null" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
                                                     <span class="glyphicon glyphicon-cloud-upload"></span>
                                                 </button>
                                                 <button ng-hide="cita.idEstatus == 1" ng-disabled="cita.idTrabajo == null" class="btn btn-info" type="button" data-toggle="tooltip" tooltip="Cotizar" id="btnCotizar" tooltip-placement="top" ng-click="nuevaCotizacion(cita)">
@@ -82,7 +82,7 @@
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Carga de Formato</h4>
+                <h4 class="modal-title">Cargar Comprobante de Recepción</h4>
             </div>
             <div class="modal-body">
                 <div class="table-responsive m-t" style="margin-left:10%">
