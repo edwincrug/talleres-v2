@@ -2,7 +2,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
 
     var cDetalles = [];
     var cPaquetes = [];
-    var idCita = localStorageService.get('cita');    
+    var idCita = localStorageService.get('cita');
     var idCotizacion = localStorageService.get('cotizacion');
     var idTrabajo = localStorageService.get('work');
     var idTaller = localStorageService.get('taller');
@@ -281,13 +281,20 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     $scope.Detalle = function (idCotizacion, idTaller) {
+        $scope.sumaIvaTotal = 0;
+        $scope.sumaPrecioTotal = 0;
+        $scope.sumaGranTotal = 0;
+
         cotizacionConsultaRepository.getDetail(idCotizacion, idTaller).then(function (result) {
             if (result.data.length > 0) {
                 $scope.total = 0;
                 $scope.articulos = result.data;
                 for (var i = 0; i < result.data.length; i++) {
-                    $scope.total += (result.data[i].precio * result.data[i].cantidad)
+                    $scope.sumaIvaTotal += (result.data[i].cantidad * result.data[i].precio) * (result.data[i].valorIva / 100);
+
+                    $scope.sumaPrecioTotal += (result.data[i].cantidad * result.data[i].precio);
                 }
+                $scope.sumaGranTotal = ($scope.sumaPrecioTotal + $scope.sumaIvaTotal);
 
                 alertFactory.success('Datos cargados.');
             } else {
@@ -298,11 +305,11 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         });
 
     }
-    
-    $scope.Evidencias = function(){
-       location.href = '/cotizacionevidencias';
+
+    $scope.Evidencias = function () {
+        location.href = '/cotizacionevidencias';
     }
-    
+
     $scope.cargaDatosCliente = function (idCita) {
         cotizacionAutorizacionRepository.getDatosCliente(idCita).then(function (result) {
             if (result.data.length > 0) {
@@ -312,5 +319,5 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             alertFactory.error('No se pudo obtener los datos del cliente, inténtelo más tarde');
         });
     }
-    
+
 });

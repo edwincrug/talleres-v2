@@ -8,9 +8,6 @@
 registrationModule.controller('cotizacionConsultaController', function ($scope, localStorageService, alertFactory, cotizacionConsultaRepository) {
 
     $scope.message = "Buscando...";
-    $scope.sumaIvaTotal = 0;
-    $scope.sumaPrecioTotal = 0;
-    $scope.sumaGranTotal = 0;
 
     $scope.init = function () {
         $scope.Maestro();
@@ -21,6 +18,7 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
         $scope.sumaIvaTotal = 0;
         $scope.sumaPrecioTotal = 0;
         $scope.sumaGranTotal = 0;
+        
         cotizacionConsultaRepository.getDetail(idCotizacion, idTaller).then(function (result) {
             if (result.data.length > 0) {
                 $scope.total = 0;

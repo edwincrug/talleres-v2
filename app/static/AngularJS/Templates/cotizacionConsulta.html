@@ -36,14 +36,14 @@
                                         <td>{{cotizacion.observaciones}}</td>
                                         <td>{{ cotizacion.nombreCompleto }}</td>
                                         <td>
-                                            <button class="btn btn-primary" type="button" id="btnEnviar">
-                                                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="modal" ng-click="Detalle(cotizacion.idCotizacion, cotizacion.idTaller)"></span>
+                                            <button class="btn btn-primary" type="button" id="btnEnviar" ng-click="Detalle(cotizacion.idCotizacion, cotizacion.idTaller)">
+                                                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true" data-toggle="modal"></span>
                                             </button>
                                         </td>
                                         <td>
-                                            <button class="btn btn-success" type="button" id="btnEnviar">
-                                                <span class="glyphicon glyphicon-folder-open" aria-hidden="true" data-toggle="modal" ng-click="Autorizacion(cotizacion.idCita, cotizacion.idCotizacion, cotizacion.idUnidad, cotizacion.numeroCotizacion, cotizacion.idTrabajo,
-                            cotizacion.idTaller)"></span>
+                                            <button class="btn btn-success" type="button" id="btnEnviar" ng-click="Autorizacion(cotizacion.idCita, cotizacion.idCotizacion, cotizacion.idUnidad, cotizacion.numeroCotizacion, cotizacion.idTrabajo,
+                            cotizacion.idTaller)">
+                                                <span class="glyphicon glyphicon-folder-open" aria-hidden="true" data-toggle="modal"></span>
                                             </button>
                                         </td>
                                     </tr>
