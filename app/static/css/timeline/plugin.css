@@ -35,10 +35,10 @@
 
 .timelineScope li {
     position: relative;
-    top: -52px;
+    top: -47px;
     display: inline-block;
     float: left;
-    width: 74px;
+    width: 58px;
     transform: rotate(-45deg);
 }
 .timelineScope li::before {
