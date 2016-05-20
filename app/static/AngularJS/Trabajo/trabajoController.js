@@ -184,21 +184,24 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
 
     //cambia el trabajo a estatus a facturado
     var archivoTrabajo = function (idTrabajo, hojaCalidad) {
-        if(hojaCalidad == 1){
-            $scope.modalTittle = "Hoja de calidad"; 
-            trabajoRepository.hojaCalidadTrabajo(idTrabajo).then(function () {
-                
+        if(hojaCalidad == 1){ 
+            trabajoRepository.hojaCalidadTrabajo(idTrabajo).then(function (hojaCalidad) {
+                if(hojaCalidad.data[0].idHistorialProceso){
+                    alertFactory.success("Hoja de calidad cargada");
+                }
             }, function (error) {
-                alertFactory.error("Error al cargar el archivo");
+                alertFactory.error("Error al cargar la hoja de calidad");
             });
-            getTrabajoTerminado();
         } 
         else{
-            $scope.modalTittle = "Factura";
-            trabajoRepository.facturaTrabajo(idTrabajo).then(function () {}, function (error) {
-                alertFactory.error("Error al cargar el archivo");
+            trabajoRepository.facturaTrabajo(idTrabajo).then(function (trabajoFacturado) {
+                if(trabajoFacturado.data[0].idHistorialProceso){
+                    alertFactory.success("Factura cargada");
+                }
+            }, function (error) {
+                alertFactory.error("Error al cargar la factura");
             });
-            getTrabajoTerminado();
         }
+        getTrabajoTerminado(); 
     }
 });
