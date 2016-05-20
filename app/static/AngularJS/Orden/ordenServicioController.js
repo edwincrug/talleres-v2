@@ -18,6 +18,7 @@ registrationModule.controller('ordenServicioController', function ($scope, local
         $scope.cargaFicha();
         $scope.cargaDatosCliente($scope.objBotonera.idCita);
         $scope.getCotizacionByTrabajo();
+        $rootScope.showChat = 1;
     }
 
     $scope.cargaChat = function () {
