@@ -169,7 +169,6 @@ registrationModule.controller('trabajoController', function ($scope, localStorag
             vTrabajo = contentForm.document.getElementById("vTrabajo");
             idUsuario = contentForm.document.getElementById("idUsuario");
             idTrabajoEdit.value = $scope.idTrabajo;
-            idTrabajoEdit.value = $scope.idTrabajo;
             //idCotizacionEdit.value = idCotizacion;
             vTrabajo.value = "1";
             idTipoEvidencia.value = 1;
@@ -187,10 +186,12 @@ registrationModule.controller('trabajoController', function ($scope, localStorag
     var archivoTrabajo = function (idTrabajo, hojaCalidad) {
         if(hojaCalidad == 1){
             $scope.modalTittle = "Hoja de calidad"; 
-            trabajoRepository.hojaCalidadTrabajo(idTrabajo).then(function () {}, function (error) {
+            trabajoRepository.hojaCalidadTrabajo(idTrabajo).then(function () {
+                
+            }, function (error) {
                 alertFactory.error("Error al cargar el archivo");
             });
-            getTrabajo();
+            getTrabajoTerminado();
         } 
         else{
             $scope.modalTittle = "Factura";
