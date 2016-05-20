@@ -131,7 +131,7 @@
                             <tr dir-paginate="pieza in listaPiezas | itemsPerPage:3" pagination-id="listaPiezasSeleccionadas">
                                 <td>{{pieza.numeroPartida }}</td>
                                 <td>{{pieza.numeroParte}}</td>
-                                <td><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" tooltip="{{pieza.item}}" tooltip-placement="top-right"></span></td>
+                                <td>{{pieza.item}}</td>
                                 <td>{{pieza.cantidad}}</td>
                                 <td>
                                     <button class="btn btn-danger glyphicon glyphicon-remove" type="button" id="btnCotizar" ng-click="removePieza(pieza.idItem)">
