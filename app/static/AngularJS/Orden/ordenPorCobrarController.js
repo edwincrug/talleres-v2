@@ -95,4 +95,14 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
             $scope.getOrdenesPorCobrar();
         }, 2000);
     }
+    
+    //visualiza el orden de servicio
+    $scope.aprobarTrabajo = function (orden, valBotonera) {
+        var objBotonera = {};
+        objBotonera.accion = valBotonera;
+        objBotonera.idCita = orden.idCita;
+        localStorageService.set('objTrabajo', orden);
+        localStorageService.set("botonera", objBotonera);
+        location.href = '/ordenservicio';
+    }
 });
