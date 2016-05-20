@@ -1,4 +1,4 @@
-registrationModule.controller('ordenServicioController', function ($scope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository, trabajoRepository) {
+registrationModule.controller('ordenServicioController', function ($scope, $rootScope, localStorageService, alertFactory, cotizacionAutorizacionRepository, citaRepository, cotizacionRepository, cotizacionMailRepository, trabajoRepository) {
 
     var cDetalles = [];
     var cPaquetes = [];
