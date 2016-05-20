@@ -58,7 +58,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         //Se valida si la cotización es para editar
         if (localStorageService.get('objEditCotizacion') != null) {
             $scope.editCotizacion = localStorageService.get('objEditCotizacion'); //objeto de la pagina autorizacion
-            datosUnidad($scope.editCotizacion.idCotizacion);
+            datosUnidad($scope.editCotizacion.idCotizacion,null);
             $scope.editar = 1;
             $scope.estado = 2;
             $scope.idTaller = $scope.editCotizacion.idTaller;
@@ -71,7 +71,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             $scope.estado = 3;
             $scope.idTaller = $scope.orden.idTaller;
             $scope.idTrabajo = $scope.orden.idTrabajo;
-            datosUnidad($scope.orden.idCotizacion);
+            datosUnidad(null,$scope.orden.idTrabajo);
         }
     }
 
@@ -80,15 +80,6 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         if (pieza == '' || pieza == null) {
             alertFactory.info("Ingrese un dato para búsqueda");
         } else {
-//            if ($scope.editar == 1) {
-//                idTaller = $scope.editCotizacion.idTaller;
-//            }
-//            if ($scope.objCita != null) {
-//                idTaller = $scope.objCita.idTaller;
-//            }
-//            if ($scope.estado == 3) {
-//                idTaller = $scope.orden.idTaller;
-//            }
             $('.dataTableItem').DataTable().destroy();
             $('.dataTableCotizacion').DataTable().destroy();
             $scope.promise = cotizacionRepository.buscarPieza($scope.idTaller, pieza).then(function (result) {
@@ -490,8 +481,8 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             });
     };
     
-    var datosUnidad = function(idCotizacion){
-        cotizacionRepository.datosUnidad(idCotizacion)
+    var datosUnidad = function(idCotizacion,idTrabajo){
+        cotizacionRepository.datosUnidad(idCotizacion,idTrabajo)
             .then(function(result){
                 $scope.numEconomico = result.data[0].numEconomico;
                 $scope.modeloMarca = result.data[0].marca + ' ' + result.data[0].modeloMarca + ' ' + result.data[0].modelo;

@@ -398,7 +398,8 @@ Cotizacion.prototype.datosUnidad = function (params, callback) {
     this.connection.connect(function (err) {
         // Stored Procedure 
         var request = new sql.Request(self);
-        request.input('idCotizacion', sql.Numeric(18, 0), params);
+        request.input('idCotizacion', sql.Numeric(18, 0), params.idCotizacion);
+        request.input('idTrabajo', sql.Numeric(18, 0), params.idTrabajo);
         request.execute('SEL_DATOS_UNIDAD_SP', function (err, recordsets, returnValue) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);

@@ -547,7 +547,7 @@ Cotizacion.prototype.get_evidenciasByOrden_data = function (req, res, next) {
     });
 }
 
-Cotizacion.prototype.get_datosUnidad_data = function (req, res, next) {
+Cotizacion.prototype.post_datosUnidad = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
@@ -555,10 +555,12 @@ Cotizacion.prototype.get_datosUnidad_data = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    //Asigno a params el valor de mis variables
-    params = req.params.data;
+    var obj = {
+        idCotizacion: req.body.idCotizacion,
+        idTrabajo: req.body.idTrabajo
+    };
 
-    this.model.datosUnidad(params, function (error, result) {
+    this.model.datosUnidad(obj, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
