@@ -38,7 +38,6 @@
                                             <th>Estatus</th>
                                             <th>Agendó</th>
                                             <th>Acción</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -53,10 +52,10 @@
                                             <td>{{ cita.estatus }}</td>
                                             <td>{{ cita.nombreCompleto }} </td>
                                             <td>
-                                                <button ng-hide="cita.idEstatus == 1" ng-disabled="cita.idTrabajo != null" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
+                                                <button ng-hide="cita.idEstatus == 1 || userData[0].idTipoUsuario == 2" ng-disabled="cita.idTrabajo != null" class="btn btn-success" type="button" data-toggle="tooltip" tooltip="Cargar Comprobante de Recepción" id="btnCotizar" tooltip-placement="top" ng-click="formatoRecepcion(cita)">
                                                     <span class="glyphicon glyphicon-cloud-upload"></span>
                                                 </button>
-                                                <button ng-hide="cita.idEstatus == 1" ng-disabled="cita.idTrabajo == null" class="btn btn-info" type="button" data-toggle="tooltip" tooltip="Cotizar" id="btnCotizar" tooltip-placement="top" ng-click="nuevaCotizacion(cita)">
+                                                <button ng-hide="cita.idEstatus == 1 || userData[0].idTipoUsuario == 2" ng-disabled="cita.idTrabajo == null" class="btn btn-info" type="button" data-toggle="tooltip" tooltip="Cotizar" id="btnCotizar" tooltip-placement="top" ng-click="nuevaCotizacion(cita)">
                                                     <span class="glyphicon glyphicon-usd"></span>
                                                 </button>
                                             </td>

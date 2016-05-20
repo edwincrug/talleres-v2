@@ -33,12 +33,11 @@
                                                 <td>{{trabajo.trabajo}}</td>
                                                 <td>{{trabajo.estatus}}</td>
                                                 <td>{{trabajo.fecha | date:"dd-MM-yy HH:mm"}}</td>
-                                                <td>
-
-                                                    <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span>&nbsp;Ver&nbsp;&nbsp;</button>
-
-                                                    <button ng-if="trabajo.estatus == 'Iniciado'" class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" data-toggle="tooltip" tooltip="Terminar trabajo" tooltip-placement="up"><span class="glyphicon glyphicon-ok-sign"></span> Terminar
-                                                    </button>
+                                                <td>                                                    
+                                                        <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span>&nbsp;Ver&nbsp;&nbsp;</button>
+                                                        
+                                                        <button ng-if="trabajo.estatus == 'Iniciado'"  ng-hide="userData[0].idTipoUsuario == 2" class="btn btn-success" type="button" ng-click="openFinishingTrabajoModal(trabajo.idTrabajo)" data-toggle="tooltip" tooltip="Terminar trabajo" tooltip-placement="up"><span class="glyphicon glyphicon-ok-sign"></span> Terminar
+                                                        </button>    
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -78,26 +77,8 @@
 
                                                     <button ng-if="trabajo.estatus == 'HojaCalidad'" class="btn btn-success" type="button" ng-click="aprobarTrabajo(trabajo, 2)" data-toggle="tooltip" tooltip="Aprobar órden de servicio" tooltip-placement="up" ng-hide="userData[0].idTipoUsuario == 3"><span class="glyphicon glyphicon-check"></span> Aprobar
                                                     </button>
-
-                                                    <button ng-if="trabajo.estatus == 'Terminado'" class="btn btn-primary" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo, 1)" data-toggle="tooltip" tooltip="Cargar hoja de calidad" tooltip-placement="up-left"><span class="glyphicon glyphicon-upload"></span>&nbsp;Hoja</button>
-
-                                                    <!--<div ng-if="trabajo.estatus == 'Cerrado'">
-                                                        <button class="btn btn-info" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo,0)" ng-disabled="false"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
-                                                    </div>
-                                                    <div ng-if="trabajo.estatus != 'Cerrado'">
-                                                        <button class="btn btn-info" type="button" ng-disabled="true"><span class="glyphicon glyphicon-upload"></span> Cargar factura</button>
-                                                    </div>-->
+                                                    <button ng-if="trabajo.estatus == 'Terminado'" class="btn btn-primary" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo, 1)" data-toggle="tooltip" tooltip="Cargar hoja de calidad" tooltip-placement="left"><span class="glyphicon glyphicon-upload"></span>&nbsp;Hoja</button>
                                                 </td>
-                                                <!--<td>
-                                                    <div ng-if="trabajo.estatus == 'Cerrado'">
-                                                        <button class="btn btn-success" type="button" ng-click="" ng-disabled="true"><span class="glyphicon glyphicon-check"></span> Aprobar
-                                                        </button>
-                                                    </div>
-                                                    <div ng-if="trabajo.estatus != 'Cerrado'">
-                                                        <button class="btn btn-success" type="button" ng-click="aprobarTrabajo(trabajo, 2)" ng-disabled="false"><span class="glyphicon glyphicon-check"></span> Aprobar
-                                                        </button>
-                                                    </div>
-                                                </td>-->
                                             </tr>
                                         </tbody>
                                     </table>
