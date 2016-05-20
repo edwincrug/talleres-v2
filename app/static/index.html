@@ -62,7 +62,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="cita" ng-click="showChat = 0"><i class="fa fa-car"></i> <span class="nav-label">Nueva Cita</span></a>
+                    <a href="cita" ng-hide="userData[0].idTipoUsuario == 3" ng-click="showChat = 0"><i class="fa fa-car"></i> <span class="nav-label">Nueva Cita</span></a>
                 </li>
                 <li>
                     <a href="tallerCita" ng-click="showChat = 0"><i class="fa fa-money"></i> <span class="nav-label">Cotizar</span></a>
@@ -74,7 +74,7 @@
                     <a href="trabajo" ng-click="showChat = 0"><i class="fa fa-clipboard"></i> <span class="nav-label">Órdenes de Servicio</span>  </a>
                 </li>
                 <li>
-                    <a href="ordenesporcobrar" ng-click="showChat = 0"><i class="fa fa-credit-card"></i> <span class="nav-label">Órdenes por Cobrar</span><span class="label label-warning pull-right"></span></a>
+                    <a href="ordenesporcobrar" ng-click="showChat = 0" ng-hide="userData[0].idTipoUsuario == 3"><i class="fa fa-credit-card"></i> <span class="nav-label">Órdenes por Cobrar</span><span class="label label-warning pull-right"></span></a>
                 </li>
             </ul>
 

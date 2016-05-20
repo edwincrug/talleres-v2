@@ -2,7 +2,7 @@ registrationModule.controller('loginController', function ($scope, alertFactory,
     $rootScope.sesion = 0;
 
     $scope.init = function () {
-        
+
     }
 
     $scope.login = function (username, password) {
@@ -12,7 +12,12 @@ registrationModule.controller('loginController', function ($scope, alertFactory,
                     alertFactory.success('Bienvenido a Talleres: ' + result.data[0].nombreCompleto);
                     $scope.login = result.data;
                     localStorageService.set('userData', $scope.login);
-                    location.href = '/cita';
+
+                    if ($scope.login[0].idTipoUsuario == 3) {
+                        location.href = '/tallerCita';
+                    } else {
+                        location.href = '/cita';
+                    }
                 } else {
                     alertFactory.info('Valide el usuario y/o contraseña');
                 }
