@@ -52,6 +52,8 @@
                         <table class="table invoice-table">
                             <thead>
                                 <tr>
+                                    <th>No. Cotización</th>
+                                    <th>Estatus</th>
                                     <th>Artículos</th>
                                     <th>Cantidad</th>
                                     <th>Precio</th>
@@ -61,11 +63,14 @@
                             <tbody>
                                 <tr ng-repeat="articulo in articulos">
                                     <td>
-                                        <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
-                                        <small>{{articulo.item}}</small></td>
-                                    <td>{{articulo.cantidad}}</td>
-                                    <td>{{ articulo.precio | currency }}</td>
-                                    <td>{{(articulo.cantidad * articulo.precio) | currency}}</td>
+                                        <td>{{articulo.numeroCotizacion}}</td>
+                                        <td>{{articulo.descripcionLarga}}</td>
+                                        <td>
+                                            <div><strong>Número de Partida: {{ articulo.numeroPartida }}</strong></div>
+                                            <small>{{articulo.item}}</small></td>
+                                        <td>{{articulo.cantidad}}</td>
+                                        <td>{{ articulo.precio | currency }}</td>
+                                        <td>{{(articulo.cantidad * articulo.precio) | currency}}</td>
                                 </tr>
                             </tbody>
                         </table>

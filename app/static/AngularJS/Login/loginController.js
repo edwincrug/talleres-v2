@@ -2,7 +2,7 @@ registrationModule.controller('loginController', function ($scope, alertFactory,
     $rootScope.sesion = 0;
 
     $scope.init = function () {
-
+        
     }
 
     $scope.login = function (username, password) {
