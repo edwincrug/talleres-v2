@@ -203,6 +203,13 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             idTaller: idTaller,
             idTrabajo: idTrabajo
         };
+        
+        if(localStorageService.get('cita') != null){
+            localStorageService.remove('cita');
+        }
+        if(localStorageService.get('orden') != null){
+            localStorageService.remove('orden');
+        }
         localStorageService.set('objEditCotizacion', objEditCotizacion);
         location.href = '/cotizacionNueva';
     }

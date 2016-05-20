@@ -29,6 +29,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     $scope.modeloMarca = '';
     $scope.trabajo = '';
     $scope.idCita = '';
+    $scope.idTaller = '';
 
     $scope.init = function () {
         // Collapse ibox function
@@ -45,37 +46,32 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             }, 50);
         });
         exist = false;
+        //Objeto de la pagina de tallerCita 
+        if (localStorageService.get('cita') != null) {
+            $scope.citaDatos = localStorageService.get('cita'); 
+            $scope.estado = 1;
+            $scope.editar = 0;
+            datosCita();
+            $scope.idTaller = $scope.citaDatos.idTaller;
+            busquedaServicioDetalle($scope.citaDatos.idCita);
+        }
         //Se valida si la cotización es para editar
         if (localStorageService.get('objEditCotizacion') != null) {
-            localStorageService.remove('cita');
             $scope.editCotizacion = localStorageService.get('objEditCotizacion'); //objeto de la pagina autorizacion
             datosUnidad($scope.editCotizacion.idCotizacion);
             $scope.editar = 1;
             $scope.estado = 2;
+            $scope.idTaller = $scope.editCotizacion.idTaller;
             $scope.editarCotizacion($scope.editCotizacion.idCotizacion,
                 $scope.editCotizacion.idTaller);
         }
-        if (localStorageService.get('cita') != null) {
-            $scope.citaDatos = localStorageService.get('cita'); //Objeto de la pagina de tallerCita 
-            $scope.estado = 1;
-            $scope.editar = 0;
-            datosCita();
-            busquedaServicioDetalle($scope.citaDatos.idCita);
-            localStorageService.remove('objEditCotizacion');
-            localStorageService.remove('objFicha');
-        }
-
-        if (localStorageService.get('objCita') != null) { //Objeto de la pagina de cita
-            $scope.objCita = localStorageService.get('objCita');
-        } else {
-            $scope.objCita = null;
-        }
-
-        if (localStorageService.get('orden') != null) { //Objeto de la pagina de orden servicio
+        //Objeto de la pagina de orden servicio
+        if (localStorageService.get('orden') != null) { 
             $scope.orden = localStorageService.get('orden');
             $scope.estado = 3;
-        } else {
-            $scope.orden = null;
+            $scope.idTaller = $scope.orden.idTaller;
+            $scope.idTrabajo = $scope.orden.idTrabajo;
+            datosUnidad($scope.orden.idCotizacion);
         }
     }
 
@@ -84,21 +80,18 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         if (pieza == '' || pieza == null) {
             alertFactory.info("Ingrese un dato para búsqueda");
         } else {
-            if ($scope.editar == 1) {
-                idTaller = $scope.editCotizacion.idTaller;
-            }
-            if ($scope.objCita != null) {
-                idTaller = $scope.objCita.idTaller;
-            }
-            if ($scope.objCita != null) {
-                idTaller = $scope.objCita.idTaller;
-            }
-            if ($scope.estado == 3) {
-                idTaller = $scope.orden.idTaller;
-            }
+//            if ($scope.editar == 1) {
+//                idTaller = $scope.editCotizacion.idTaller;
+//            }
+//            if ($scope.objCita != null) {
+//                idTaller = $scope.objCita.idTaller;
+//            }
+//            if ($scope.estado == 3) {
+//                idTaller = $scope.orden.idTaller;
+//            }
             $('.dataTableItem').DataTable().destroy();
             $('.dataTableCotizacion').DataTable().destroy();
-            $scope.promise = cotizacionRepository.buscarPieza(1, pieza).then(function (result) {
+            $scope.promise = cotizacionRepository.buscarPieza($scope.idTaller, pieza).then(function (result) {
                 $scope.listaPiezas = result.data;
                 if (result.data.length > 0) {
                     setTimeout(function () {
@@ -468,7 +461,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             alertFactory.info('Debe seleccionar items para la cotización');
         }
         cotizacionRepository.insertCotizacionMaestro($scope.orden.idCita,
-                $scope.idUsuario,
+                $scope.orden.idUsuario,
                 observaciones,
                 $scope.orden.idUnidad)
             .then(function (resultado) {

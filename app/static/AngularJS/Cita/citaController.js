@@ -381,6 +381,12 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
 
     //Redirige a pagina para nueva cotización
     $scope.nuevaCotizacion = function (cita) {
+        if(localStorageService.get('objEditCotizacion') != null){
+            localStorageService.remove('objEditCotizacion');
+        }
+        if(localStorageService.get('orden') != null){
+            localStorageService.remove('orden');
+        }
         localStorageService.set('cita', cita);
         location.href = '/cotizacionNueva';
     }
