@@ -47,8 +47,9 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         exist = false;
         //Se valida si la cotización es para editar
         if (localStorageService.get('objEditCotizacion') != null) {
+            localStorageService.remove('cita');
             $scope.editCotizacion = localStorageService.get('objEditCotizacion'); //objeto de la pagina autorizacion
-            datosFicha();
+            datosUnidad($scope.editCotizacion.idCotizacion);
             $scope.editar = 1;
             $scope.estado = 2;
             $scope.editarCotizacion($scope.editCotizacion.idCotizacion,
@@ -96,6 +97,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 idTaller = $scope.orden.idTaller;
             }
             $('.dataTableItem').DataTable().destroy();
+            $('.dataTableCotizacion').DataTable().destroy();
             $scope.promise = cotizacionRepository.buscarPieza(1, pieza).then(function (result) {
                 $scope.listaPiezas = result.data;
                 if (result.data.length > 0) {
@@ -134,7 +136,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     }, 2000);
                     alertFactory.success('Datos encontrados');
                 } else {
-                    alertFactory.info('Datos no encontrados');
+                    alertFactory.info('No existe pieza con esa descripción');
                     $scope.listaPiezas = '';
                 }
             }, function (error) {
@@ -171,7 +173,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     importe: pieza.precio * 1,
                     idTipoElemento: pieza.idTipoElemento,
                     valorIva: pieza.valorIva,
-                    idEstatus: 9
+                    idEstatus: 8
                 });
                 if ($scope.editar == 1) {
                     $scope.arrayCambios.push({
@@ -184,7 +186,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                         importe: pieza.precio * 1,
                         idTipoElemento: pieza.idTipoElemento,
                         valorIva: pieza.valorIva,
-                        idEstatus: 9
+                        idEstatus: 8
                     });
                 }
                 //calcularImporte();
@@ -205,7 +207,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 importe: pieza.precio * 1,
                 idTipoElemento: pieza.idTipoElemento,
                 valorIva: pieza.valorIva,
-                idEstatus: 9
+                idEstatus: 8
             });
             if ($scope.editar == 1) {
                 $scope.arrayCambios.push({
@@ -218,7 +220,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     importe: pieza.precio * 1,
                     idTipoElemento: pieza.idTipoElemento,
                     valorIva: pieza.valorIva,
-                    idEstatus: 9
+                    idEstatus: 8
                 });
             }
             //calcularImporte();
@@ -494,4 +496,15 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 alertFactory.error('Error');
             });
     };
+    
+    var datosUnidad = function(idCotizacion){
+        cotizacionRepository.datosUnidad(idCotizacion)
+            .then(function(result){
+                $scope.numEconomico = result.data[0].numEconomico;
+                $scope.modeloMarca = result.data[0].marca + ' ' + result.data[0].modeloMarca + ' ' + result.data[0].modelo;
+                $scope.trabajo = result.data[0].trabajo;
+        },function(error){
+            alertFactory.error('Error');
+        });
+    }
 });

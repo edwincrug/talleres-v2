@@ -393,4 +393,20 @@ Cotizacion.prototype.evidenciasByOrden = function (params, callback) {
     });
 };
 
+Cotizacion.prototype.datosUnidad = function (params, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        // Stored Procedure 
+        var request = new sql.Request(self);
+        request.input('idCotizacion', sql.Numeric(18, 0), params);
+        request.execute('SEL_DATOS_UNIDAD_SP', function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al obtener los datos de la unidad: ' + err);
+            }
+        });
+    });
+};
+
 module.exports = Cotizacion;

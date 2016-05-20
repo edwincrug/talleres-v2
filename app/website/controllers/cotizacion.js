@@ -547,4 +547,24 @@ Cotizacion.prototype.get_evidenciasByOrden_data = function (req, res, next) {
     });
 }
 
+Cotizacion.prototype.get_datosUnidad_data = function (req, res, next) {
+    //Objeto que almacena la respuesta
+    var object = {};
+    //Objeto que envía los parámetros
+    var params = {};
+    //Referencia a la clase para callback
+    var self = this;
+
+    //Asigno a params el valor de mis variables
+    params = req.params.data;
+
+    this.model.datosUnidad(params, function (error, result) {
+        //Callback
+        object.error = error;
+        object.result = result;
+
+        self.view.datosUnidad(res, object);
+    });
+}
+
 module.exports = Cotizacion;

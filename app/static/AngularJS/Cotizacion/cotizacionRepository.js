@@ -107,5 +107,12 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 method: "GET"
             });
         }
+        ,
+        datosUnidad: function(idCotizacion){
+            return $http({
+                url: searchUrl + 'datosUnidad/' + idCotizacion,
+                method: "GET"
+            });
+        }
     };
 });
