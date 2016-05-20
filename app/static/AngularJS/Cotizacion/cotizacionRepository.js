@@ -106,12 +106,19 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 url: searchUrl + 'servicioDetalle/' + idCita,
                 method: "GET"
             });
-        }
-        ,
-        datosUnidad: function(idCotizacion){
+        },        
+        datosUnidad: function(idCotizacion,idTrabajo){
+            var msgObj = {
+                idCotizacion: idCotizacion,  
+                idTrabajo: idTrabajo
+            }
             return $http({
-                url: searchUrl + 'datosUnidad/' + idCotizacion,
-                method: "GET"
+                url: searchUrl + 'datosUnidad',
+                method: "POST",
+                data: msgObj,
+                headers: {
+                'Content-Type': 'application/json'
+                }
             });
         }
     };
