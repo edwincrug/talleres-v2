@@ -5,7 +5,7 @@
 // -- Modificó: Mario Mejía
 // -- Fecha: 
 // -- =============================================
-registrationModule.controller('cotizacionController', function ($scope, $rootScope, alertFactory, localStorageService, cotizacionRepository, cotizacionMailRepository) {
+registrationModule.controller('cotizacionController', function ($scope, $rootScope, alertFactory, localStorageService, cotizacionRepository, cotizacionMailRepository, exampleRepo) {
     $scope.arrayItem = [];
     $scope.arrayCambios = [];
     var valor = '';
@@ -31,7 +31,24 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     $scope.idCita = '';
     $scope.idTaller = '';
 
+    var getExample = function(){
+        exampleRepo.getEjemplo().then(function(exampleData){
+            if(exampleData.data.length > 0){
+                alertFactory.success("Éxito");
+            }  
+        });  
+    }
+    
+    var getPieza = function(){
+        exampleRepo.buscarPieza(1, 'espejo').then(function(pieza){
+            if(pieza.data.length > 0){
+                alertFactory.success("exito");   
+            } 
+        });
+    }
     $scope.init = function () {
+        getPieza();
+        //getExample();
         // Collapse ibox function
         $('.collapse-link').click(function () {
             var ibox = $(this).closest('div.ibox');
