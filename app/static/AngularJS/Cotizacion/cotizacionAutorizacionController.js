@@ -31,10 +31,11 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     $scope.cargaChat = function () {
-        $scope.promise =
-            cotizacionAutorizacionRepository.getChat(idCita).then(function (result) {
+        cotizacionAutorizacionRepository.getChat(idCita).then(function (result) {
+            if (result.data.length > 0) {
                 $scope.chat = result.data;
-            }, function (error) {});
+            }
+        }, function (error) {});
     }
 
     $scope.cargaFicha = function () {
@@ -203,11 +204,11 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             idTaller: idTaller,
             idTrabajo: idTrabajo
         };
-        
-        if(localStorageService.get('cita') != null){
+
+        if (localStorageService.get('cita') != null) {
             localStorageService.remove('cita');
         }
-        if(localStorageService.get('orden') != null){
+        if (localStorageService.get('orden') != null) {
             localStorageService.remove('orden');
         }
         localStorageService.set('objEditCotizacion', objEditCotizacion);
