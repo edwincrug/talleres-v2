@@ -3,5 +3,6 @@
      cotizacion: require('./controllers/cotizacion'),
      trabajo: require('./controllers/trabajo'),
      orden: require('./controllers/ordenes'),
-     login: require('./controllers/login')
+     login: require('./controllers/login'),
+     example: require('./controllers/example')
  }
