@@ -135,8 +135,6 @@ Cita.prototype.get_trabajo = function(req, res, next){
 Cita.prototype.get_buscaCita = function(req,res,next){
 	//Objeto que almacena la respuesta
     var object = {};
-    //Objeto que envía los parámetros
-    var params = {};
     //Referencia a la clase para callback
     var self = this;
     //Asigno a params el valor de mis variables    
@@ -152,171 +150,46 @@ Cita.prototype.get_buscaCita = function(req,res,next){
     });
 }
 
-//obtiene las cotizaciones por unidad
-Cita.prototype.get_cotizacion_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idTrabajo';
-	params.value = req.params.data;
-	params.type = 1;
-	
-	this.model.get( 'SEL_UNIDAD_COTIZACION_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
-//devuelve los detalles de las cotizaciones
-Cita.prototype.get_cotizaciondetalle_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idTrabajo';
-	params.value = req.params.data;
-	params.type = 1;
-	
-    this.model.get( 'SEL_UNIDAD_COTDETALLE_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
 //insertar nueva cita para una unidad
 Cita.prototype.post_addcita = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
-    //Objeto que envía los parámetros
-    var params = {};
     //Referencia a la clase para callback
     var self = this;
     //Asigno a params el valor de mis variables
-    var msgObj = {
-        idUnidad: req.body.idUnidad,
-        idTaller: req.body.idTaller,
-        fecha: req.body.fecha,
-        trabajo: req.body.trabajo,
-        observacion: req.body.observacion,
-        idUsuario: req.body.idUsuario
-    }
+    var params = [{name: 'idUnidad', value: req.body.idUnidad, type:self.model.types.INT},
+                  {name: 'idTaller', value: req.body.idTaller, type: self.model.types.INT},
+                  {name: 'fecha', value: req.body.fecha, type: self.model.types.STRING},
+                  {name: 'trabajo', value: req.body.trabajo, type: self.model.types.STRING},
+                  {name: 'observacion', value: req.body.observacion, type: self.model.types.STRING},
+                  {name: 'idUsuario', value: req.body.idUsuario, type: self.model.types.INT}];
 
-    this.model.post(msgObj, function (error, result) {
+    this.model.post('INS_CITA_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
-
-        self.view.post(res, object);
+        self.view.expositor(res, object);
     });
 }
 
-//inserta cita servicio detalles
-Cita.prototype.post_addCitaServicioDetalle = function (req, res, next) {
+//insertar cita servicio detalle
+Cita.prototype.post_addcitaserviciodetalle = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
-    //Objeto que envía los parámetros
-    var params = {};
     //Referencia a la clase para callback
     var self = this;
+    //Asigno a params el valor de mis variables
+    var params = [{name: 'idCita', value: req.body.idCita, type:self.model.types.INT},
+                  {name: 'idTipoElemento', value: req.body.idTipoElemento, type: self.model.types.INT},
+                  {name: 'idElemento', value: req.body.idElemento, type: self.model.types.INT},
+                  {name: 'cantidad', value: req.body.cantidad, type: self.model.types.INT}];
 
-    var msgObj = {
-        idCita: req.body.idCita,
-        idTipoElemento: req.body.idTipoElemento,
-        idElemento: req.body.idElemento,
-        cantidad: req.body.cantidad
-    }
-
-    this.model.postCitaServicioDetalle(msgObj, function (error, result) {
+    this.model.post('INS_CITA_SERVICIO_DETALLE_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
-
-        self.view.post(res, object);
+        self.view.expositor(res, object);
     });
-}
-
-//obtiene el historial de cita
-Cita.prototype.get_historialcita_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idCita';
-	params.value = req.params.data;
-	params.type = 1;
-	
-	this.model.get( 'SEL_HISTORIAL_CITA_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
-//obtiene el historial de trabajo
-Cita.prototype.get_historialtrabajo_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idTrabajo';
-	params.value = req.params.data;
-	params.type = 1;
-	
-	this.model.get( 'SEL_HISTORIAL_TRABAJO_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
-//obtiene el historial de cotizaciones
-Cita.prototype.get_historialcotizacion_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idTrabajo';
-	params.value = req.params.data;
-	params.type = 1;
-	
-	this.model.get( 'SEL_HISTORIAL_COTIZACION_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
 }
 
 //devuelve la cita confirmada
@@ -342,24 +215,21 @@ Cita.prototype.post_citaconfirmada = function(req, res, next){
 }
 
 //realiza el envío de email para la confimación de la cita
-Cita.prototype.get_enviaremailcita_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	var msgObj = {
-        idCita: req.body.idCita
-    }
+Cita.prototype.get_enviaremailcita = function(req, res, next){
+    //Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'idCita', value: req.query.idCita, type: self.model.types.INT}];
 	
-	this.model.postEnviaremailcita(msgObj, function (error, result) {
-        //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.post(res, object);
+    this.model.query('SEL_NOTIFICACION_CITA_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
     });
 }
 
