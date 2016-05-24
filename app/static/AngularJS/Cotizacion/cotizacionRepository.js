@@ -5,14 +5,10 @@ var ruta = global_settings.uploadPath;
 registrationModule.factory('cotizacionRepository', function ($http) {
     return {
         buscarPieza: function(idTaller,nombrePieza){
-            var msgObj = {
-                idTaller: idTaller,
-                nombrePieza: nombrePieza
-            }
             return $http({
                 url: searchUrl + 'buscarPieza',
-                method: "POST",
-                data: msgObj,
+                method: "GET",
+                params: {idTaller:idTaller,nombrePieza:nombrePieza},
                 headers: {
                 'Content-Type': 'application/json'
                 }
@@ -69,14 +65,10 @@ registrationModule.factory('cotizacionRepository', function ($http) {
             });
         },  
         editarCotizacion: function(idCotizacion,idTaller){
-            var msgObj = {
-                idCotizacion: idCotizacion,  
-                idTaller: idTaller
-            }
             return $http({
                 url: searchUrl + 'detail',
-                method: "POST",
-                data: msgObj,
+                method: "GET",
+                params: {idCotizacion:idCotizacion,idTaller:idTaller},
                 headers: {
                 'Content-Type': 'application/json'
                 }

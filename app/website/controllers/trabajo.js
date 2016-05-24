@@ -150,18 +150,19 @@ Trabajo.prototype.post_insertTrabajo = function(req, res, next){
     var params = {};
     
     //Asigno a params el valor de mis variables
-    var msgObj = {
-        idCita: req.body.idCita,
-        idUsuario: req.body.idUsuario,
-        idUnidad: req.body.idUnidad
-    }
+    var params = [{name: 'idCita', value: req.query.idCita, 
+                  type: self.model.types.DECIMAL},
+                 {name: 'idUsuario', value: req.query.idUsuario, 
+                  type: self.model.types.DECIMAL},
+                 {name: 'idUnidad', value: req.query.idUnidad, 
+                  type: self.model.types.DECIMAL}];
 	
-	this.model.insertTrabajo(msgObj, function (error, result) {
+	this.model.post('idUnidad',params, function (error, result) {
     //Callback
         object.error = error;
         object.result = result;
-
-        self.view.post(res, object);
+,
+        self.view.expositor(res, object);
     });
 }    
         
