@@ -69,14 +69,10 @@ registrationModule.factory('cotizacionRepository', function ($http) {
             });
         },  
         editarCotizacion: function(idCotizacion,idTaller){
-            var msgObj = {
-                idCotizacion: idCotizacion,  
-                idTaller: idTaller
-            }
             return $http({
                 url: searchUrl + 'detail',
-                method: "POST",
-                data: msgObj,
+                method: "GET",
+                params: {idCotizacion:idCotizacion,idTaller:idTaller},
                 headers: {
                 'Content-Type': 'application/json'
                 }
