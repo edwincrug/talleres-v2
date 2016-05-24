@@ -21,20 +21,21 @@ Trabajo.prototype.post_save = function(req,res,next){
 
 //obtiene los trabajos con estatus de terminado
 Trabajo.prototype.get_trabajoterminado = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = null;
-	//Referencia a la clase para callback
-	var self = this;
+    //Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [];
 	
-	this.model.get('SEL_TRABAJO_TERMINADO_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
+    this.model.query('SEL_TRABAJO_TERMINADO_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
 }
 
 //realiza la actualización del trabajo a terminado
@@ -60,22 +61,23 @@ Trabajo.prototype.post_updtrabajoterminado = function(req, res, next){
     });
 }
 
-//obtiene los trabajos con estatus diferente a terminado
+//devuelve los paquetes/piezas del taller seleccionado
 Trabajo.prototype.get_trabajo = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = null;
-	//Referencia a la clase para callback
-	var self = this;
+	//Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [];
 	
-	this.model.get( 'SEL_TRABAJO_SP', params,function(error,result){
-		//callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
+    this.model.query('SEL_TRABAJO_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
 }
 
 //realiza la actualización del trabajo a cerrado
