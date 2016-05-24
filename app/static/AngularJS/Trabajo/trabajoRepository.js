@@ -40,7 +40,14 @@ registrationModule.factory('trabajoRepository', function ($http) {
         
         },
         getTimeLine: function(idCita){
-            return $http.get(trabajoUrl +'timeLine/' + idCita)
+            return $http({
+                url: trabajoUrl + 'timeLine/',
+                method: "GET",
+                params: {idCita: idCita},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         },
         insertTrabajo: function(idCita,idUsuario,idUnidad){
             return $http({
