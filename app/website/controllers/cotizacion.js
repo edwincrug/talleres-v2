@@ -1,5 +1,5 @@
-var CotizacionView = require('../views/cotizacion'),
-    CotizacionModel = require('../models/cotizacion');
+var CotizacionView = require('../views/ejemploVista'),
+    CotizacionModel = require('../models/dataAccess2');
 var mkdirp = require('mkdirp');
 multer = require('multer');
 var idTipoArchivo;

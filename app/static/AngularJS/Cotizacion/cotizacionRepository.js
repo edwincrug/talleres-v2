@@ -5,14 +5,10 @@ var ruta = global_settings.uploadPath;
 registrationModule.factory('cotizacionRepository', function ($http) {
     return {
         buscarPieza: function(idTaller,nombrePieza){
-            var msgObj = {
-                idTaller: idTaller,
-                nombrePieza: nombrePieza
-            }
             return $http({
                 url: searchUrl + 'buscarPieza',
-                method: "POST",
-                data: msgObj,
+                method: "GET",
+                params: {idTaller:idTaller,nombrePieza:nombrePieza},
                 headers: {
                 'Content-Type': 'application/json'
                 }
