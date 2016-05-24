@@ -56,14 +56,13 @@ DataAccess2.prototype.post = function (params, callback) {
                 request.input(param.name, param.type, param.value);
             });
         }
-        request.execute('SEL_BUSQUEDA_PIEZA_SP', function (err, recordsets, returnValue) {
-            if (recordsets != null) {
-                callback(err, recordsets[0]);
-            } else {
-                console.log('Error al realizacion la insercción: ' + params + ' mensaje: ' + err);
-            }
-        });
-
+        
+        request.execute(stored)
+            .then(function(recordsets) {
+                callback(null, recordsets);
+            }).catch(function(err) {
+                callback(err);
+            });
     });
 };
 
