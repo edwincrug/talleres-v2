@@ -132,25 +132,23 @@ Cita.prototype.get_trabajo = function(req, res, next){
     });
 }
 
-Cita.prototype.post_buscaCita = function(req,res,next){
+Cita.prototype.get_buscaCita = function(req,res,next){
 	//Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
     var params = {};
     //Referencia a la clase para callback
     var self = this;
-    //Asigno a params el valor de mis variables
-    var msgObj = {
-        fecha: req.body.fecha,
-        idCita: req.body.idCita
-    }
+    //Asigno a params el valor de mis variables    
+    var params = [{name: 'fecha', value: req.query.fecha, type:                             self.model.types.STRING},
+                  {name: 'idCita', value: req.query.idCita, type: self.model.types.DECIMAL}];
 
-    this.model.postBuscaCita(msgObj, function (error, result) {
+    this.model.query('SEL_CITA_TALLER_SP',params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.post(res, object);
+        self.view.expositor(res, object);
     });
 }
 
@@ -191,7 +189,7 @@ Cita.prototype.get_cotizaciondetalle_data = function(req, res, next){
 	params.value = req.params.data;
 	params.type = 1;
 	
-	this.model.get( 'SEL_UNIDAD_COTDETALLE_SP',params,function(error,result){
+    this.model.get( 'SEL_UNIDAD_COTDETALLE_SP',params,function(error,result){
 		//Callback
 		object.error = error;
 		object.result = result;

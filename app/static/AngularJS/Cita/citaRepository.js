@@ -49,14 +49,10 @@ registrationModule.factory('citaRepository', function ($http) {
             });
         },
         getCitaTaller: function(fecha, idCita){
-        var msgObj = {
-                fecha: fecha,
-                idCita: idCita
-        }
             return $http({
                 url: citaUrl + 'buscaCita/',
-                method: "POST",
-                data: msgObj,
+                method: "GET",
+                params: {fecha:fecha,idCita:idCita},
                 headers: {
                 'Content-Type': 'application/json'
                 }

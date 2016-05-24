@@ -60,7 +60,7 @@ DataAccess2.prototype.post = function (stored,params, callback) {
             if (recordsets != null) {
                 callback(err, recordsets[0]);
             } else {
-                console.log('Error al realizacion la insercción: ' + params + ' mensaje: ' + err);
+                console.log('Error: ' + params + ' mensaje: ' + err);
             }
         });
     });
