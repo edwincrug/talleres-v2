@@ -106,7 +106,7 @@ Cotizacion.prototype.get_see = function (req, res, next) {
 }
 
 //Método para la búsqueda de piezas para una cotización
-Example.prototype.get_buscarPieza = function(req, res, next) {
+Cotizacion.prototype.get_buscarPieza = function(req, res, next) {
     //Con req.query se obtienen los parametros de la url
     //Objeto que envía los parámetros
     //var params = [];
