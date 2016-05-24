@@ -9,7 +9,6 @@
 registrationModule.controller('citaController', function ($scope, $route, $rootScope, localStorageService, alertFactory, citaRepository, cotizacionRepository, trabajoRepository) {
     var idTrabajoNew = '';
     $scope.message = 'Buscando...';
-    $scope.userData = localStorageService.get('userData');
 
     $scope.init = function () {
         getCliente();
@@ -24,6 +23,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
 
     //init de la pantalla  nuevaCita
     $scope.initNuevaCita = function () {
+        $scope.userData = localStorageService.get('userData');
         $('.clockpicker').clockpicker();
         // When the window has finished loading google map
         google.maps.event.addDomListener(window, 'load', init);
@@ -303,7 +303,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
             citaTaller.fecha = $scope.datosCita.fechaCita + ' ' + $scope.datosCita.horaCita;
             citaTaller.trabajo = $scope.datosCita.trabajoCita;
             citaTaller.observacion = $scope.datosCita.observacionCita;
-            citaTaller.idUsuario =  $scope.userData.idUsuario;
+            citaTaller.idUsuario =  $scope.userData[0].idUsuario;
 
             citaRepository.addCita(citaTaller).then(function (cita) {
                 citaTaller.idCita = cita.data[0].idCita;

@@ -48,6 +48,16 @@ registrationModule.factory('citaRepository', function ($http) {
                 }
             });
         },
+        enviarMailConfirmacion: function(idCita){
+            return $http({
+                url: citaUrl + 'enviaremailcita/',
+                method: "GET",
+                params: {idCita: idCita},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        },
         getCitaTaller: function(fecha, idCita){
             return $http({
                 url: citaUrl + 'buscaCita/',
@@ -79,7 +89,7 @@ registrationModule.factory('citaRepository', function ($http) {
         },
         addCitaServicioDetalle: function(item){
             return $http({
-                url: citaUrl + 'addCitaServicioDetalle/',
+                url: citaUrl + 'addcitaserviciodetalle/',
                 method: "POST",
                 data: item,
                 headers: {
@@ -108,9 +118,6 @@ registrationModule.factory('citaRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
-        },
-        enviarMailConfirmacion: function (idCita) {
-            return $http.get(citaUrl +'enviaremailcita/'+ idCita);
         },
         validaConfirmacionCita: function(idCita){
             return $http.get(citaUrl +'validaconfirmacioncita/'+ idCita)
