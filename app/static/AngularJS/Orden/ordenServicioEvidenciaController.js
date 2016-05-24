@@ -1,14 +1,14 @@
-registrationModule.controller('ordenServicioEvidenciaController', function ($scope, $rootScope, localStorageService, alertFactory, ordenServicioEvidenciaRepository) {
+registrationModule.controller('ordenServicioEvidenciaController', function ($scope, localStorageService, alertFactory, ordenServicioEvidenciaRepository) {
     var idCotizacion = localStorageService.get('cotizacion');
     var trabajo = localStorageService.get('objTrabajo');
-    var idTrabajo = trabajo.idTrabajo;
+    $scope.idTrabajo = trabajo.idTrabajo;
 
     $scope.init = function () {
         $scope.cargaEvidencias();
     }
 
     $scope.cargaEvidencias = function () {
-        ordenServicioEvidenciaRepository.getEvidenciasByOrden(idTrabajo).then(function (result) {
+        ordenServicioEvidenciaRepository.getEvidenciasByOrden($scope.idTrabajo).then(function (result) {
             if (result.data.length > 0) {
                 $scope.slides = result.data;
                 setTimeout(function () {
