@@ -23,13 +23,13 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     $scope.editar = 0;
     $scope.total = 0;
     $scope.importe = 0;
-    $scope.idUsuario = 1;
     $scope.message = 'Buscando...';
     $scope.numEconomico = '';
     $scope.modeloMarca = '';
     $scope.trabajo = '';
     $scope.idCita = '';
     $scope.idTaller = '';
+    $scope.userData = localStorageService.get('userData');
 
     var getExample = function(){
         exampleRepo.getEjemplo().then(function(exampleData){
@@ -47,8 +47,6 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         });
     }
     $scope.init = function () {
-        getPieza();
-        //getExample();
         // Collapse ibox function
         $('.collapse-link').click(function () {
             var ibox = $(this).closest('div.ibox');
@@ -176,21 +174,6 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     valorIva: pieza.valorIva,
                     idEstatus: 8
                 });
-                if ($scope.editar == 1) {
-                    $scope.arrayCambios.push({
-                        numeroPartida: pieza.numeroPartida,
-                        idItem: pieza.idItem,
-                        numeroParte: pieza.numeroParte,
-                        item: pieza.item,
-                        precio: pieza.precio,
-                        cantidad: 1,
-                        importe: pieza.precio * 1,
-                        idTipoElemento: pieza.idTipoElemento,
-                        valorIva: pieza.valorIva,
-                        idEstatus: 8
-                    });
-                }
-                //calcularImporte();
                 $scope.sub = calcularSubtotal();
                 $scope.iva = calcularIva();
                 $scope.total = calculaTotal();
@@ -210,21 +193,6 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 valorIva: pieza.valorIva,
                 idEstatus: 8
             });
-            if ($scope.editar == 1) {
-                $scope.arrayCambios.push({
-                    numeroPartida: pieza.numeroPartida,
-                    idItem: pieza.idItem,
-                    numeroParte: pieza.numeroParte,
-                    item: pieza.item,
-                    precio: pieza.precio,
-                    cantidad: 1,
-                    importe: pieza.precio * 1,
-                    idTipoElemento: pieza.idTipoElemento,
-                    valorIva: pieza.valorIva,
-                    idEstatus: 8
-                });
-            }
-            //calcularImporte();
             $scope.sub = calcularSubtotal();
             $scope.iva = calcularIva();
             $scope.total = calculaTotal();
@@ -295,9 +263,6 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     $scope.total = calculaTotal();
                     $scope.sub = calcularSubtotal();
                     $scope.iva = calcularIva();
-                    if ($scope.editar == 1) {
-                        $scope.arrayCambios[i].cantidad = $scope.arrayItem[i].cantidad;
-                    }
                 } else {
                     $scope.arrayItem.splice(i, 1);
                     $scope.total = calculaTotal();
@@ -324,7 +289,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             }
         }
         cotizacionRepository.insertCotizacionMaestro($scope.citaDatos.idCita,
-                $scope.idUsuario,
+                $scope.userData.idUsuario,
                 observaciones,
                 idUnidad)
             .then(function (resultado) {
@@ -389,7 +354,22 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         var contentForm = '';
         var btnSubmit = '';
         var elements = '';
+        eliminarElementos();
         $scope.arrayCambios.forEach(function (item, i) {
+            cotizacionRepository.updateCotizacion($scope.editCotizacion.idCotizacion,
+                    item.idTipoElemento,
+                    item.idItem,
+                    item.precio,
+                    item.cantidad,
+                    observaciones,
+                    item.idEstatus)
+                .then(function (result) {
+                    alertFactory.success('Cotización Actualizada ');
+                }, function (error) {
+                    alertFactory.error('Error');
+                });
+        })
+        $scope.arrayItem.forEach(function (item, i) {
             cotizacionRepository.updateCotizacion($scope.editCotizacion.idCotizacion,
                     item.idTipoElemento,
                     item.idItem,
@@ -425,7 +405,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             idTrabajoEdit.value = idTrabajo;
             idCotizacionEdit.value = idCotizacion;
             idTipoEvidencia.value = 2;
-            idUsuario.value = 1;
+            idUsuario.value = $scope.userData.idUsuario;
             //Submit del botón del Form para subir los archivos        
             btnSubmit.click();
         }
@@ -498,6 +478,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             });
     };
     
+    //Se obtienen los datos de la unidad a cotizar
     var datosUnidad = function(idCotizacion,idTrabajo){
         cotizacionRepository.datosUnidad(idCotizacion,idTrabajo)
             .then(function(result){
@@ -507,5 +488,14 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         },function(error){
             alertFactory.error('Error');
         });
+    }
+    
+    //Eliminar items que fueron quitados de la cotización
+    var eliminarElementos = function(){
+       $scope.arrayCambios.forEach(function (item, i) {
+           if(item.idEstatus == 8){
+               $scope.arrayCambios.splice(i, 1);
+           }           
+       })
     }
 });

@@ -2,6 +2,52 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
 
 registrationModule.factory('citaRepository', function ($http) {
     return {
+        getCliente: function(){
+            return $http({
+                url: citaUrl + 'cliente/',
+                method: "GET"
+            });
+        },
+        getUnidadInformation: function(idCliente, datoUnidad){
+            return $http({
+                url: citaUrl + 'unidad/',
+                method: "GET",
+                params: {idCliente: idCliente, datoUnidad: datoUnidad},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        },
+        getCita: function(idUnidad){
+            return $http({
+                url: citaUrl + 'cita/',
+                method: "GET",
+                params: {idUnidad: idUnidad},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        },
+        getTaller: function(datoTaller){
+            return $http({
+                url: citaUrl + 'taller/',
+                method: "GET",
+                params: {datoTaller: datoTaller},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        },
+        getPaquete: function(idTrabajo){
+            return $http({
+                url: citaUrl + 'paquete/',
+                method: "GET",
+                params: {datoTaller: idTrabajo},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
+        },
         getCitaTaller: function(fecha, idCita){
         var msgObj = {
                 fecha: fecha,
@@ -16,9 +62,6 @@ registrationModule.factory('citaRepository', function ($http) {
                 }
             });
         },
-        getCita: function(idUnidad){
-        	return $http.get(citaUrl+'cita/'+idUnidad);
-        },
         getTrabajo: function(idCita){
         	return $http.get(citaUrl+'trabajo/'+idCita);
         },
@@ -27,12 +70,6 @@ registrationModule.factory('citaRepository', function ($http) {
         },
         getCotizacionDetalle: function(idTrabajo){
         	return $http.get(citaUrl+'cotizaciondetalle/'+idTrabajo);
-        },
-        getPaquete: function(idTrabajo){
-        	return $http.get(citaUrl+'paquete/'+idTrabajo);
-        },
-        getTaller: function(datoTaller){
-        	return $http.get(citaUrl+'taller/'+datoTaller);
         },
         addCita: function(taller){
             return $http({
@@ -81,19 +118,6 @@ registrationModule.factory('citaRepository', function ($http) {
         },
         validaConfirmacionCita: function(idCita){
             return $http.get(citaUrl +'validaconfirmacioncita/'+ idCita)
-        },
-        getCliente: function () {
-            return $http.get(citaUrl +'cliente/');
-        },
-        getUnidadInformation: function(idCliente, datoUnidad){
-            return $http({
-                url: citaUrl + 'unidad/',
-                method: "POST",
-                data: {idCliente: idCliente, datoUnidad: datoUnidad},
-                headers: {
-                'Content-Type': 'application/json'
-                }
-            });
         }
     };
 });

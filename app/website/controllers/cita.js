@@ -1,7 +1,8 @@
-var CitaView = require('../views/cita'),
-	CitaModel = require('../models/dataAccess'),
+var CitaView = require('../views/ejemploVista'),
+    CitaModel = require('../models/dataAccess2'),
 	moment = require('moment');
 
+//configuración para el objeto cita
 var Cita = function(conf){
 	this.conf = conf || {};
 
@@ -13,31 +14,122 @@ var Cita = function(conf){
 	}
 }
 
-Cita.prototype.post_save = function(req,res,next){
+//obtiene el trabajo de la cita
+Cita.prototype.get_unidad = function(req, res, next) {
+    //Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'idCliente', value: req.query.idCliente, type: self.model.types.INT},
+                  {name: 'datoUnidad', value: req.query.datoUnidad, type: self.model.types.STRING}];
 
+    this.model.query('SEL_UNIDAD_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
 }
 
 //obtiene el trabajo de la cita
-Cita.prototype.get_trabajo_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
+Cita.prototype.get_cliente = function(req, res, next) {
+    //Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //var params = [];
+    //Referencia a la clase para callback
+    var self = this;
+    
+    //asignación de valores mediante parámetros del request
+    var params = [];
 
-	//Asigno a params el valor de mis variables
-	params.name = 'idCita';
-	params.value = req.params.data;
-	params.type = 1;
+    this.model.query('SEL_CLIENTE_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+}
+
+//obtiene las citas de la unidad
+Cita.prototype.get_cita = function(req, res, next){
+    //Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'idUnidad', value: req.query.idUnidad, type: self.model.types.INT}];
+    
+    this.model.query('SEL_UNIDAD_CITA_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+}
+
+//obtiene los talleres
+Cita.prototype.get_taller = function(req, res, next){
+    //Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'datoTaller', value: req.query.datoTaller, type: self.model.types.STRING}];
 	
-	this.model.get( 'SEL_UNIDAD_TRABAJO',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
+    this.model.query('SEL_TALLER_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+}
+
+//devuelve los paquetes/piezas del taller seleccionado
+Cita.prototype.get_paquete = function(req, res, next){
+	//Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'idTrabajo', value: req.query.idTrabajo, type: self.model.types.INT}];
+	
+    this.model.query('SEL_PAQUETE_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+}
+
+//obtiene el trabajo de la cita
+Cita.prototype.get_trabajo = function(req, res, next){
+	//Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //var params = [];
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'idCita', value: req.query.idCita, type: self.model.types.INT}];
+
+    this.model.query('SEL_UNIDAD_TRABAJO', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
 }
 
 Cita.prototype.post_buscaCita = function(req,res,next){
@@ -54,27 +146,6 @@ Cita.prototype.post_buscaCita = function(req,res,next){
     }
 
     this.model.postBuscaCita(msgObj, function (error, result) {
-        //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.post(res, object);
-    });
-}
-
-//devuelve la cita confirmada
-Cita.prototype.post_unidad = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Referencia a la clase para callback
-	var self = this;
-
-	var msgObj = {
-        idCliente: req.body.idCliente,
-        datoUnidad: req.body.datoUnidad
-    }
-	
-	this.model.unidadInfor(msgObj, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
@@ -121,75 +192,6 @@ Cita.prototype.get_cotizaciondetalle_data = function(req, res, next){
 	params.type = 1;
 	
 	this.model.get( 'SEL_UNIDAD_COTDETALLE_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
-//devuelve los paquetes de las cotizaciones
-Cita.prototype.get_paquete_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idTrabajo';
-	params.value = req.params.data;
-	params.type = 1;
-	
-	this.model.get( 'SEL_PAQUETE_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
-//obtiene las citas de la unidad
-Cita.prototype.get_cita_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idUnidad';
-	params.value = req.params.data;
-	params.type = 1;
-	
-	this.model.get( 'SEL_UNIDAD_CITA_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
-//obtiene los talleres
-Cita.prototype.get_taller_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'datoTaller';
-	params.value = req.params.data;
-	params.type = 3;
-	
-	this.model.get( 'SEL_TALLER_SP',params,function(error,result){
 		//Callback
 		object.error = error;
 		object.result = result;
@@ -409,21 +411,4 @@ Cita.prototype.get_validaconfirmacioncita_data = function(req, res, next){
 	});
 }
 
-//obtiene los clientes
-Cita.prototype.get_cliente = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = null; 
-	//Referencia a la clase para callback
-	var self = this;
-	
-	this.model.get('SEL_CLIENTE_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
 module.exports = Cita;

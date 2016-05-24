@@ -9,6 +9,7 @@
 registrationModule.controller('citaController', function ($scope, $route, $rootScope, localStorageService, alertFactory, citaRepository, cotizacionRepository, trabajoRepository) {
     var idTrabajoNew = '';
     $scope.message = 'Buscando...';
+    $scope.userData = localStorageService.get('userData');
 
     $scope.init = function () {
         getCliente();
@@ -302,7 +303,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
             citaTaller.fecha = $scope.datosCita.fechaCita + ' ' + $scope.datosCita.horaCita;
             citaTaller.trabajo = $scope.datosCita.trabajoCita;
             citaTaller.observacion = $scope.datosCita.observacionCita;
-            citaTaller.idUsuario = 2;
+            citaTaller.idUsuario =  $scope.userData.idUsuario;
 
             citaRepository.addCita(citaTaller).then(function (cita) {
                 citaTaller.idCita = cita.data[0].idCita;
@@ -508,36 +509,6 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         $scope.datosCita.idTaller = undefined;
     }
 
-    //init de linea de tiempo
-    $scope.initLineTime = function () {
-            var idCita = localStorageService.get('hIdCita');
-            if (idCita != undefined) {
-                getHistorialUnidad(idCita);
-            }
-            //remueve la variable localStorage hIdCita
-            //localStorageService.remove('hIdCita');
-        }
-        //muestra el historial de la unidad (cita/trabajo y cotizaciones)
-    var getHistorialUnidad = function (idCita) {
-        citaRepository.getHistorialCita(idCita).then(function (hCita) {
-            $scope.historialCita = hCita.data;
-            if (hCita.data.length > 0) {
-                citaRepository.getHistorialTrabajo($scope.historialCita[0].idTrabajo).then(function (hTrabajo) {
-                    $scope.historialTrabajo = hTrabajo.data;
-                    if (hTrabajo.data.length > 0) {
-                        citaRepository.getHistorialCotizacion($scope.historialTrabajo[0].idTrabajo).then(function (hCotizacion) {
-                            $scope.historialCotizacion = hCotizacion.data;
-                        })
-                    }
-                })
-            } else {
-                alertFactory.info("No hay historial cita");
-            }
-        }, function (error) {
-            alertFactory.error("Error al obtener historial cita");
-        })
-    }
-
     //ir a cotización trabajo
     $scope.goToCotizacionTrabajo = function (cita) {
         //obtiene los tabajos de la cita
@@ -656,7 +627,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         idUsuario = contentForm.document.getElementById("idUsuario");
         idTrabajoEdit.value = idTrabajoNew;
         idTipoEvidencia.value = 1;
-        idUsuario.value = 1;
+        idUsuario.value =  $scope.userData.idUsuario;
         vTrabajo.value = "1";
         //Submit del botón del Form para subir los archivos        
         btnSubmit.click();
@@ -664,7 +635,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
 
     //Cargar comprobante de recepción
     $scope.recepcion = function () {
-        trabajoRepository.insertTrabajo($scope.idCitaUpld, 1, $scope.idUnidadUpl)
+        trabajoRepository.insertTrabajo($scope.idCitaUpld, $scope.userData.idUsuario, $scope.idUnidadUpl)
             .then(function (trabajo) {
                 idTrabajoNew = trabajo.data[0].idTrabajo;
                 cargarArchivos(idTrabajoNew);

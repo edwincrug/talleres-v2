@@ -14,6 +14,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     $scope.descripcion = localStorageService.get('desc');
     var tipoEvidencia = 2; //Cotización
     var idCotizacionEdita = 0;
+    $scope.userData = localStorageService.get('userData');
 
 
     $scope.init = function () {
@@ -31,11 +32,10 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     $scope.cargaChat = function () {
-        cotizacionAutorizacionRepository.getChat(idCita).then(function (result) {
-            if (result.data.length > 0) {
+        $scope.promise =
+            cotizacionAutorizacionRepository.getChat(idCita).then(function (result) {
                 $scope.chat = result.data;
-            }
-        }, function (error) {});
+            }, function (error) {});
     }
 
     $scope.cargaFicha = function () {
@@ -65,9 +65,9 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
 
     //Autoriza una cotización
     $scope.Autorizar = function (comentario) {
-        cotizacionAutorizacionRepository.putCotizacionAprobacion(idCotizacion, 1, comentario).then(function (result) {
+        cotizacionAutorizacionRepository.putCotizacionAprobacion(idCotizacion, $scope.userData.idUsuario, comentario).then(function (result) {
             if (result.data.length > 0) {
-                cotizacionMailRepository.postMail(idCotizacion, 1, 2, comentario);
+                cotizacionMailRepository.postMail(idCotizacion,idTaller, 2, comentario);
                 alertFactory.success('Cotización Autorizada correctamente');
                 location.href = '/trabajo';
             }
@@ -182,9 +182,9 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     }
 
     $scope.Rechazar = function (comentario) {
-        cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion, 1, comentario).then(function (result) {
+        cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion,$scope.userData.idUsuario, comentario).then(function (result) {
             if (result.data.length > 0) {
-                cotizacionMailRepository.postMail(idCotizacion, 1, 3, comentario);
+                cotizacionMailRepository.postMail(idCotizacion, idTaller, 3, comentario);
                 alertFactory.success('Cotización Rechazada correctamente');
                 location.href = '/trabajo';
             }
@@ -204,11 +204,11 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             idTaller: idTaller,
             idTrabajo: idTrabajo
         };
-
-        if (localStorageService.get('cita') != null) {
+        
+        if(localStorageService.get('cita') != null){
             localStorageService.remove('cita');
         }
-        if (localStorageService.get('orden') != null) {
+        if(localStorageService.get('orden') != null){
             localStorageService.remove('orden');
         }
         localStorageService.set('objEditCotizacion', objEditCotizacion);
@@ -237,7 +237,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
                 $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);
                 cotizacionRepository.insertEvidencia(tipoEvidencia,
                         $scope.idTipoArchivo,
-                        1, //$scope.idUsuario,
+                        $scope.userData.idUsuario,
                         idCotizacionEdita,
                         $scope.nombreArchivo)
                     .then(function (result) {
