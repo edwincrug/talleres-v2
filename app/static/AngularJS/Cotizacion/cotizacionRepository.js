@@ -95,8 +95,12 @@ registrationModule.factory('cotizacionRepository', function ($http) {
         },
         busquedaServicioDetalle: function(idCita){
             return $http({
-                url: searchUrl + 'servicioDetalle/' + idCita,
-                method: "GET"
+                url: searchUrl + 'servicioDetalle',
+                method: "GET",
+                params: {idCita:idCita},
+                headers: {
+                'Content-Type': 'application/json'
+                }
             });
         },        
         datosUnidad: function(idCotizacion,idTrabajo){

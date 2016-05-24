@@ -135,12 +135,14 @@ Cotizacion.prototype.get_cotizacionMaestro = function (req, res, next) {
     var self = this;
     
     //Asigno a params el valor de mis variables
-    var msgObj = {
-        idCita: req.body.idCita,
-        idUsuario: req.body.idUsuario,
-        observaciones: req.body.observaciones,
-        idUnidad: req.body.idUnidad
-    }
+    var params = [{name: 'idCita', value: req.query.idCita, 
+              type: self.model.types.DECIMAL},
+             {name: 'idUsuario', value: req.query.idUsuario, 
+              type: self.model.types.DECIMAL},
+             {name: 'observaciones', value: req.query.observaciones, 
+              type: self.model.types.STRING},
+             {name: 'idUnidad', value: req.query.idUsuario, 
+              type: self.model.types.DECIMAL}];
     
 
     this.model.post('INS_COTIZACION_MAESTRO_SP',params, function (error, result) {
@@ -170,7 +172,7 @@ Cotizacion.prototype.post_cotizacionDetalle = function (req, res, next) {
         cantidad: req.body.cantidad
     }
 
-    this.model.post('INS_COTIZACION_MAESTRO_SP',msgObj, function (error, result) {
+    this.model.post('INS_COTIZACION_DETALLE_SP',msgObj, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
