@@ -82,14 +82,17 @@ registrationModule.factory('citaRepository', function ($http) {
         validaConfirmacionCita: function(idCita){
             return $http.get(citaUrl +'validaconfirmacioncita/'+ idCita)
         },
-        getCliente: function () {
-            return $http.get(citaUrl +'cliente/');
+        getCliente: function(){
+            return $http({
+                url: citaUrl + 'cliente/',
+                method: "GET"
+            });
         },
         getUnidadInformation: function(idCliente, datoUnidad){
             return $http({
                 url: citaUrl + 'unidad/',
-                method: "POST",
-                data: {idCliente: idCliente, datoUnidad: datoUnidad},
+                method: "GET",
+                params: {idCliente: idCliente, datoUnidad: datoUnidad},
                 headers: {
                 'Content-Type': 'application/json'
                 }
