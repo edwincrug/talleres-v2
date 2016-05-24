@@ -85,23 +85,16 @@ var obtenerExtArchivo = function (file) {
     return res;
 }
 
+//Obtiene las cotizaciones pendientes por autorizar
 Cotizacion.prototype.get_see = function (req, res, next) {
-    //Objeto que almacena la respuesta
-    var object = {};
-    //Objeto que envía los parámetros
-    var params = {};
-    //Referencia a la clase para callback
     var self = this;
-
-    //Asigno a params el valor de mis variables
-    //params = req.params.data;
-
-    this.model.get(function (error, result) {
-        //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.see(res, object);
+    var params = [];
+    
+    this.model.query('SEL_COTIZACIONES_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
     });
 }
 
