@@ -63,9 +63,8 @@ DataAccess2.prototype.post = function (stored,params, callback) {
                 console.log('Error al realizacion la insercción: ' + params + ' mensaje: ' + err);
             }
         });
-
     });
 };
 
-
+//exportación del modelo
 module.exports = DataAccess2; 
