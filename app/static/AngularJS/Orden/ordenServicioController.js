@@ -14,17 +14,21 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
 
 
     $scope.init = function () {
-
         $scope.cargaFicha();
         $scope.cargaDatosCliente($scope.objBotonera.idCita);
         $scope.getCotizacionByTrabajo();
         $rootScope.showChat = 1;
+        $scope.cargaChat();
     }
 
     $scope.cargaChat = function () {
-        $scope.promise =
             cotizacionAutorizacionRepository.getChat($scope.idTrabajoOrden.idCita).then(function (result) {
-                $scope.chat = result.data;
+                if (result.data.length > 0) {
+                    $scope.chat = result.data;
+                }
+                else{
+                    $scope.chat = null;
+                }
             }, function (error) {});
     }
 
@@ -49,7 +53,7 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
         $scope.sumaIvaTotal = 0;
         $scope.sumaPrecioTotal = 0;
         $scope.sumaGranTotal = 0;
-        
+
         cotizacionAutorizacionRepository.getCotizacionByTrabajo($scope.objBotonera.idCita).then(function (result) {
                 if (result.data.length > 0) {
                     $scope.total = 0;
@@ -177,11 +181,11 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
         objOrden.idTrabajo = $scope.idTrabajoOrden.idTrabajo;
         objOrden.idUnidad = 1;
         objOrden.idCita = $scope.idTrabajoOrden.idCita;
-        
-        if(localStorageService.get('objEditCotizacion') != null){
+
+        if (localStorageService.get('objEditCotizacion') != null) {
             localStorageService.remove('objEditCotizacion');
         }
-        if(localStorageService.get('cita') != null){
+        if (localStorageService.get('cita') != null) {
             localStorageService.remove('cita');
         }
         localStorageService.set('orden', objOrden);
