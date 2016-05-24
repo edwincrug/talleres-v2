@@ -1,5 +1,6 @@
 registrationModule.controller('mainController', function ($scope, $rootScope, $location, localStorageService, mainRepository) {
     $rootScope.showChat = 0;
+    $scope.idUsuario = 3;
     var citaMsg = localStorageService.get('citaMsg');
     $scope.descripcion = localStorageService.get('desc');
     $scope.comentarios = '';
@@ -20,7 +21,7 @@ registrationModule.controller('mainController', function ($scope, $rootScope, $l
     }
 
     $scope.EnviarComentario = function (comentarios) {
-        mainRepository.putMessage($rootScope.userData.idUsuario, comentarios, citaMsg).then(function (result) {
+        mainRepository.putMessage(3, comentarios, citaMsg).then(function (result) {
                 $scope.algo = result.data;
                 $scope.clearComments();
                 $scope.cargaChat();

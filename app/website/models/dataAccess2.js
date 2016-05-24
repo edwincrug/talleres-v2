@@ -37,7 +37,7 @@ DataAccess2.prototype.query = function(stored, params, callback) {
 
         request.execute(stored)
             .then(function(recordsets) {
-                callback(null, recordsets);
+                callback(null, recordsets[0]);
             }).catch(function(err) {
                 callback(err);
             });
@@ -45,7 +45,7 @@ DataAccess2.prototype.query = function(stored, params, callback) {
 };
 
 //método genérico para acciones post
-DataAccess2.prototype.post = function (params, callback) {
+DataAccess2.prototype.post = function (stored,params, callback) {
     var self = this.connection;
     this.connection.connect(function (err) {
         // Stored Procedure 
@@ -56,15 +56,15 @@ DataAccess2.prototype.post = function (params, callback) {
                 request.input(param.name, param.type, param.value);
             });
         }
-        
-        request.execute(stored)
-            .then(function(recordsets) {
-                callback(null, recordsets);
-            }).catch(function(err) {
-                callback(err);
-            });
+        request.execute(stored, function (err, recordsets, returnValue) {
+            if (recordsets != null) {
+                callback(err, recordsets[0]);
+            } else {
+                console.log('Error al realizacion la insercción: ' + params + ' mensaje: ' + err);
+            }
+        });
     });
 };
 
-
+//exportación del modelo
 module.exports = DataAccess2; 

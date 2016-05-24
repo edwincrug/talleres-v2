@@ -3,7 +3,7 @@ var trabajoUrl = global_settings.urlCORS + '/api/trabajo/';
 registrationModule.factory('trabajoRepository', function ($http) {
     return {
         getTrabajo: function () {
-            return $http.get(trabajoUrl +'trabajo')
+            return $http.get(trabajoUrl +'trabajo/')
         },
         getTrabajoTerminado: function () {
             return $http.get(trabajoUrl +'trabajoterminado')
@@ -40,7 +40,14 @@ registrationModule.factory('trabajoRepository', function ($http) {
         
         },
         getTimeLine: function(idCita){
-            return $http.get(trabajoUrl +'timeLine/' + idCita)
+            return $http({
+                url: trabajoUrl + 'timeLine/',
+                method: "GET",
+                params: {idCita: idCita},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         },
         insertTrabajo: function(idCita,idUsuario,idUnidad){
             return $http({

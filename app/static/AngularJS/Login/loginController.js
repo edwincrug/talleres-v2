@@ -1,6 +1,5 @@
 registrationModule.controller('loginController', function ($scope, alertFactory, $rootScope, localStorageService, loginRepository) {
     $rootScope.sesion = 0;
-    $rootScope.showChat = 0;
 
     $scope.init = function () {
 
@@ -11,10 +10,10 @@ registrationModule.controller('loginController', function ($scope, alertFactory,
             .then(function (result) {
                 if (result.data.length > 0) {
                     alertFactory.success('Bienvenido a Talleres: ' + result.data[0].nombreCompleto);
-                    $scope.login = result.data[0];
+                    $scope.login = result.data;
                     localStorageService.set('userData', $scope.login);
 
-                    if ($scope.login.idTipoUsuario == 3) {
+                    if ($scope.login[0].idTipoUsuario == 3) {
                         location.href = '/tallerCita';
                     } else {
                         location.href = '/cita';
