@@ -161,7 +161,7 @@ Trabajo.prototype.post_insertTrabajo = function(req, res, next){
     //Callback
         object.error = error;
         object.result = result;
-,
+
         self.view.expositor(res, object);
     });
 }    
