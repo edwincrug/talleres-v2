@@ -325,7 +325,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
                 }, function (error) {
                     alertFactory.error("Error al enviar el e-mail")
                 });
-                location.href = '/tallerCita';
+                location.href = '/tallercita';
                 localStorageService.set('objCita', citaTaller);
                 localStorageService.remove('stgListaPiezas');
             }, function (error) {
@@ -377,7 +377,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
             localStorageService.remove('orden');
         }
         localStorageService.set('cita', cita);
-        location.href = '/cotizacionNueva';
+        location.href = '/cotizacionnueva';
     }
 
     //despliega el div de las tablas
