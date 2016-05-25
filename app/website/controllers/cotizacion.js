@@ -119,7 +119,7 @@ Cotizacion.prototype.get_buscarPieza = function(req, res, next) {
 }
 
 //Método para insertar nueva cotización Maestro
-Cotizacion.prototype.get_cotizacionMaestro = function (req, res, next) {
+Cotizacion.prototype.post_cotizacionMaestro = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
