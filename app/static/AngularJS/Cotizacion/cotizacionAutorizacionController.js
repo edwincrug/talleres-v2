@@ -18,33 +18,42 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
 
 
     $scope.init = function () {
-        var ruta = $location.path();
         $scope.cargaFicha();
         $scope.cargaChat();
-        $scope.getCotizacionByTrabajo();
+        //$scope.getCotizacionByTrabajo();
         $scope.Detalle(idCotizacion, idTaller);
         //$scope.lookUpTrabajo(idCita);
         $scope.cargaEvidencias();
-        $scope.cargaDocs(idCotizacion);
+        //$scope.cargaDocs(idCotizacion);
         $scope.cargaDatosCliente(idCita);
 
         $rootScope.showChat = 1;
     }
 
+    //Obtiene la conversación de la cita 
     $scope.cargaChat = function () {
         $scope.promise =
             cotizacionAutorizacionRepository.getChat(idCita).then(function (result) {
-                $scope.chat = result.data;
-            }, function (error) {});
+                if (result.data.length > 0) {
+                    $scope.chat = result.data;
+                }
+            }, function (error) {
+                alertFactory.error('No se pudo obtener la conversación del chat');
+            });
     }
 
+    //Obtiene la ficha técnica de la unidad
     $scope.cargaFicha = function () {
         cotizacionAutorizacionRepository.getFichaTecnica(idCita).then(function (result) {
             if (result.data.length > 0) {
                 $scope.unidadInfo = result.data[0];
                 localStorageService.set('objFicha', $scope.unidadInfo);
+            } else {
+                alertFactory.info('No se pudo obtener información de la unidad');
             }
-        }, function (error) {});
+        }, function (error) {
+            alertFactory.error('No se pudo obtener información de la unidad');
+        });
     }
 
     $scope.EnviarComentario = function (comentarios) {
@@ -67,7 +76,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
     $scope.Autorizar = function (comentario) {
         cotizacionAutorizacionRepository.putCotizacionAprobacion(idCotizacion, $scope.userData.idUsuario, comentario).then(function (result) {
             if (result.data.length > 0) {
-                cotizacionMailRepository.postMail(idCotizacion,idTaller, 2, comentario);
+                cotizacionMailRepository.postMail(idCotizacion, idTaller, 2, comentario);
                 alertFactory.success('Cotización Autorizada correctamente');
                 location.href = '/trabajo';
             }
@@ -171,18 +180,19 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         });
     });
 
+    //Obtiene las evidencias de una cotización
     $scope.cargaEvidencias = function () {
         cotizacionAutorizacionRepository.getEvidenciasByCotizacion(idCotizacion).then(function (result) {
             if (result.data.length > 0) {
                 $scope.slides = result.data;
-            } else {
-                $scope.alerta = 1;
             }
-        }, function (error) {});
+        }, function (error) {
+            alertFactory.error('No se puedieron obtener las evidencias de esta cotización');
+        });
     }
 
     $scope.Rechazar = function (comentario) {
-        cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion,$scope.userData.idUsuario, comentario).then(function (result) {
+        cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion, $scope.userData.idUsuario, comentario).then(function (result) {
             if (result.data.length > 0) {
                 cotizacionMailRepository.postMail(idCotizacion, idTaller, 3, comentario);
                 alertFactory.success('Cotización Rechazada correctamente');
@@ -204,11 +214,11 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             idTaller: idTaller,
             idTrabajo: idTrabajo
         };
-        
-        if(localStorageService.get('cita') != null){
+
+        if (localStorageService.get('cita') != null) {
             localStorageService.remove('cita');
         }
-        if(localStorageService.get('orden') != null){
+        if (localStorageService.get('orden') != null) {
             localStorageService.remove('orden');
         }
         localStorageService.set('objEditCotizacion', objEditCotizacion);
@@ -288,6 +298,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         alertFactory.success('Guardando Archivos');
     }
 
+    //Obtiene el detalle de la cotización y la muestra en pantalla
     $scope.Detalle = function (idCotizacion, idTaller) {
         $scope.sumaIvaTotal = 0;
         $scope.sumaPrecioTotal = 0;
@@ -304,12 +315,12 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
                 }
                 $scope.sumaGranTotal = ($scope.sumaPrecioTotal + $scope.sumaIvaTotal);
 
-                alertFactory.success('Datos cargados.');
+                alertFactory.success('Detalle de la cotización, cargados.');
             } else {
                 alertFactory.info('No se pudo obtener el detalle de esta cotización.');
             }
         }, function (error) {
-            alertFactory.info('No se pudo obtener el detalle de esta cotización.');
+            alertFactory.error('No se pudo obtener el detalle de esta cotización.');
         });
 
     }
@@ -318,10 +329,14 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         location.href = '/cotizacionevidencias';
     }
 
+    //Obtiene los datos del cliente
     $scope.cargaDatosCliente = function (idCita) {
         cotizacionAutorizacionRepository.getDatosCliente(idCita).then(function (result) {
             if (result.data.length > 0) {
                 $scope.ClienteData = result.data[0];
+            }
+            else{
+                alertFactory.info('No se pudo obtener los datos del cliente');
             }
         }, function (error) {
             alertFactory.error('No se pudo obtener los datos del cliente, inténtelo más tarde');

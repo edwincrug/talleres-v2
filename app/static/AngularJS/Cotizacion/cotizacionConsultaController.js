@@ -11,9 +11,9 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
 
     $scope.init = function () {
         $scope.Maestro();
-
     }
 
+    //Obtiene el detalle de una cotización
     $scope.Detalle = function (idCotizacion, idTaller) {
         $scope.sumaIvaTotal = 0;
         $scope.sumaPrecioTotal = 0;
@@ -41,6 +41,7 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
 
     }
 
+    //Obtiene las cotizaciones pendientes por autorizar
     $scope.Maestro = function () {
         $scope.promise =
             cotizacionConsultaRepository.get().then(function (result) {
@@ -87,6 +88,7 @@ registrationModule.controller('cotizacionConsultaController', function ($scope, 
                 });
     }
 
+    //Redirige los parametros de la cotización para su aprobación
     $scope.Autorizacion = function (idCita1, idCotizacion1, idUnidad1, numeroCotizacion, idTrabajo1, taller1) {
         localStorageService.set('cita', idCita1);
         localStorageService.set('cotizacion', idCotizacion1);

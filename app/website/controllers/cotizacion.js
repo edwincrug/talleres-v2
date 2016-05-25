@@ -67,7 +67,7 @@ var upload = multer({
 //Obtener el tipo de archivo
 var obtenerTipoArchivo = function (ext) {
     if (ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx' ||
-        ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX' || 
+        ext == '.PDF' || ext == '.DOC' || ext == '.XLS' || ext == '.DOCX' || ext == '.XLSX' ||
         ext == '.ppt' || ext == '.PPT' || ext == '.xml' || ext == '.XML') {
         type = 1;
     } else if (ext == '.jpg' || ext == '.png' || ext == '.gif' || ext == '.bmp' || ext == '.JPG' || ext == '.PNG' || ext == '.GIF' || ext == '.BMP') {
@@ -89,7 +89,7 @@ var obtenerExtArchivo = function (file) {
 Cotizacion.prototype.get_see = function (req, res, next) {
     var self = this;
     var params = [];
-    
+
     this.model.query('SEL_COTIZACIONES_SP', params, function (error, result) {
         self.view.expositor(res, {
             error: error,
@@ -99,18 +99,26 @@ Cotizacion.prototype.get_see = function (req, res, next) {
 }
 
 //Método para la búsqueda de piezas para una cotización
-Cotizacion.prototype.get_buscarPieza = function(req, res, next) {
+Cotizacion.prototype.get_buscarPieza = function (req, res, next) {
     //Con req.query se obtienen los parametros de la url
     //Objeto que envía los parámetros
     //var params = [];
     //Referencia a la clase para callback
     var self = this;
     //Asigno a params el valor de mis n variables
-    
-    var params = [{name: 'idTaller', value: req.query.idTaller, type: self.model.types.INT},
-                  {name: 'nombrePieza', value: req.query.nombrePieza, type: self.model.types.STRING}];
-    
-    this.model.query('SEL_BUSQUEDA_PIEZA_SP', params, function(error, result) {
+
+    var params = [{
+            name: 'idTaller',
+            value: req.query.idTaller,
+            type: self.model.types.INT
+        },
+        {
+            name: 'nombrePieza',
+            value: req.query.nombrePieza,
+            type: self.model.types.STRING
+        }];
+
+    this.model.query('SEL_BUSQUEDA_PIEZA_SP', params, function (error, result) {
         self.view.expositor(res, {
             error: error,
             result: result
@@ -126,19 +134,31 @@ Cotizacion.prototype.post_cotizacionMaestro = function (req, res, next) {
     var params = {};
     //Referencia a la clase para callback
     var self = this;
-    
-    //Asigno a params el valor de mis variables
-    var params = [{name: 'idCita', value: req.query.idCita, 
-              type: self.model.types.DECIMAL},
-             {name: 'idUsuario', value: req.query.idUsuario, 
-              type: self.model.types.DECIMAL},
-             {name: 'observaciones', value: req.query.observaciones, 
-              type: self.model.types.STRING},
-             {name: 'idUnidad', value: req.query.idUsuario, 
-              type: self.model.types.DECIMAL}];
-    
 
-    this.model.post('INS_COTIZACION_MAESTRO_SP',params, function (error, result) {
+    //Asigno a params el valor de mis variables
+    var params = [{
+            name: 'idCita',
+            value: req.query.idCita,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idUsuario',
+            value: req.query.idUsuario,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'observaciones',
+            value: req.query.observaciones,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'idUnidad',
+            value: req.query.idUsuario,
+            type: self.model.types.DECIMAL
+        }];
+
+
+    this.model.post('INS_COTIZACION_MAESTRO_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
@@ -157,18 +177,33 @@ Cotizacion.prototype.post_cotizacionDetalle = function (req, res, next) {
     var self = this;
 
     //Asigno a params el valor de mis variables
-    var params = [{name: 'idCotizacion', value: req.query.idCotizacion, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'idTipoElemento', value: req.query.idTipoElemento, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'idElemento', value: req.query.observaciones, 
-                  type: self.model.types.STRING},
-                 {name: 'precio', value: req.query.precio, 
-                  type: self.model.types.DECIMAL},
-                  {name: 'cantidad', value: req.query.cantidad, 
-                  type: self.model.types.DECIMAL}];
+    var params = [{
+            name: 'idCotizacion',
+            value: req.query.idCotizacion,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idTipoElemento',
+            value: req.query.idTipoElemento,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idElemento',
+            value: req.query.observaciones,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'precio',
+            value: req.query.precio,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'cantidad',
+            value: req.query.cantidad,
+            type: self.model.types.DECIMAL
+        }];
 
-    this.model.post('INS_COTIZACION_DETALLE_SP',msgObj, function (error, result) {
+    this.model.post('INS_COTIZACION_DETALLE_SP', msgObj, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
@@ -197,7 +232,7 @@ Cotizacion.prototype.get_buscar = function (req, res, next) {
     });
 }
 
-//Editar Cotización
+//Detalle Cotizacion - Editar Cotización
 Cotizacion.prototype.get_detail = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
@@ -206,12 +241,20 @@ Cotizacion.prototype.get_detail = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    var params = [{name: 'idCotizacion', value: req.query.idCotizacion, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'idTaller', value: req.query.idTaller, 
-                  type: self.model.types.DECIMAL}];
+    var params = [
+        {
+            name: 'idCotizacion',
+            value: req.query.idCotizacion,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idTaller',
+            value: req.query.idTaller,
+            type: self.model.types.DECIMAL
+        }
+    ];
 
-    this.model.query('SEL_COTIZACION_DETALLE_SP',params, function (error, result) {
+    this.model.query('SEL_COTIZACION_DETALLE_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
@@ -220,7 +263,8 @@ Cotizacion.prototype.get_detail = function (req, res, next) {
     });
 }
 
-Cotizacion.prototype.get_chat_data = function (req, res, next) {
+//Obtiene la conversación del chat de una cita
+Cotizacion.prototype.get_chat = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
@@ -228,15 +272,20 @@ Cotizacion.prototype.get_chat_data = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    //Asigno a params el valor de mis variables
-    params = req.params.data;
+    var params = [
+        {
+            name: 'idCita',
+            value: req.query.idCita,
+            type: self.model.types.DECIMAL
+        }
+    ];
 
-    this.model.chat(params, function (error, result) {
+    this.model.query('SEL_CHAT_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.chat(res, object);
+        self.view.expositor(res, object);
     });
 }
 
@@ -265,23 +314,29 @@ Cotizacion.prototype.post_message = function (req, res, next) {
     });
 }
 
-Cotizacion.prototype.get_ficha_data = function (req, res, next) {
+//Obtiene la ficha técnica de la unidad
+Cotizacion.prototype.get_ficha = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
     var params = {};
     //Referencia a la clase para callback
     var self = this;
+    
+    var params = [
+        {
+            name: 'idCita',
+            value: req.query.idCita,
+            type: self.model.types.DECIMAL
+        }
+    ];
 
-    //Asigno a params el valor de mis variables
-    params = req.params.data;
-
-    this.model.ficha(params, function (error, result) {
+    this.model.query('SEL_FICHA_TECNICA_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.ficha(res, object);
+        self.view.expositor(res, object);
     });
 }
 
@@ -330,7 +385,8 @@ Cotizacion.prototype.post_cotizacionAprobacion = function (req, res, next) {
     });
 }
 
-Cotizacion.prototype.get_evidenciasByCotizacion_data = function (req, res, next) {
+//Obtiene las evidencias de una cotización
+Cotizacion.prototype.get_evidenciasByCotizacion = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
@@ -338,15 +394,20 @@ Cotizacion.prototype.get_evidenciasByCotizacion_data = function (req, res, next)
     //Referencia a la clase para callback
     var self = this;
 
-    //Asigno a params el valor de mis variables
-    params = req.params.data;
-
-    this.model.evidenciasByCotizacion(params, function (error, result) {
+    var params = [
+        {
+            name: 'idCotizacion',
+            value: req.query.idCotizacion,
+            type: self.model.types.DECIMAL
+        }
+    ];
+    
+    this.model.query('SEL_EVIDENCIAS_BY_COTIZACION_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.evidenciasByCotizacion(res, object);
+        self.view.expositor(res, object);
     });
 }
 
@@ -361,20 +422,23 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
     //Arreglo evidencia
     var arrayEvidencia = [];
     var sIdProcesoEvidencia = "";
-    for(var i=0; i < req.files.length;i++){
+    for (var i = 0; i < req.files.length; i++) {
         var ext = obtenerExtArchivo(req.files[i].originalname);
         var idTipoArchivo = obtenerTipoArchivo(ext);
-        
-        if(req.body.vTrabajo === "1"){
-            sIdProcesoEvidencia =  req.body.idTrabajo;
-        }
-        else{
+
+        if (req.body.vTrabajo === "1") {
+            sIdProcesoEvidencia = req.body.idTrabajo;
+        } else {
             sIdProcesoEvidencia = req.body.idCotizacion;
         }
-        arrayEvidencia.push({idTipoEvidencia: req.body.idTipoEvidencia,idTipoArchivo: idTipoArchivo,
-                            idUsuario:req.body.idUsuario,idProcesoEvidencia:sIdProcesoEvidencia,
-                            nombreArchivo:req.files[i].originalname}); 
-    } 
+        arrayEvidencia.push({
+            idTipoEvidencia: req.body.idTipoEvidencia,
+            idTipoArchivo: idTipoArchivo,
+            idUsuario: req.body.idUsuario,
+            idProcesoEvidencia: sIdProcesoEvidencia,
+            nombreArchivo: req.files[i].originalname
+        });
+    }
 
     this.model.evidencia(arrayEvidencia, function (error, result) {
         //Callback
@@ -420,22 +484,43 @@ Cotizacion.prototype.post_updateCotizacion = function (req, res, next) {
     var self = this;
 
     //Asigno a params el valor de mis variables
-    var params = [{name: 'idCotizacion', value: req.query.idCotizacion, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'idTipoElemento', value: req.query.idTipoElemento, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'idElemento', value: req.query.idElemento, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'precio', value: req.query.precio, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'cantidad', value: req.query.cantidad, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'observaciones', value: req.query.observaciones, 
-                  type: self.model.types.STRING},
-                 {name: 'idEstatus', value: req.query.idEstatus, 
-                  type: self.model.types.DECIMAL}];
+    var params = [{
+            name: 'idCotizacion',
+            value: req.query.idCotizacion,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idTipoElemento',
+            value: req.query.idTipoElemento,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idElemento',
+            value: req.query.idElemento,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'precio',
+            value: req.query.precio,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'cantidad',
+            value: req.query.cantidad,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'observaciones',
+            value: req.query.observaciones,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'idEstatus',
+            value: req.query.idEstatus,
+            type: self.model.types.DECIMAL
+        }];
 
-    this.model.post('UPD_COTIZACION_SP',params, function (error, result) {
+    this.model.post('UPD_COTIZACION_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
@@ -470,12 +555,15 @@ Cotizacion.prototype.get_servicioDetalle = function (req, res, next) {
     var params = {};
     //Referencia a la clase para callback
     var self = this;
-    
-    //Asigno a params el valor de mis variables
-    var params = [{name: 'idCita', value: req.query.idCita, 
-                  type: self.model.types.DECIMAL}];
 
-    this.model.query('SEL_SERVICIO_DETALLE_SP',params, function (error, result) {
+    //Asigno a params el valor de mis variables
+    var params = [{
+        name: 'idCita',
+        value: req.query.idCita,
+        type: self.model.types.DECIMAL
+    }];
+
+    this.model.query('SEL_SERVICIO_DETALLE_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
@@ -492,18 +580,30 @@ Cotizacion.prototype.post_mail = function (req, res, next) {
     var params = {};
     //Referencia a la clase para callback
     var self = this;
-    
-    //Asigno a params el valor de mis variables
-    var params = [{name: 'idCotizacion', value: req.query.idCotizacion, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'idTaller', value: req.query.idTaller, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'idOperacion', value: req.query.idOperacion, 
-                  type: self.model.types.DECIMAL},
-                 {name: 'comentarios', value: req.query.comentarios, 
-                  type: self.model.types.STRING}];
 
-    this.model.post('SEL_NOTIFICACION_COTIZACION_SP',params, function (error, result) {
+    //Asigno a params el valor de mis variables
+    var params = [{
+            name: 'idCotizacion',
+            value: req.query.idCotizacion,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idTaller',
+            value: req.query.idTaller,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idOperacion',
+            value: req.query.idOperacion,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'comentarios',
+            value: req.query.comentarios,
+            type: self.model.types.STRING
+        }];
+
+    this.model.post('SEL_NOTIFICACION_COTIZACION_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
@@ -512,7 +612,8 @@ Cotizacion.prototype.post_mail = function (req, res, next) {
     });
 }
 
-Cotizacion.prototype.get_datosCliente_data = function (req, res, next) {
+//Obtiene los datos del cliente
+Cotizacion.prototype.get_datosCliente = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
@@ -520,15 +621,20 @@ Cotizacion.prototype.get_datosCliente_data = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    //Asigno a params el valor de mis variables
-    params = req.params.data;
+    var params = [
+        {
+            name: 'idCita',
+            value: req.query.idCita,
+            type: self.model.types.DECIMAL
+        }
+    ];
 
-    this.model.datosCliente(params, function (error, result) {
+    this.model.query('SEL_DATOS_CLIENTE_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.datosCliente(res, object);
+        self.view.expositor(res, object);
     });
 }
 

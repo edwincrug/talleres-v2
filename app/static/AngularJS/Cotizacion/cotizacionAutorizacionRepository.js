@@ -4,8 +4,14 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
     return {
         getChat: function (idCita) {
             return $http({
-                url: searchUrl + 'chat/' + idCita,
-                method: "GET"
+                url: searchUrl + 'chat',
+                method: "GET",
+                params: {
+                    idCita: idCita
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         },
         putMessage: function (usuario, msg, cita) {
@@ -26,8 +32,14 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
         },
         getFichaTecnica: function (idCita) {
             return $http({
-                url: searchUrl + 'ficha/' + idCita,
-                method: "GET"
+                url: searchUrl + 'ficha',
+                method: "GET",
+                params: {
+                    idCita: idCita
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         },
         getCotizacionByTrabajo: function (idCita) {
@@ -54,8 +66,14 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
         },
         getEvidenciasByCotizacion: function (idCotizacion) {
             return $http({
-                url: searchUrl + 'evidenciasByCotizacion/' + idCotizacion,
-                method: "GET"
+                url: searchUrl + 'evidenciasByCotizacion',
+                method: "GET",
+                params: {
+                    idCotizacion: idCotizacion
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         },
         putCotizacionRechazo: function (cotizacion, usuario, comentario) {
@@ -75,15 +93,21 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
             });
         },
         getDocs: function (idCotizacion) {
-           return $http({
-               url: searchUrl + 'docs/' + idCotizacion,
-               method: "GET"
-           });
-       },
+            return $http({
+                url: searchUrl + 'docs/' + idCotizacion,
+                method: "GET"
+            });
+        },
         getDatosCliente: function (idCita) {
             return $http({
-                url: searchUrl + 'datosCliente/' + idCita,
-                method: "GET"
+                url: searchUrl + 'datosCliente',
+                method: "GET",
+                params: {
+                    idCita: idCita
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         }
     };

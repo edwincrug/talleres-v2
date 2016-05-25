@@ -23,8 +23,8 @@ registrationModule.factory('cotizacionConsultaRepository', function ($http) {
             
             return $http({
                 url: searchUrl + 'detail',
-                method: "POST",
-                data: objCotizacion,
+                method: "GET",
+                params: objCotizacion,
                 headers: {
                     'Content-Type': 'application/json'
                 }
