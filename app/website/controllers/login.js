@@ -1,5 +1,6 @@
-var LoginView = require('../views/login'),
-	LoginModel = require('../models/login');
+var LoginView = require('../views/ejemploVista'),
+	LoginModel = require('../models/dataAccess2');
+	moment = require('moment');
 
 var Login = function(conf){
 	this.conf = conf || {};
@@ -13,7 +14,7 @@ var Login = function(conf){
 }
 
 //Valida credenciales de usuario
-Login.prototype.post_validacredenciales = function (req, res, next) {
+Login.prototype.get_validacredenciales = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
@@ -21,17 +22,17 @@ Login.prototype.post_validacredenciales = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    var objCredenciales = {
-        usuario: req.body.usuario,
-        password: req.body.password
-    };
+    var params = [{name: 'usuario', value: req.query.usuario, 
+                  type: self.model.types.STRING},
+                 {name: 'contrasena', value: req.query.password, 
+                  type: self.model.types.STRING}];
 
-    this.model.validacredenciales(objCredenciales, function (error, result) {
+    this.model.query('SEL_VALIDA_CREDENCIALES_SP',params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.validacredenciales(res, object);
+        self.view.expositor(res, object);
     });
 }
 
