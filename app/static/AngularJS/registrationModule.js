@@ -35,22 +35,22 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             controller: 'servicioController'
         });
 
-        $routeProvider.when('/tallerCita', {
+        $routeProvider.when('/tallercita', {
             templateUrl: 'AngularJS/Templates/tallerCita.html',
             controller: 'citaController'
         });
 
-        $routeProvider.when('/cotizacionNueva', {
+        $routeProvider.when('/cotizacionnueva', {
             templateUrl: 'AngularJS/Templates/cotizacionNueva.html',
             controller: 'cotizacionController'
         });
 
-        $routeProvider.when('/cotizacionConsulta', {
+        $routeProvider.when('/cotizacionconsulta', {
             templateUrl: 'AngularJS/Templates/cotizacionConsulta.html',
             controller: 'cotizacionConsultaController'
         });
 
-        $routeProvider.when('/cotizacionAutorizacion', {
+        $routeProvider.when('/cotizacionautorizacion', {
             templateUrl: 'AngularJS/Templates/cotizacionAutorizacion.html',
             controller: 'cotizacionAutorizacionController'
         });
