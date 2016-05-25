@@ -68,15 +68,6 @@ registrationModule.factory('citaRepository', function ($http) {
                 }
             });
         },
-        getTrabajo: function(idCita){
-        	return $http.get(citaUrl+'trabajo/'+idCita);
-        },
-        getCotizacion: function(idTrabajo){
-        	return $http.get(citaUrl+'cotizacion/'+idTrabajo);
-        },
-        getCotizacionDetalle: function(idTrabajo){
-        	return $http.get(citaUrl+'cotizaciondetalle/'+idTrabajo);
-        },
         addCita: function(taller){
             return $http({
                 url: citaUrl + 'addcita/',
@@ -97,30 +88,15 @@ registrationModule.factory('citaRepository', function ($http) {
                 }
             });
         },
-        getHistorialCita: function (idCita) {
-            return $http.get(citaUrl +'historialcita/'+ idCita);
-        },
-        getHistorialTrabajo: function (idTrabajo) {
-            return $http.get(citaUrl +'historialtrabajo/'+ idTrabajo);
-        },
-        getHistorialCotizacion: function (idTrabajo) {
-            return $http.get(citaUrl +'historialcotizacion/'+ idTrabajo);
-        },
-        confirmarCita: function(idCita){
-            var msgObj = {
-                idCita: idCita
-            }
+        validaConfirmacionCita: function(idCita){
             return $http({
-                url: citaUrl + 'citaconfirmada/',
-                method: "POST",
-                data: msgObj,
+                url: citaUrl + 'validaconfirmacioncita/',
+                method: "GET",
+                params: {idCita: idCita},
                 headers: {
                 'Content-Type': 'application/json'
                 }
             });
-        },
-        validaConfirmacionCita: function(idCita){
-            return $http.get(citaUrl +'validaconfirmacioncita/'+ idCita)
         }
     };
 });

@@ -152,8 +152,6 @@ Cita.prototype.get_buscaCita = function(req,res,next){
 
 //insertar nueva cita para una unidad
 Cita.prototype.post_addcita = function (req, res, next) {
-    //Objeto que almacena la respuesta
-    var object = {};
     //Referencia a la clase para callback
     var self = this;
     //Asigno a params el valor de mis variables
@@ -166,16 +164,15 @@ Cita.prototype.post_addcita = function (req, res, next) {
 
     this.model.post('INS_CITA_SP', params, function (error, result) {
         //Callback
-        object.error = error;
-        object.result = result;
-        self.view.expositor(res, object);
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
     });
 }
 
 //insertar cita servicio detalle
 Cita.prototype.post_addcitaserviciodetalle = function (req, res, next) {
-    //Objeto que almacena la respuesta
-    var object = {};
     //Referencia a la clase para callback
     var self = this;
     //Asigno a params el valor de mis variables
@@ -186,31 +183,10 @@ Cita.prototype.post_addcitaserviciodetalle = function (req, res, next) {
 
     this.model.post('INS_CITA_SERVICIO_DETALLE_SP', params, function (error, result) {
         //Callback
-        object.error = error;
-        object.result = result;
-        self.view.expositor(res, object);
-    });
-}
-
-//devuelve la cita confirmada
-Cita.prototype.post_citaconfirmada = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	var msgObj = {
-        idCita: req.body.idCita
-    }
-	
-	this.model.postConfirmarCita(msgObj, function (error, result) {
-        //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.post(res, object);
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
     });
 }
 
@@ -233,50 +209,23 @@ Cita.prototype.get_enviaremailcita = function(req, res, next){
     });
 }
 
-//obtiene el trabajo de la cita
-Cita.prototype.get_enviaremailcita_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
+//valida si la cita ya está confirmada o de lo contrario lo confirma
+Cita.prototype.get_validaconfirmacioncita = function(req, res, next){
+    //Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
 	//Referencia a la clase para callback
 	var self = this;
-
 	//Asigno a params el valor de mis variables
-	params.name = 'idCita';
-	params.value = req.params.data;
-	params.type = 1;
+	var params = [{name: 'idCita', value: req.query.idCita, type:self.model.types.INT}];
 	
-	this.model.get( 'SEL_NOTIFICACION_CITA_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
-}
-
-//obtiene el trabajo de la cita
-Cita.prototype.get_validaconfirmacioncita_data = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
-	//Referencia a la clase para callback
-	var self = this;
-
-	//Asigno a params el valor de mis variables
-	params.name = 'idCita';
-	params.value = req.params.data;
-	params.type = 1;
-	
-	this.model.get('SEL_VALIDA_CONIFIRMACION_CITA_SP',params,function(error,result){
-		//Callback
-		object.error = error;
-		object.result = result;
-		
-		self.view.see(res, object);
-	});
+    this.model.query('SEL_VALIDA_CONIFIRMACION_CITA_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
 }
 
 module.exports = Cita;
