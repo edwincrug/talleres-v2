@@ -369,11 +369,23 @@ Cotizacion.prototype.post_cotizacionAprobacion = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    var params = {
-        idCotizacion: req.body.cotizacion,
-        idUsuario: req.body.usuario,
-        comentarios: req.body.comentarios
-    };
+    var params = [
+        {
+            name: 'idCotizacion',
+            value: req.body.cotizacion,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idUsuario',
+            value: req.body.usuario,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'comentarios',
+            value: req.body.comentarios,
+            type: self.model.types.STRING
+        }
+    ];
 
     this.model.post('INS_AUTORIZACION_COTIZACION_SP', params, function (error, result) {
         //Callback
