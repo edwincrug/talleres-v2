@@ -58,7 +58,7 @@ registrationModule.factory('cotizacionAutorizacionRepository', function ($http) 
             return $http({
                 url: searchUrl + 'cotizacionAprobacion',
                 method: "POST",
-                data: aprobacionObj,
+                params: aprobacionObj,
                 headers: {
                     'Content-Type': 'application/json'
                 }

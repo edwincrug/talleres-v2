@@ -80,6 +80,9 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
                 alertFactory.success('Cotización Autorizada correctamente');
                 location.href = '/trabajo';
             }
+            else{
+                alertFactory.info('No se pudo autorizar la cotización');
+            }
         }, function (error) {
             alertFactory.error('No se pudo autorizar la cotización, inténtelo más tarde');
         });

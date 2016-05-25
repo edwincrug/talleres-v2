@@ -360,6 +360,7 @@ Cotizacion.prototype.get_cotizacionByTrabajo_data = function (req, res, next) {
     });
 }
 
+//Autoriza una cotización
 Cotizacion.prototype.post_cotizacionAprobacion = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
@@ -368,20 +369,18 @@ Cotizacion.prototype.post_cotizacionAprobacion = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    var aprobacionObj = {
+    var params = {
         idCotizacion: req.body.cotizacion,
         idUsuario: req.body.usuario,
         comentarios: req.body.comentarios
     };
 
-    //Asigno a params el valor de mis variables
-
-    this.model.aprobacionCotizacion(aprobacionObj, function (error, result) {
+    this.model.post('INS_AUTORIZACION_COTIZACION_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.aprobacionCotizacion(res, object);
+        self.view.expositor(res, object);
     });
 }
 
