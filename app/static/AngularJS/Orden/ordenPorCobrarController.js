@@ -1,6 +1,7 @@
 registrationModule.controller('ordenPorCobrarController', function ($scope, localStorageService, alertFactory, ordenPorCobrarRepository) {
 
     $scope.message = "Buscando...";
+    $scope.userData = localStorageService.get('userData');
 
     $scope.init = function () {
         $scope.getOrdenesPorCobrar();
@@ -52,6 +53,7 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
             });
     }
 
+    //Carga Adenda y Copade
     $scope.subir = function (idTrabajo) {
         $scope.idTrabajo = idTrabajo;
         $('#subirAdenda').appendTo('body').modal('show');
@@ -86,7 +88,7 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
         idTrabajoEdit.value = $scope.idTrabajo;
         vTrabajo.value = "1";
         idTipoEvidencia.value = 1;
-        idUsuario.value = 1;
+        idUsuario.value = $scope.userData.idUsuario;
         //Submit del botón del Form para subir los archivos        
         btnSubmit.click();
 
@@ -96,7 +98,7 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
         }, 2000);
     }
     
-    //visualiza el orden de servicio
+    //Visualiza la órden de servicio
     $scope.aprobarTrabajo = function (orden, valBotonera) {
         var objBotonera = {};
         objBotonera.accion = valBotonera;
