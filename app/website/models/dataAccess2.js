@@ -66,5 +66,33 @@ DataAccess2.prototype.post = function (stored,params, callback) {
     });
 };
 
+DataAccess2.prototype.evidencia = function (msgObj, callback) {
+    var self = this.connection;
+    this.connection.connect(function (err) {
+        for (var i = 0; i < msgObj.length; i++) {
+            // Stored Procedure 
+            var request = new sql.Request(self);
+            request.stream = true;
+            request.input('idTipoEvidencia', sql.Numeric(18, 0), msgObj[i].idTipoEvidencia);
+            request.input('idTipoArchivo', sql.Numeric(18, 0), msgObj[i].idTipoArchivo);
+            request.input('idUsuario', sql.Numeric(18, 0), msgObj[i].idUsuario);
+            request.input('idProcesoEvidencia', sql.Numeric(18, 0), msgObj[i].idProcesoEvidencia);
+            request.input('nombreArchivo', sql.VarChar(100), msgObj[i].nombreArchivo);
+            request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
+
+            });
+        }
+
+        request.on('done', function (returnValue, affected) {
+            callback(null, returnValue);
+        });
+
+        request.on('error', function (err) {
+            callback(err, null);
+            console.log('Error al insertar evidencia, mensaje: ' + err);
+        });
+    });
+};
+
 //exportación del modelo
 module.exports = DataAccess2; 
