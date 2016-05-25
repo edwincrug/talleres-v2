@@ -150,14 +150,14 @@ Trabajo.prototype.post_insertTrabajo = function(req, res, next){
     var params = {};
     
     //Asigno a params el valor de mis variables
-    var params = [{name: 'idCita', value: req.query.idCita, 
+    var params = [{name: 'idCita', value: req.body.idCita, 
                   type: self.model.types.DECIMAL},
-                 {name: 'idUsuario', value: req.query.idUsuario, 
+                 {name: 'idUsuario', value: req.body.idUsuario, 
                   type: self.model.types.DECIMAL},
-                 {name: 'idUnidad', value: req.query.idUnidad, 
+                 {name: 'idUnidad', value: req.body.idUnidad, 
                   type: self.model.types.DECIMAL}];
 	
-	this.model.post('idUnidad',params, function (error, result) {
+	this.model.post('INS_TRABAJO_SP',params, function (error, result) {
     //Callback
         object.error = error;
         object.result = result;

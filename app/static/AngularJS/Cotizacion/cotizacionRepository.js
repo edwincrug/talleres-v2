@@ -110,8 +110,8 @@ registrationModule.factory('cotizacionRepository', function ($http) {
             }
             return $http({
                 url: searchUrl + 'datosUnidad',
-                method: "POST",
-                data: msgObj,
+                method: "GET",
+                params: msgObj,
                 headers: {
                 'Content-Type': 'application/json'
                 }
