@@ -18,6 +18,17 @@ registrationModule.factory('trabajoRepository', function ($http) {
                 }
             });
         },
+        
+        hojaCalidadTrabajo: function(idTrabajo){
+            return $http({
+                url: trabajoUrl + 'updtrabajohojacalidad/',
+                method: "POST",
+                data: {idTrabajo: idTrabajo},
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        },
         cierraTrabajo: function(idTrabajo){
             return $http({
                 url: trabajoUrl + 'updtrabajocerrado/',
@@ -56,16 +67,6 @@ registrationModule.factory('trabajoRepository', function ($http) {
                 data: {idCita: idCita,idUsuario: idUsuario,idUnidad: idUnidad},
                 headers: {
                 'Content-Type': 'application/json'
-                }
-            });
-        },
-        hojaCalidadTrabajo: function(idTrabajo){
-            return $http({
-                url: trabajoUrl + 'updtrabajohojacalidad/',
-                method: "POST",
-                data: {idTrabajo: idTrabajo},
-                headers: {
-                    'Content-Type': 'application/json'
                 }
             });
         }

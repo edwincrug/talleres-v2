@@ -1,6 +1,4 @@
-var //TrabajoView = require('../views/trabajo'),
-	//TrabajoModel = require('../models/dataAccess'),
-    TrabajoView = require('../views/ejemploVista'),
+var TrabajoView = require('../views/ejemploVista'),
 	TrabajoModel = require('../models/dataAccess2'),
 	moment = require('moment');
 
@@ -15,8 +13,23 @@ var Trabajo = function(conf){
 	}
 }
 
-Trabajo.prototype.post_save = function(req,res,next){
-
+//devuelve los trabajos con estatus iniciados
+Trabajo.prototype.get_trabajo = function(req, res, next){
+	//Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //Referencia a la clase para callback
+    var self = this;
+    //Obtención de valores de los parámetros del request
+    var params = [];
+	
+    this.model.query('SEL_TRABAJO_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
 }
 
 //obtiene los trabajos con estatus de terminado
@@ -40,39 +53,30 @@ Trabajo.prototype.get_trabajoterminado = function(req, res, next){
 
 //realiza la actualización del trabajo a terminado
 Trabajo.prototype.post_updtrabajoterminado = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Objeto que envía los parámetros
-	var params = {}; 
 	//Referencia a la clase para callback
 	var self = this;
-
-	var msgObj = {
-        idTrabajo: req.body.idTrabajo,
-        observacion: req.body.observacion
-    }
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'idTrabajo', value: req.body.idTrabajo, type: self.model.types.INT},
+                  {name: 'observacion', value: req.body.observacion, type: self.model.types.STRING}];
 	
-	this.model.updterminaTrabajo(msgObj, function (error, result) {
+	this.model.post('UPD_TERMINA_TRABAJO_SP', params, function (error, result) {
         //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.post(res, object);
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
     });
 }
 
-//devuelve los paquetes/piezas del taller seleccionado
-Trabajo.prototype.get_trabajo = function(req, res, next){
-	//Con req.query se obtienen los parametros de la url
-    //Ejemplo: ?p1=a&p2=b
-    //Retorna {p1:'a',p2:'b'}
-    //Objeto que envía los parámetros
-    //Referencia a la clase para callback
-    var self = this;
+//realiza la actualización del trabajo a hojaCalidad
+Trabajo.prototype.post_updtrabajohojacalidad = function(req, res, next){
+	//Referencia a la clase para callback
+	var self = this;
     //Obtención de valores de los parámetros del request
-    var params = [];
+    var params = [{name: 'idTrabajo', value: req.body.idTrabajo, type: self.model.types.INT}];
 	
-    this.model.query('SEL_TRABAJO_SP', params, function(error, result) {
+	this.model.post('UPD_TRABAJO_HOJACALIDAD_SP', params, function (error, result) {
+        //Callback
         self.view.expositor(res, {
             error: error,
             result: result
@@ -82,41 +86,33 @@ Trabajo.prototype.get_trabajo = function(req, res, next){
 
 //realiza la actualización del trabajo a cerrado
 Trabajo.prototype.post_updtrabajocerrado = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
 	//Referencia a la clase para callback
 	var self = this;
-
-	var msgObj = {
-        idTrabajo: req.body.idTrabajo,
-    }
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'idTrabajo', value: req.body.idTrabajo, type: self.model.types.INT}];
 	
-	this.model.updCierraTrabajo(msgObj, function (error, result) {
+	this.model.post('UPD_TRABAJO_APROBADO_SP', params, function (error, result) {
         //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.post(res, object);
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
     });
 }
 
-//realiza la actualización del trabajo a cerrado
+//realiza la actualización del trabajo a facturado
 Trabajo.prototype.post_updtrabajofacturado = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
 	//Referencia a la clase para callback
 	var self = this;
-
-	var msgObj = {
-        idTrabajo: req.body.idTrabajo,
-    }
+    //Obtención de valores de los parámetros del request
+    var params = [{name: 'idTrabajo', value: req.body.idTrabajo, type: self.model.types.INT}];
 	
-	this.model.updFacturaTrabajo(msgObj, function (error, result) {
+	this.model.post('UPD_TRABAJO_FACTURADO_SP', params, function (error, result) {
         //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.post(res, object);
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
     });
 }
 
@@ -165,24 +161,5 @@ Trabajo.prototype.post_insertTrabajo = function(req, res, next){
         self.view.expositor(res, object);
     });
 }    
-        
-//realiza la actualización del trabajo a cerrado
-Trabajo.prototype.post_updtrabajohojacalidad = function(req, res, next){
-	//Objeto que almacena la respuesta
-	var object = {};
-	//Referencia a la clase para callback
-	var self = this;
 
-	var msgObj = {
-        idTrabajo: req.body.idTrabajo,
-    }
-	
-	this.model.updHojaCalidadTrabajo(msgObj, function (error, result) {
-        //Callback
-        object.error = error;
-        object.result = result;
-
-        self.view.post(res, object);
-    });
-}
 module.exports = Trabajo;

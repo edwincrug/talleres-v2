@@ -97,7 +97,6 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
             if (trabajoTerminado.data[0].idHistorialProceso != 0) {
                 getTrabajo();
                 getTrabajoTerminado();
-                //controlTabs();
                 $('#finalizarTrabajoModal').modal('hide');
             }
         });
@@ -188,6 +187,7 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
             trabajoRepository.hojaCalidadTrabajo(idTrabajo).then(function (hojaCalidad) {
                 if(hojaCalidad.data[0].idHistorialProceso){
                     alertFactory.success("Hoja de calidad cargada");
+                    getTrabajoTerminado();
                 }
             }, function (error) {
                 alertFactory.error("Error al cargar la hoja de calidad");
@@ -197,11 +197,11 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
             trabajoRepository.facturaTrabajo(idTrabajo).then(function (trabajoFacturado) {
                 if(trabajoFacturado.data[0].idHistorialProceso){
                     alertFactory.success("Factura cargada");
+                    getTrabajoTerminado();
                 }
             }, function (error) {
                 alertFactory.error("Error al cargar la factura");
             });
-        }
-        getTrabajoTerminado(); 
+        } 
     }
 });
