@@ -138,22 +138,22 @@ Cotizacion.prototype.post_cotizacionMaestro = function (req, res, next) {
     //Asigno a params el valor de mis variables
     var params = [{
             name: 'idCita',
-            value: req.query.idCita,
+            value: req.body.idCita,
             type: self.model.types.DECIMAL
         },
         {
             name: 'idUsuario',
-            value: req.query.idUsuario,
+            value: req.body.idUsuario,
             type: self.model.types.DECIMAL
         },
         {
             name: 'observaciones',
-            value: req.query.observaciones,
+            value: req.body.observaciones,
             type: self.model.types.STRING
         },
         {
             name: 'idUnidad',
-            value: req.query.idUsuario,
+            value: req.body.idUsuario,
             type: self.model.types.DECIMAL
         }];
 
