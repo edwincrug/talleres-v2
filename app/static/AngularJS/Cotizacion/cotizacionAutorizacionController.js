@@ -79,8 +79,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
                 cotizacionMailRepository.postMail(idCotizacion, idTaller, 2, comentario);
                 alertFactory.success('Cotización Autorizada correctamente');
                 location.href = '/trabajo';
-            }
-            else{
+            } else {
                 alertFactory.info('No se pudo autorizar la cotización');
             }
         }, function (error) {
@@ -194,15 +193,18 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         });
     }
 
+    //Rechaza una cotización
     $scope.Rechazar = function (comentario) {
         cotizacionAutorizacionRepository.putCotizacionRechazo(idCotizacion, $scope.userData.idUsuario, comentario).then(function (result) {
             if (result.data.length > 0) {
                 cotizacionMailRepository.postMail(idCotizacion, idTaller, 3, comentario);
-                alertFactory.success('Cotización Rechazada correctamente');
+                alertFactory.success('Cotización rechazada correctamente');
                 location.href = '/trabajo';
+            } else {
+                alertFactory.info('No se pudo rechazar esta cotización');
             }
         }, function (error) {
-
+            alertFactory.error('No se pudo rechazar esta cotización, inténtelo más tarde');
         });
     }
 
@@ -337,8 +339,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
         cotizacionAutorizacionRepository.getDatosCliente(idCita).then(function (result) {
             if (result.data.length > 0) {
                 $scope.ClienteData = result.data[0];
-            }
-            else{
+            } else {
                 alertFactory.info('No se pudo obtener los datos del cliente');
             }
         }, function (error) {

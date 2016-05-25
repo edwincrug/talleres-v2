@@ -460,6 +460,7 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
     });
 }
 
+//Rechaza una cotización
 Cotizacion.prototype.post_cotizacionRechazo = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
@@ -468,20 +469,30 @@ Cotizacion.prototype.post_cotizacionRechazo = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    var rechazoObj = {
-        idCotizacion: req.body.cotizacion,
-        idUsuario: req.body.usuario,
-        comentarios: req.body.comentarios
-    };
+    var params = [
+        {
+            name: 'idCotizacion',
+            value: req.body.cotizacion,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idUsuario',
+            value: req.body.usuario,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'comentarios',
+            value: req.body.comentarios,
+            type: self.model.types.STRING
+        }
+    ];
 
-    //Asigno a params el valor de mis variables
-
-    this.model.rechazoCotizacion(rechazoObj, function (error, result) {
+    this.model.post('INS_RECHAZO_COTIZACION_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.rechazoCotizacion(res, object);
+        self.view.expositor(res, object);
     });
 }
 
