@@ -420,19 +420,19 @@ Cotizacion.prototype.post_updateCotizacion = function (req, res, next) {
     var self = this;
 
     //Asigno a params el valor de mis variables
-    var params = [{name: 'idCotizacion', value: req.query.idCotizacion, 
+    var params = [{name: 'idCotizacion', value: req.body.idCotizacion, 
                   type: self.model.types.DECIMAL},
-                 {name: 'idTipoElemento', value: req.query.idTipoElemento, 
+                 {name: 'idTipoElemento', value: req.body.idTipoElemento, 
                   type: self.model.types.DECIMAL},
-                 {name: 'idElemento', value: req.query.idElemento, 
+                 {name: 'idElemento', value: req.body.idElemento, 
                   type: self.model.types.DECIMAL},
-                 {name: 'precio', value: req.query.precio, 
+                 {name: 'precio', value: req.body.precio, 
                   type: self.model.types.DECIMAL},
-                 {name: 'cantidad', value: req.query.cantidad, 
+                 {name: 'cantidad', value: req.body.cantidad, 
                   type: self.model.types.DECIMAL},
-                 {name: 'observaciones', value: req.query.observaciones, 
+                 {name: 'observaciones', value: req.body.observaciones, 
                   type: self.model.types.STRING},
-                 {name: 'idEstatus', value: req.query.idEstatus, 
+                 {name: 'idEstatus', value: req.body.idEstatus, 
                   type: self.model.types.DECIMAL}];
 
     this.model.post('UPD_COTIZACION_SP',params, function (error, result) {
