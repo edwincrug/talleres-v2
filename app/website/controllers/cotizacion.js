@@ -157,13 +157,16 @@ Cotizacion.prototype.post_cotizacionDetalle = function (req, res, next) {
     var self = this;
 
     //Asigno a params el valor de mis variables
-    var msgObj = {
-        idCotizacion: req.body.idCotizacion,
-        idTipoElemento: req.body.idTipoElemento,
-        idElemento: req.body.idElemento,
-        precio: req.body.precio,
-        cantidad: req.body.cantidad
-    }
+    var params = [{name: 'idCotizacion', value: req.query.idCotizacion, 
+                  type: self.model.types.DECIMAL},
+                 {name: 'idTipoElemento', value: req.query.idTipoElemento, 
+                  type: self.model.types.DECIMAL},
+                 {name: 'idElemento', value: req.query.observaciones, 
+                  type: self.model.types.STRING},
+                 {name: 'precio', value: req.query.precio, 
+                  type: self.model.types.DECIMAL},
+                  {name: 'cantidad', value: req.query.cantidad, 
+                  type: self.model.types.DECIMAL}];
 
     this.model.post('INS_COTIZACION_DETALLE_SP',msgObj, function (error, result) {
         //Callback
