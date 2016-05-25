@@ -149,11 +149,11 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
             var fecha = $route.current.params.fecha;
             if (idConfCita != 0) {
                 citaRepository.validaConfirmacionCita(idConfCita).then(function (exists) {
-                    if (exists.data[0].confirmada == 1) {
-                        alertFactory.success("La cita ya ha sido confirmada");
+                    if (exists.data[0].existe == 1) {
+                        alertFactory.info("La cita ya ha sido confirmada");
                         getCitaTaller(fecha, idConfCita);
                     } else {
-                        confirmarCita(idConfCita);
+                        alertFactory.success("Cita confirmada");
                         getCitaTaller(fecha, idConfCita);
                     }
                 });
@@ -252,19 +252,6 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
             }
         }, function (error) {
             alertFactory.error("Error al obtener citas");
-        });
-    }
-
-    //realiza el cambio de estatus de la cita en CONFIRMADA
-    var confirmarCita = function (confCita) {
-        citaRepository.confirmarCita(confCita).then(function (citaConfirmada) {
-            if (citaConfirmada.data.length > 0) {
-                alertFactory.success("Cita confirmada");
-            } else {
-                alertFactory.info("No se encontró la cita");
-            }
-        }, function (error) {
-            alertFactory.error("Error al confirmar la cita");
         });
     }
 
