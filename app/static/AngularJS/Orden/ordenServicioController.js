@@ -189,7 +189,7 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
             localStorageService.remove('cita');
         }
         localStorageService.set('orden', objOrden);
-        location.href = '/cotizacionNueva';
+        location.href = '/cotizacionnueva';
     }
 
     $scope.Adjuntar = function () {

@@ -313,7 +313,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 localStorageService.remove('objCita');
                 localStorageService.remove('cita');
                 cargarArchivos($scope.idCotizacion, $scope.idTrabajo);
-                location.href = '/cotizacionConsulta';
+                location.href = '/cotizacionconsulta';
             }, function (error) {
                 alertFactory.error('Error');
             });
@@ -322,7 +322,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     //Termina de guardar la información de los archivos
     $scope.FinishSave = function () {
         alertFactory.success('Guardando Archivos');
-        location.href = '/cotizacionConsulta';
+        location.href = '/cotizacionconsulta';
     }
 
     //Carga los datos de la cotizacion a editar
@@ -387,7 +387,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         localStorageService.remove('objEditCotizacion');
         localStorageService.remove('objFicha');
         cargarArchivos($scope.editCotizacion.idCotizacion, $scope.editCotizacion.idTrabajo);
-        location.href = '/cotizacionConsulta';
+        location.href = '/cotizacionconsulta';
     }
 
     //Se realiza la carga de archivos
@@ -472,7 +472,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 cotizacionMailRepository.postMail($scope.idCotizacion, $scope.orden.idTaller, 1, '');
                 localStorageService.remove('orden');
                 cargarArchivos($scope.idCotizacion, $scope.idTrabajo);
-                location.href = '/cotizacionConsulta';
+                location.href = '/cotizacionconsulta';
             }, function (error) {
                 alertFactory.error('Error');
             });
