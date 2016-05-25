@@ -24,6 +24,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
 
     //init de la pantalla  nuevaCita
     $scope.initNuevaCita = function () {
+        $scope.userData = localStorageService.get('userData');
         $('.clockpicker').clockpicker();
         // When the window has finished loading google map
         google.maps.event.addDomListener(window, 'load', init);
