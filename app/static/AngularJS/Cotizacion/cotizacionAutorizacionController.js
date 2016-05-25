@@ -208,7 +208,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
 
     $scope.nuevaCotizacion = function () {
         localStorageService.set('cita', localStorageService.get('objTrabajo'));
-        location.href = '/cotizacionNueva';
+        location.href = '/cotizacionnueva';
     }
 
     $scope.Editar = function () {
@@ -225,7 +225,7 @@ registrationModule.controller('cotizacionAutorizacionController', function ($sco
             localStorageService.remove('orden');
         }
         localStorageService.set('objEditCotizacion', objEditCotizacion);
-        location.href = '/cotizacionNueva';
+        location.href = '/cotizacionnueva';
     }
 
     //Se realiza la carga de archivos
