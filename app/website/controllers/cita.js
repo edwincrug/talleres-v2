@@ -139,7 +139,8 @@ Cita.prototype.get_buscaCita = function(req,res,next){
     var self = this;
     //Asigno a params el valor de mis variables    
     var params = [{name: 'fecha', value: req.query.fecha, type:                             self.model.types.STRING},
-                  {name: 'idCita', value: req.query.idCita, type: self.model.types.DECIMAL}];
+                  {name: 'idCita', value: req.query.idCita, type: self.model.types.DECIMAL},
+                 {name: 'idUsuario', value: req.query.idUsuario, type: self.model.types.DECIMAL}];
 
     this.model.query('SEL_CITA_TALLER_SP',params, function (error, result) {
         //Callback

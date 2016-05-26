@@ -235,7 +235,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         } else {
             fechaCita = anio + '' + dia + '' + mes;
         }
-        getCitaTaller(fechaCita, 0);
+        getCitaTaller(fechaCita,0,$scope.userData.idUsuario);
     }
 
     //Se obtienen las citas de la fecha seleccionada
