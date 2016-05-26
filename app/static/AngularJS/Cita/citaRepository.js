@@ -97,6 +97,16 @@ registrationModule.factory('citaRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
+        },
+        getTrabajo: function(idCita){
+            return $http({
+                url: citaUrl + 'trabajo/',
+                method: "GET",
+                params: {idCita: idCita},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         }
     };
 });
