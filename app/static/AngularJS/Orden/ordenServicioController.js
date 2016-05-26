@@ -4,6 +4,7 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
     var cPaquetes = [];
     $scope.chat = [];
 
+    $scope.userData = localStorageService.get('userData');
     $scope.objBotonera = localStorageService.get('botonera');
     $scope.idTrabajoOrden = localStorageService.get('objTrabajo');
     $scope.cita = localStorageService.get('objCita');
@@ -22,23 +23,27 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
     }
 
     $scope.cargaChat = function () {
-            cotizacionAutorizacionRepository.getChat($scope.idTrabajoOrden.idCita).then(function (result) {
-                if (result.data.length > 0) {
-                    $scope.chat = result.data;
-                }
-                else{
-                    $scope.chat = null;
-                }
-            }, function (error) {});
+        cotizacionAutorizacionRepository.getChat($scope.idTrabajoOrden.idCita).then(function (result) {
+            if (result.data.length > 0) {
+                $scope.chat = result.data;
+            } else {
+                $scope.chat = null;
+            }
+        }, function (error) {});
     }
 
+    //Obtiene la ficha técnica de la unidad
     $scope.cargaFicha = function () {
         cotizacionAutorizacionRepository.getFichaTecnica($scope.objBotonera.idCita).then(function (result) {
             if (result.data.length > 0) {
                 $scope.unidadInfo = result.data[0];
                 localStorageService.set('objFicha', $scope.unidadInfo);
+            } else {
+                alertFactory.info('No se pudo obtener información de la unidad');
             }
-        }, function (error) {});
+        }, function (error) {
+            alertFactory.error('No se pudo obtener información de la unidad, inténtelo más tarde');
+        });
     }
 
     $scope.EnviarComentario = function (comentarios) {
@@ -49,6 +54,7 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
             function (error) {});
     }
 
+    //Obtiene todas las cotizaciones del trabajo
     $scope.getCotizacionByTrabajo = function () {
         $scope.sumaIvaTotal = 0;
         $scope.sumaPrecioTotal = 0;
@@ -174,10 +180,11 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
         }, function (error) {});
     }
 
+    //Redirige a pantalla de Nueva Cotización
     $scope.nuevaCotizacion = function () {
         var objOrden = {};
         objOrden.idTaller = 1;
-        objOrden.idUsuario = 1;
+        objOrden.idUsuario = $scope.userData.idUsuario;
         objOrden.idTrabajo = $scope.idTrabajoOrden.idTrabajo;
         objOrden.idUnidad = 1;
         objOrden.idCita = $scope.idTrabajoOrden.idCita;
@@ -215,7 +222,7 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
                 $scope.idTipoArchivo = obtenerTipoArchivo($scope.tipoArchivo);
                 cotizacionRepository.insertEvidencia(tipoEvidencia,
                         $scope.idTipoArchivo,
-                        1, //$scope.idUsuario,
+                        $scope.userData.idUsuario,
                         $scope.idTrabajoOrden.idTrabajo,
                         $scope.nombreArchivo)
                     .then(function (result) {
@@ -259,10 +266,14 @@ registrationModule.controller('ordenServicioController', function ($scope, $root
             }, function (error) {});
     }
 
+    //Obtiene los datos del cliente
     $scope.cargaDatosCliente = function (idCita) {
         cotizacionAutorizacionRepository.getDatosCliente(idCita).then(function (result) {
             if (result.data.length > 0) {
                 $scope.ClienteData = result.data[0];
+            }
+            else{
+                 alertFactory.info('No se pudo obtener los datos del cliente');
             }
         }, function (error) {
             alertFactory.error('No se pudo obtener los datos del cliente, inténtelo más tarde');

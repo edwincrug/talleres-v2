@@ -340,23 +340,27 @@ Cotizacion.prototype.get_ficha = function (req, res, next) {
     });
 }
 
-Cotizacion.prototype.get_cotizacionByTrabajo_data = function (req, res, next) {
+//Obtiene todas las cotizaciones de un trabajo
+Cotizacion.prototype.get_cotizacionByTrabajo = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
-    //Objeto que envía los parámetros
-    var params = {};
     //Referencia a la clase para callback
     var self = this;
 
-    //Asigno a params el valor de mis variables
-    params = req.params.data;
+    var params = [
+        {
+            name: 'idCita',
+            value: req.query.idCita,
+            type: self.model.types.DECIMAL
+        }
+    ];
 
-    this.model.cotizacionByTrabajo(params, function (error, result) {
+    this.model.query('SEL_COTIZACIONES_BY_TRABAJO_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.cotizacionByTrabajo(res, object);
+        self.view.expositor(res, object);
     });
 }
 
