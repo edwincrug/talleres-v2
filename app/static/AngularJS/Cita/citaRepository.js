@@ -62,11 +62,11 @@ registrationModule.factory('citaRepository', function ($http) {
                 }
             });
         },
-        getCitaTaller: function(fecha, idCita){
+        getCitaTaller: function(fecha, idCita,idUsuario){
             return $http({
                 url: citaUrl + 'buscaCita/',
                 method: "GET",
-                params: {fecha:fecha,idCita:idCita},
+                params: {fecha:fecha,idCita:idCita,idUsuario:idUsuario},
                 headers: {
                 'Content-Type': 'application/json'
                 }
