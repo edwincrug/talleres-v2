@@ -2,10 +2,14 @@ var citaUrl = global_settings.urlCORS + '/api/cita/';
 
 registrationModule.factory('citaRepository', function ($http) {
     return {
-        getCliente: function(){
+        getCliente: function(idUsuario){
             return $http({
                 url: citaUrl + 'cliente/',
-                method: "GET"
+                method: "GET",
+                params: {idUsuario:idUsuario},
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         },
         getUnidadInformation: function(idCliente, datoUnidad){

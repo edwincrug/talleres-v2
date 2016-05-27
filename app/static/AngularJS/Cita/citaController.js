@@ -581,7 +581,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
 
     //obtiene los clientes
     var getCliente = function () {
-        citaRepository.getCliente().then(function (cliente) {
+        citaRepository.getCliente($scope.userData.idUsuario).then(function (cliente) {
             if (cliente.data.length > 0) {
                 $scope.clientes = cliente.data;
                 alertFactory.success("Clientes cargados");

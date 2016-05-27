@@ -45,7 +45,7 @@ Cita.prototype.get_cliente = function(req, res, next) {
     var self = this;
     
     //asignación de valores mediante parámetros del request
-    var params = [];
+    var params = [{name: 'idUsuario', value: req.query.idUsuario, type: self.model.types.INT}];
 
     this.model.query('SEL_CLIENTE_SP', params, function(error, result) {
         self.view.expositor(res, {
