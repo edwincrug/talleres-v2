@@ -5568,6 +5568,110 @@ body.body-small .vote-icon {
 .small-chat-box .form-chat {
   padding: 10px 10px;
 }
+
+
+#small-chat2 {
+  position: fixed;
+  bottom: 20px;
+  right: 60px;
+  z-index: 100;
+}
+#small-chat2 .badge {
+  position: absolute;
+  top: -3px;
+  right: -4px;
+}
+.open-small-chat2 {
+  height: 38px;
+  width: 38px;
+  display: block;
+  background: #FFA100;
+  padding: 9px 8px;
+  text-align: center;
+  color: #fff;
+  border-radius: 50%;
+}
+.open-small-chat2:hover {
+  color: white;
+  background: #FFA100;
+}
+.small-chat-box2 {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 150px;
+  background: #fff;
+  border: 1px solid #e7eaec;
+  width: 230px;
+  height: 320px;
+  border-radius: 0px 0px 0px 5px;
+  box-shadow: 1.5px 1.5px rgba(68, 67, 67, 0.38);
+}
+.small-chat-box2.ng-small-chat2 {
+  display: block;
+}
+.body-small2 .small-chat-box2 {
+  bottom: 70px;
+  right: 20px;
+}
+.small-chat-box2.active {
+  display: block;
+}
+.small-chat-box2 .heading2 {
+  background: #55B4F0;
+  padding: 8px 15px;
+  font-weight: bold;
+  color: #fff;
+}
+.small-chat-box2 .chat-date2 {
+  opacity: 0.6;
+  font-size: 10px;
+  font-weight: normal;
+}
+.small-chat-box2 .content2 {  
+  padding: 15px 15px;
+  overflow-y: auto;
+  height: 234px;
+}
+.small-chat-box2 .content2 .author-name2 {
+  font-weight: bold;
+  margin-bottom: 3px;
+  font-size: 11px;
+}
+.small-chat-box2 .content2 > div {
+  padding-bottom: 20px;
+}
+.small-chat-box2 .content2 .chat-message2 {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 14px;
+  max-width: 80%;
+  background: #f3f3f4;
+  margin-bottom: 10px;
+    overflow: auto;
+}
+.small-chat-box2 .content2 .chat-message2.active {
+  background: #FFA100;
+  color: #fff;
+}
+.small-chat-box2 .content2 .left {
+  text-align: left;
+  clear: both;
+}
+.small-chat-box2 .content2 .left .chat-message2 {
+  float: left;
+}
+.small-chat-box2 .content2 .right {
+  text-align: right;
+  clear: both;
+}
+.small-chat-box2 .content2 .right .chat-message2 {
+  float: right;
+}
+.small-chat-box2 .form-chat2 {
+  padding: 10px 10px;
+}
 /*
  * metismenu - v2.0.2
  * A jQuery menu plugin

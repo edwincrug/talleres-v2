@@ -1,6 +1,7 @@
 registrationModule.controller('loginController', function ($scope, alertFactory, $rootScope, localStorageService, loginRepository) {
     $rootScope.sesion = 0;
-
+    $rootScope.showChat = 0;
+    
     $scope.init = function () {
 
     }

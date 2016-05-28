@@ -4,6 +4,7 @@ var mkdirp = require('mkdirp');
 multer = require('multer');
 var idTipoArchivo;
 var nameFile;
+var fs = require('fs');
 
 var Cotizacion = function (conf) {
     this.conf = conf || {};
@@ -24,9 +25,11 @@ var Cotizacion = function (conf) {
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
+        //var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
+        var dirname = 'C:/Desarrollo/talleres-v2/app';
         var idTrabajo = req.body.idTrabajo;
         var idCotizacion = req.body.idCotizacion;
+
         if (idCotizacion == '') {
             mkdirp(dirname + '/static/uploads/files/' + idTrabajo, function (err) {
                 if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4') {
@@ -56,7 +59,37 @@ var storage = multer.diskStorage({
         }
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
+        //var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
+        var dirname = 'C:/Desarrollo/talleres-v2/app';
+        var idTrabajo = req.body.idTrabajo;
+        var idCotizacion = req.body.idCotizacion;
+
+        if (req.body.idCategoria == 2) {
+            var extensionFile = obtenerExtArchivo(file.originalname);
+            switch (req.body.idNombreEspecial) {
+            case '1':
+                var ruta = dirname + '/static/uploads/files/' + idTrabajo + '/documentos/';
+                fs.readdir("" + ruta + "", function (err, files) {
+                    var consecutivo = files.length + 1;
+                    var contador = 1;
+                    if (contador == 1) {
+                        setTimeout(function () {
+                            cb(null, 'ComprobanteRecepcion' + consecutivo + extensionFile);
+                            contador += 1;
+                        }, 1000);
+                    }
+                });
+
+
+                break;
+            case '2':
+                cb(null, 'HojaCalidad' + extensionFile);
+                break;
+            }
+
+        } else {
+            cb(null, file.originalname);
+        }
     }
 });
 
@@ -83,6 +116,14 @@ var obtenerExtArchivo = function (file) {
     var file = file;
     var res = file.substring(file.length - 4, file.length)
     return res;
+}
+
+var obtieneConsecutivo = function (ruta) {
+    var consecutivo = 0;
+    fs.readdir("" + ruta + "", function (err, files) {
+        consecutivo = files.length + 1
+    });
+    return consecutivo;
 }
 
 //Obtiene las cotizaciones pendientes por autorizar
@@ -451,6 +492,7 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
             idTipoArchivo: idTipoArchivo,
             idUsuario: req.body.idUsuario,
             idProcesoEvidencia: sIdProcesoEvidencia,
+            idCategoria: req.body.idCategoria,
             nombreArchivo: req.files[i].originalname
         });
     }

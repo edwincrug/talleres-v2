@@ -75,6 +75,11 @@ $(document).ready(function () {
         $(this).children().toggleClass('fa-comments').toggleClass('fa-remove');
         $('.small-chat-box').toggleClass('active');
     });
+    
+    $('.open-small-chat2').click(function () {
+        $(this).children().toggleClass('fa-comments').toggleClass('fa-remove');
+        $('.small-chat-box2').toggleClass('active');
+    });
 
     // Initialize slimscroll for small chat
     /*$('.small-chat-box .content').slimScroll({

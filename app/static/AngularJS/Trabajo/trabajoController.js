@@ -167,11 +167,14 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
             idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
             vTrabajo = contentForm.document.getElementById("vTrabajo");
             idUsuario = contentForm.document.getElementById("idUsuario");
+            idCategoria = contentForm.document.getElementById("idCategoria");
             idTrabajoEdit.value = $scope.idTrabajo;
             //idCotizacionEdit.value = idCotizacion;
             vTrabajo.value = "1";
             idTipoEvidencia.value = 1;
             idUsuario.value = 1;
+            
+            $scope.hojaCalidad == 1 ? idCategoria.value = 2 : idCategoria.value = 1;
             //Submit del botón del Form para subir los archivos        
             btnSubmit.click();
             setTimeout(function(){

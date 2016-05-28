@@ -62,7 +62,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="cita" ng-hide="userData[0].idTipoUsuario == 3" ng-click="showChat = 0"><i class="fa fa-car"></i> <span class="nav-label">Nueva Cita</span></a>
+                    <a href="cita" ng-hide="userData.idTipoUsuario == 3" ng-click="showChat = 0"><i class="fa fa-car"></i> <span class="nav-label">Nueva Cita</span></a>
                 </li>
                 <li>
                     <a href="tallercita" ng-click="showChat = 0"><i class="fa fa-money"></i> <span class="nav-label">Cotizar</span></a>
@@ -74,7 +74,7 @@
                     <a href="trabajo" ng-click="showChat = 0"><i class="fa fa-clipboard"></i> <span class="nav-label">Órdenes de Servicio</span>  </a>
                 </li>
                 <li>
-                    <a href="ordenesporcobrar" ng-click="showChat = 0" ng-hide="userData[0].idTipoUsuario == 3"><i class="fa fa-credit-card"></i> <span class="nav-label">Órdenes por Cobrar</span><span class="label label-warning pull-right"></span></a>
+                    <a href="ordenesporcobrar" ng-click="showChat = 0" ng-hide="userData.idTipoUsuario == 3"><i class="fa fa-credit-card"></i> <span class="nav-label">Órdenes por Cobrar</span><span class="label label-warning pull-right"></span></a>
                 </li>
             </ul>
 
@@ -243,6 +243,49 @@
         </div>
     </div>
 
+   <div id="wrapper" ng-hide="showChat == 0">
+        <div class="small-chat-box2 fadeInRight animated">
+
+            <div class="heading2" draggable="true">
+                <small class="chat-date2 pull-right">
+                    {{descripcion}}
+                </small> Chat
+            </div>
+
+            <div class="content2">
+                <div ng-repeat="msg in chat">
+                    <div ng-class="msg.idUsuario === 3 ? 'right' : 'left'">
+                        <div class="author-name">
+                            {{msg.nombreCompleto}}
+                            <small class="chat-date2">
+                            {{msg.fecha | date:'dd-MM-yyyy HH:mm'}}
+                        </small>
+                        </div>
+                        <div ng-class="msg.idUsuario === 3 ? 'chat-message2' : 'chat-message2 active'">
+                            {{msg.mensaje}}
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-chat2">
+                <div class="input-group input-group-sm">
+                    <input type="text" ng-model="comentarios" class="form-control"> <span class="input-group-btn"> <button
+                        class="btn btn-primary" type="button" ng-click="EnviarComentario(comentarios)">Enviar
+                </button> </span></div>
+            </div>
+
+        </div>
+        <div id="small-chat2">
+
+            <!-- <span class="badge badge-warning pull-right">5</span> -->
+            <a class="open-small-chat2">
+                <i class="fa fa-comments"></i>
+
+            </a>
+        </div>
+    </div>
     <!--Librearias JQuery y Bootstrap-->
     <script src="js/libs/jQuery/jquery-2.1.4.js"></script>
     <script src="js/libs/bootstrap/bootstrap.js"></script>

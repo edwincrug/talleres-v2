@@ -613,7 +613,11 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
         vTrabajo = contentForm.document.getElementById("vTrabajo");
         idUsuario = contentForm.document.getElementById("idUsuario");
+        idCategoria = contentForm.document.getElementById("idCategoria");
+        idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
         idTrabajoEdit.value = idTrabajoNew;
+        idCategoria.value = 2;
+        idNombreEspecial.value = 1;
         idTipoEvidencia.value = 1;
         idUsuario.value =  $scope.userData.idUsuario;
         vTrabajo.value = "1";
