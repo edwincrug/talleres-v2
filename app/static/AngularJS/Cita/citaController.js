@@ -239,9 +239,9 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
     }
 
     //Se obtienen las citas de la fecha seleccionada
-    var getCitaTaller = function (fecha, idCita) {
+    var getCitaTaller = function (fecha, idCita,idUsuario) {
         $('.dataTableCitaTaller').DataTable().destroy();
-        $scope.promise = citaRepository.getCitaTaller(fecha, idCita).then(function (cita) {
+        $scope.promise = citaRepository.getCitaTaller(fecha, idCita,idUsuario).then(function (cita) {
             if (cita.data.length > 0) {
                 $scope.listaCitas = cita.data;
                 waitDrawDocument("dataTableCitaTaller");
