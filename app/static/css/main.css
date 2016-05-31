@@ -118,3 +118,20 @@ body {
 
 .white {
   background-color: white; }
+
+.rol {
+    background-color: #FFA100;
+    height: 60px;
+    width: 99px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: -35px;
+    margin-right: 20px;
+    transform: skew(-10deg);
+    padding-top: 19px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 100;
+    color: whitesmoke;
+}
