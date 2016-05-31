@@ -161,7 +161,8 @@ Cita.prototype.post_addcita = function (req, res, next) {
                   {name: 'fecha', value: req.body.fecha, type: self.model.types.STRING},
                   {name: 'trabajo', value: req.body.trabajo, type: self.model.types.STRING},
                   {name: 'observacion', value: req.body.observacion, type: self.model.types.STRING},
-                  {name: 'idUsuario', value: req.body.idUsuario, type: self.model.types.INT}];
+                  {name: 'idUsuario', value: req.body.idUsuario, type: self.model.types.INT},
+                  {name: 'idTipoCita', value: req.body.idTipoCita, type: self.model.types.INT}];
 
     this.model.post('INS_CITA_SP', params, function (error, result) {
         //Callback

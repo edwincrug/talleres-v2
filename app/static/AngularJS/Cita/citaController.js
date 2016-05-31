@@ -24,6 +24,8 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
 
     //init de la pantalla  nuevaCita
     $scope.initNuevaCita = function () {
+        $("[id='tipoCitaSwitch']").bootstrapSwitch();
+        $scope.idTipoCita = 1;
         $scope.userData = localStorageService.get('userData');
         $('.clockpicker').clockpicker();
         // When the window has finished loading google map
@@ -292,6 +294,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
             citaTaller.trabajo = $scope.datosCita.trabajoCita;
             citaTaller.observacion = $scope.datosCita.observacionCita;
             citaTaller.idUsuario = $scope.userData.idUsuario;
+            citaTaller.idTipoCita = $scope.idTipoCita;
 
             citaRepository.addCita(citaTaller).then(function (cita) {
                 citaTaller.idCita = cita.data[0].idCita;
@@ -638,4 +641,15 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
                 alertFactory.error("Error al insertar el trabajo");
             });
     }
+    
+    $('#tipoCitaSwitch').on('switchChange.bootstrapSwitch', function (event, state){ 
+        if(state == true){
+            //tipo de cita preventiva
+            $scope.idTipoCita = 1
+        }
+        else{            
+            //tipo de cita correctiva
+            $scope.idTipoCita = 2
+        }                      
+    });
 });
