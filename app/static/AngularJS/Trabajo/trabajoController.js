@@ -30,9 +30,9 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
     }
 
     //obtiene los trabajos terminados
-    var getTrabajoTerminado = function () {
+    var getTrabajoTerminado = function (idUsuario) {
         $('.dataTableTrabajoTerminado').DataTable().destroy();
-        trabajoRepository.getTrabajoTerminado().then(function (trabajoTerminado) {
+        trabajoRepository.getTrabajoTerminado(idUsuario).then(function (trabajoTerminado) {
             $scope.trabajosTerminados = trabajoTerminado.data;
 
             if (trabajoTerminado.data.length) {
