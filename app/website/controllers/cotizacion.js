@@ -18,18 +18,20 @@ var Cotizacion = function (conf) {
         this[this.conf.funcionalidad](this.conf.req, this.conf.res, this.conf.next);
     }
 
+
     this.middlewares = [
-       function(req, res, next){
+    	upload.array('file[]', 20)
+       /*function(req, res, next){
            req.consecutivo = obtieneConsecutivo('C:/Desarrollo/talleres-v2/app/static/uploads/files/48/documentos');
            next();
-       }, upload.array('file[]', 20)
+       }, upload.array('file[]', 20)*/
    ]
 }
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        //var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
-        var dirname = 'C:/Desarrollo/talleres-v2/app';
+        var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
+        //var dirname = 'C:/Desarrollo/talleres-v2/app';
         var idTrabajo = req.body.idTrabajo;
         var idCotizacion = req.body.idCotizacion;
 
@@ -63,13 +65,14 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         //var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
-        var dirname = 'C:/Desarrollo/talleres-v2/app';
+        /*var dirname = 'C:/Desarrollo/talleres-v2/app';
         var idTrabajo = req.body.idTrabajo;
         var idCotizacion = req.body.idCotizacion;
         var extensionFile = obtenerExtArchivo(file.originalname);
-        var ruta = dirname + '/static/uploads/files/' + idTrabajo + '/documentos';
+        var ruta = dirname + '/static/uploads/files/' + idTrabajo + '/documentos';*/
 
-        if (req.body.idCategoria == '2') {
+        cb(null, file.originalname);
+        /*if (req.body.idCategoria == '2') {
             if (req.body.idNombreEspecial == '1') {
                 //var consecutivo = obtieneConsecutivo(ruta);
                 cb(null, 'ComprobanteRecepcion' + req.consecutivo + extensionFile);
@@ -81,7 +84,7 @@ var storage = multer.diskStorage({
 
         } else {
             cb(null, file.originalname);
-        }
+        }*/
     }
 });
 
