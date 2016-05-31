@@ -81,8 +81,20 @@ var storage = multer.diskStorage({
             if (req.body.idNombreEspecial == '2') {
                 cb(null, 'HojaCalidad' + extensionFile);
             }
+        /* var consecutivo = obtieneConsecutivo(ruta);
+         cb(null, 'ComprobanteRecepcion' + consecutivo + extensionFile);*/
+        //if (req.body.idCategoria == '2') {
 
-        } else {
+        //if (req.body.idNombreEspecial == '1') {
+        /* var consecutivo = obtieneConsecutivo('C:/Desarrollo/talleres-v2/app/static/uploads/files/44/documentos');
+            cb(null, 'ComprobanteRecepcion' + consecutivo + extensionFile);
+            cb(null, file.originalname);
+        //}
+        /*if (req.body.idNombreEspecial == '2') {
+            cb(null, 'HojaCalidad' + extensionFile);
+        }*/
+
+        /*} else {
             cb(null, file.originalname);
         }*/
     }
@@ -114,7 +126,7 @@ var obtenerExtArchivo = function (file) {
 }
 
 var obtieneConsecutivo = function (ruta) {
-    var consecutivo = fs.readdirSync("" + ruta + "");
+    var consecutivo = fs.readdirSync(ruta);
     return consecutivo.length + 1;
 }
 
@@ -485,11 +497,27 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
             idUsuario: req.body.idUsuario,
             idProcesoEvidencia: sIdProcesoEvidencia,
             idCategoria: req.body.idCategoria,
-            nombreArchivo: req.files[i].originalname
+            nombreArchivo: req.files[i].originalname,
+            idNombreEspecial: req.body.idNombreEspecial
         });
     }
 
     this.model.evidencia(arrayEvidencia, function (error, result) {
+        var nuevoNombre = '';
+        var consecutivo = 1;
+        for (var i = 0; i < req.files.length; i++) {
+            if(req.body.idNombreEspecial == 1) nuevoNombre = 'ComprobanteRecepcion';
+            if(req.body.idNombreEspecial == 2) nuevoNombre = 'HojaCalidad';
+            if(req.body.idNombreEspecial == 3) nuevoNombre = 'Factura';
+            if(req.body.idNombreEspecial == 4) nuevoNombre = 'Adenda';
+            
+            fs.rename('C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + req.files[i].originalname, 'C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + nuevoNombre + consecutivo + obtenerExtArchivo(req.files[i].originalname), function (err) {
+                if (err) console.log('ERROR: ' + err);
+            });
+            
+            consecutivo++;
+        }
+
         //Callback
         object.error = error;
         object.result = result;

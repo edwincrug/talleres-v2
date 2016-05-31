@@ -79,6 +79,7 @@ DataAccess2.prototype.evidencia = function (msgObj, callback) {
             request.input('idProcesoEvidencia', sql.Numeric(18, 0), msgObj[i].idProcesoEvidencia);
             request.input('nombreArchivo', sql.VarChar(100), msgObj[i].nombreArchivo);
             request.input('idCategoria', sql.Numeric(18, 0), msgObj[i].idCategoria);
+            request.input('idNombreEspecial', sql.Numeric(18, 0), msgObj[i].idNombreEspecial);
             request.execute('INS_EVIDENCIA_SP', function (err, recordsets, returnValue) {
 
             });
