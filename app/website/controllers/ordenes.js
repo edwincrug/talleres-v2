@@ -36,7 +36,7 @@ Orden.prototype.post_trabajocobrado = function (req, res, next) {
 
     var params = [{
             name: 'idTrabajo',
-            value: req.query.idTrabajo,
+            value: req.body.idTrabajo,
             type: self.model.types.INT
         }];
 
