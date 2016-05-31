@@ -85,9 +85,13 @@ registrationModule.controller('ordenPorCobrarController', function ($scope, loca
         idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
         vTrabajo = contentForm.document.getElementById("vTrabajo");
         idUsuario = contentForm.document.getElementById("idUsuario");
+        idCategoria = contentForm.document.getElementById("idCategoria");
+        idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
         idTrabajoEdit.value = $scope.idTrabajo;
         vTrabajo.value = "1";
         idTipoEvidencia.value = 1;
+        idCategoria.value = 2;
+        idNombreEspecial.value = 4; //Adenda
         idUsuario.value = $scope.userData.idUsuario;
         //Submit del botón del Form para subir los archivos        
         btnSubmit.click();

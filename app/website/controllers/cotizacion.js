@@ -509,8 +509,15 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
             if(req.body.idNombreEspecial == 1) nuevoNombre = 'ComprobanteRecepcion';
             if(req.body.idNombreEspecial == 2) nuevoNombre = 'HojaCalidad';
             if(req.body.idNombreEspecial == 3) nuevoNombre = 'Factura';
-            if(req.body.idNombreEspecial == 4) nuevoNombre = 'Adenda';
-            
+            if(req.body.idNombreEspecial == 4)
+            {
+                var ext = obtenerExtArchivo(req.files[i].originalname);
+                if(ext == '.xml'){
+                    nuevoNombre = 'COPADE';   
+                } else{
+                    nuevoNombre = 'Adenda';    
+                }                
+            }
             fs.rename('C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + req.files[i].originalname, 'C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + nuevoNombre + consecutivo + obtenerExtArchivo(req.files[i].originalname), function (err) {
                 if (err) console.log('ERROR: ' + err);
             });
