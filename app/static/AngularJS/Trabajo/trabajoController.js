@@ -10,7 +10,7 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
     $scope.init = function () {
         var userData = localStorageService.get('userData');
         getTrabajo(userData.idUsuario);
-        getTrabajoTerminado();
+        getTrabajoTerminado(userData.idUsuario);
         $scope.habilitaBtnAprobar = true;
     }
 

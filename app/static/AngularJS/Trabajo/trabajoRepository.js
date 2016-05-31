@@ -12,8 +12,15 @@ registrationModule.factory('trabajoRepository', function ($http) {
                 }
             });
         },
-        getTrabajoTerminado: function () {
-            return $http.get(trabajoUrl +'trabajoterminado')
+        getTrabajoTerminado: function(idUsuario){
+            return $http({
+                url: trabajoUrl + 'trabajoterminado/',
+                method: "GET",
+                params: {idUsuario: idUsuario},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         },
         terminaTrabajo: function(idTrabajo, observacion){
             return $http({
