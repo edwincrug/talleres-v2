@@ -235,7 +235,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
         } else {
             fechaCita = anio + '' + dia + '' + mes;
         }
-        getCitaTaller(fechaCita,0,$scope.userData.idUsuario);
+        getCitaTaller(fechaCita, 0, $scope.userData.idUsuario);
     }
 
     //Se obtienen las citas de la fecha seleccionada
@@ -291,7 +291,7 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
             citaTaller.fecha = $scope.datosCita.fechaCita + ' ' + $scope.datosCita.horaCita;
             citaTaller.trabajo = $scope.datosCita.trabajoCita;
             citaTaller.observacion = $scope.datosCita.observacionCita;
-            citaTaller.idUsuario =  $scope.userData.idUsuario;
+            citaTaller.idUsuario = $scope.userData.idUsuario;
 
             citaRepository.addCita(citaTaller).then(function (cita) {
                 citaTaller.idCita = cita.data[0].idCita;
@@ -370,10 +370,10 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
 
     //Redirige a pagina para nueva cotización
     $scope.nuevaCotizacion = function (cita) {
-        if(localStorageService.get('objEditCotizacion') != null){
+        if (localStorageService.get('objEditCotizacion') != null) {
             localStorageService.remove('objEditCotizacion');
         }
-        if(localStorageService.get('orden') != null){
+        if (localStorageService.get('orden') != null) {
             localStorageService.remove('orden');
         }
         localStorageService.set('cita', cita);
@@ -604,25 +604,27 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
     //Se realiza la carga de archivos
     var cargarArchivos = function (idTrabajoNew) {
         //Se obtienen los datos de los archivos a subir
+        $scope.userData = localStorageService.get('userData');
         formArchivos = document.getElementById("uploader");
         contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
-        if (contentForm.document)
+        if (contentForm.document) {
             btnSubmit = contentForm.document.getElementById("submit2");
-        elements = contentForm.document.getElementById("uploadForm").elements;
-        idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
-        idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
-        vTrabajo = contentForm.document.getElementById("vTrabajo");
-        idUsuario = contentForm.document.getElementById("idUsuario");
-        idCategoria = contentForm.document.getElementById("idCategoria");
-        idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
-        idTrabajoEdit.value = idTrabajoNew;
-        idCategoria.value = 2;
-        idNombreEspecial.value = 1;
-        idTipoEvidencia.value = 1;
-        idUsuario.value =  $scope.userData.idUsuario;
-        vTrabajo.value = "1";
-        //Submit del botón del Form para subir los archivos        
-        btnSubmit.click();
+            elements = contentForm.document.getElementById("uploadForm").elements;
+            idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
+            idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
+            vTrabajo = contentForm.document.getElementById("vTrabajo");
+            idUsuario = contentForm.document.getElementById("idUsuario");
+            idCategoria = contentForm.document.getElementById("idCategoria");
+            idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
+            idTrabajoEdit.value = idTrabajoNew;
+            idCategoria.value = 2;
+            idNombreEspecial.value = 1;
+            idTipoEvidencia.value = 1;
+            idUsuario.value = $scope.userData.idUsuario;
+            vTrabajo.value = "1";
+            //Submit del botón del Form para subir los archivos        
+            btnSubmit.click();
+        }
     }
 
     //Cargar comprobante de recepción
@@ -634,6 +636,6 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
                 $scope.busquedaCita($scope.fecha);
             }, function (error) {
                 alertFactory.error("Error al insertar el trabajo");
-            });        
+            });
     }
 });

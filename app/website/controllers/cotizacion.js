@@ -19,7 +19,10 @@ var Cotizacion = function (conf) {
     }
 
     this.middlewares = [
-       upload.array('file[]', 20)
+       function(req, res, next){
+           req.consecutivo = obtieneConsecutivo('C:/Desarrollo/talleres-v2/app/static/uploads/files/48/documentos');
+           next();
+       }, upload.array('file[]', 20)
    ]
 }
 
@@ -63,28 +66,17 @@ var storage = multer.diskStorage({
         var dirname = 'C:/Desarrollo/talleres-v2/app';
         var idTrabajo = req.body.idTrabajo;
         var idCotizacion = req.body.idCotizacion;
+        var extensionFile = obtenerExtArchivo(file.originalname);
+        var ruta = dirname + '/static/uploads/files/' + idTrabajo + '/documentos';
 
-        if (req.body.idCategoria == 2) {
-            var extensionFile = obtenerExtArchivo(file.originalname);
-            switch (req.body.idNombreEspecial) {
-            case '1':
-                var ruta = dirname + '/static/uploads/files/' + idTrabajo + '/documentos/';
-                fs.readdir("" + ruta + "", function (err, files) {
-                    var consecutivo = files.length + 1;
-                    var contador = 1;
-                    if (contador == 1) {
-                        setTimeout(function () {
-                            cb(null, 'ComprobanteRecepcion' + consecutivo + extensionFile);
-                            contador += 1;
-                        }, 1000);
-                    }
-                });
-
-
-                break;
-            case '2':
+        if (req.body.idCategoria == '2') {
+            if (req.body.idNombreEspecial == '1') {
+                //var consecutivo = obtieneConsecutivo(ruta);
+                cb(null, 'ComprobanteRecepcion' + req.consecutivo + extensionFile);
+                //cb(null, file.originalname);
+            }
+            if (req.body.idNombreEspecial == '2') {
                 cb(null, 'HojaCalidad' + extensionFile);
-                break;
             }
 
         } else {
@@ -119,11 +111,8 @@ var obtenerExtArchivo = function (file) {
 }
 
 var obtieneConsecutivo = function (ruta) {
-    var consecutivo = 0;
-    fs.readdir("" + ruta + "", function (err, files) {
-        consecutivo = files.length + 1
-    });
-    return consecutivo;
+    var consecutivo = fs.readdirSync("" + ruta + "");
+    return consecutivo.length + 1;
 }
 
 //Obtiene las cotizaciones pendientes por autorizar
