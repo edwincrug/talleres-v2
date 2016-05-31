@@ -8,13 +8,14 @@
 registrationModule.controller('trabajoController', function ($scope, $rootScope,localStorageService, alertFactory, trabajoRepository) {
     //this is the first method executed in the view
     $scope.init = function () {
-        getTrabajo();
+        var userData = localStorageService.get('userData');
+        getTrabajo(userData.idUsuario);
         getTrabajoTerminado();
         $scope.habilitaBtnAprobar = true;
     }
 
-    var getTrabajo = function () {
-        trabajoRepository.getTrabajo().then(function (trabajo) {
+    var getTrabajo = function (idUsuario) {
+        trabajoRepository.getTrabajo(idUsuario).then(function (trabajo) {
             $('.dataTableTrabajo').DataTable().destroy();
             $scope.trabajos = trabajo.data;
             if (trabajo.data.length > 0) {

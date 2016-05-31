@@ -2,8 +2,15 @@ var trabajoUrl = global_settings.urlCORS + '/api/trabajo/';
 
 registrationModule.factory('trabajoRepository', function ($http) {
     return {
-        getTrabajo: function () {
-            return $http.get(trabajoUrl +'trabajo/')
+        getTrabajo: function(idUsuario){
+            return $http({
+                url: trabajoUrl + 'trabajo/',
+                method: "GET",
+                params: {idUsuario: idUsuario},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         },
         getTrabajoTerminado: function () {
             return $http.get(trabajoUrl +'trabajoterminado')

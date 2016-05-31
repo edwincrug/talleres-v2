@@ -22,7 +22,7 @@ Trabajo.prototype.get_trabajo = function(req, res, next){
     //Referencia a la clase para callback
     var self = this;
     //Obtención de valores de los parámetros del request
-    var params = [];
+    var params = [{name: 'idUsuario', value: req.query.idUsuario, type: self.model.types.INT}];
 	
     this.model.query('SEL_TRABAJO_SP', params, function(error, result) {
         self.view.expositor(res, {
