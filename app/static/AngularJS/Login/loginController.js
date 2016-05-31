@@ -15,7 +15,7 @@ registrationModule.controller('loginController', function ($scope, alertFactory,
                     localStorageService.set('userData', $scope.login);
 
                     if ($scope.login.idTipoUsuario == 3) {
-                        location.href = '/tallerCita';
+                        location.href = '/tallercita';
                     } else {
                         location.href = '/cita';
                     }
