@@ -34,16 +34,18 @@ Orden.prototype.post_trabajocobrado = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    var objTrabajoCobrado = {
-        idTrabajo: req.body.idTrabajo
-    };
+    var params = [{
+            name: 'idTrabajo',
+            value: req.query.idTrabajo,
+            type: self.model.types.INT
+        }];
 
-    this.model.trabajocobrado(objTrabajoCobrado, function (error, result) {
+    this.model.post('INS_TRABAJO_CONCLUIDO_SP',params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.trabajocobrado(res, object);
+        self.view.expositor(res, object);
     });
 }
 
