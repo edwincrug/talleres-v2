@@ -95,10 +95,10 @@
                 </div>
             </div>
         </div>
-        <div class="text-right" ng-hide="userData.idTipoUsuario == 3">
-            <textarea class="well m-t form-control" rows="2" cols="45" maxlength="300" ng-model="comentario" placeholder="Comentarios..."></textarea>
-            <button class="btn btn-primary" ng-click="Autorizar(comentario)"><i class="fa fa-check"></i> Autorizar</button>
-            <button class="btn btn-danger" ng-click="Rechazar(comentario)"><i class="fa fa-times"></i> Rechazar</button>
+        <div class="text-right">
+            <textarea class="well m-t form-control" rows="2" cols="45" maxlength="300" ng-model="comentario" placeholder="Comentarios..." ng-hide="userData.idTipoUsuario == 3"></textarea>
+            <button class="btn btn-primary" ng-click="Autorizar(comentario)" ng-hide="userData.idTipoUsuario == 3"><i class="fa fa-check"></i> Autorizar</button>
+            <button class="btn btn-danger" ng-click="Rechazar(comentario)" ng-hide="userData.idTipoUsuario == 3"><i class="fa fa-times"></i> Rechazar</button>
             <button class="btn btn-success" ng-click="Editar()"><i class="fa fa-edit"></i> Editar</button>
         </div>
     </div>
