@@ -77,7 +77,7 @@
                                                     
                                                     <button ng-if="trabajo.estatus == 'Cerrado' " ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo,0)" data-toggle="tooltip" tooltip="Cargar factura" tooltip-placement="up"><span class="glyphicon glyphicon-upload"></span> Factura</button>
 
-                                                    <button ng-if="trabajo.estatus == 'HojaCalidad'" ng-hide="userData.idTipoUsuario == 3" class="btn btn-success" type="button" ng-click="aprobarTrabajo(trabajo, 2)" data-toggle="tooltip" tooltip="Aprobar órden de servicio" tooltip-placement="up" ng-hide="userData[0].idTipoUsuario == 3"><span class="glyphicon glyphicon-check"></span> Aprobar
+                                                    <button ng-if="trabajo.estatus == 'HojaCalidad'" ng-hide="userData.idTipoUsuario == 3" class="btn btn-success" type="button" ng-click="aprobarTrabajo(trabajo, 2)" data-toggle="tooltip" tooltip="Aprobar órden de servicio" tooltip-placement="up" ng-hide="userData.idTipoUsuario == 3"><span class="glyphicon glyphicon-check"></span> Aprobar
                                                     </button>
                                                     <button ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 4" class="btn btn-primary" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo, 1)" data-toggle="tooltip" tooltip="Cargar hoja de calidad" tooltip-placement="left"><span class="glyphicon glyphicon-upload"></span>&nbsp;Hoja</button>
                                                 </td>
@@ -127,6 +127,26 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivos()">Cargar archivo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cargarHojaModal" class="modal inmodal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{modalTittle}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive m-t" style="margin-left:10%">
+                    <iframe src="/AngularJS/Templates/uploader.html" width="680px" height="380px" frameborder="0" id="uploader" scrolling="no"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivosHoja()">Cargar archivo</button>
                 </div>
             </div>
         </div>
