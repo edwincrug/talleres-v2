@@ -8,9 +8,9 @@
 registrationModule.controller('trabajoController', function ($scope, $rootScope,localStorageService, alertFactory, trabajoRepository) {
     //this is the first method executed in the view
     $scope.init = function () {
-        var userData = localStorageService.get('userData');
-        getTrabajo(userData.idUsuario);
-        getTrabajoTerminado(userData.idUsuario);
+        $scope.userData = localStorageService.get('userData');
+        getTrabajo($scope.userData.idUsuario);
+        getTrabajoTerminado($scope.userData.idUsuario);
         $scope.habilitaBtnAprobar = true;
     }
 
@@ -96,8 +96,8 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
     $scope.updTerminaTrabajo = function (observacion) {
         trabajoRepository.terminaTrabajo($scope.idTrabajo, observacion).then(function (trabajoTerminado) {
             if (trabajoTerminado.data[0].idHistorialProceso != 0) {
-                getTrabajo();
-                getTrabajoTerminado();
+                getTrabajo($scope.userData.idUsuario);
+                getTrabajoTerminado($scope.userData.idUsuario);
                 $('#finalizarTrabajoModal').modal('hide');
             }
         });
@@ -227,8 +227,8 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
             trabajoRepository.hojaCalidadTrabajo(idTrabajo).then(function (hojaCalidad) {
                 if(hojaCalidad.data[0].idHistorialProceso){
                     alertFactory.success("Hoja de calidad cargada");
-                    getTrabajo(idUsuario);
-                    getTrabajoTerminado(idUsuario);
+                    getTrabajo($scope.userData.idUsuario);
+                    getTrabajoTerminado($scope.userData.idUsuario);
                 }
             }, function (error) {
                 alertFactory.error("Error al cargar la hoja de calidad");
@@ -238,8 +238,8 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
             trabajoRepository.facturaTrabajo(idTrabajo).then(function (trabajoFacturado) {
                 if(trabajoFacturado.data[0].idHistorialProceso){
                     alertFactory.success("Factura cargada");
-                    getTrabajo(idUsuario);
-                    getTrabajoTerminado(idUsuario);
+                    getTrabajo($scope.userData.idUsuario);
+                    getTrabajoTerminado($scope.userData.idUsuario);
                 }
             }, function (error) {
                 alertFactory.error("Error al cargar la factura");
