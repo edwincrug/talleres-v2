@@ -518,6 +518,7 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
                     nuevoNombre = 'Adenda';    
                 }                
             }
+            if(req.body.idNombreEspecial == 0) nuevoNombre = req.files[i].originalname;
             fs.rename('C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + req.files[i].originalname, 'C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + nuevoNombre + consecutivo + obtenerExtArchivo(req.files[i].originalname), function (err) {
                 if (err) console.log('ERROR: ' + err);
             });
