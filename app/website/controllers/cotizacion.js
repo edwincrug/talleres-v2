@@ -30,8 +30,8 @@ var Cotizacion = function (conf) {
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
-        //var dirname = 'C:/Desarrollo/talleres-v2/app';
+        //var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
+        var dirname = 'C:/Desarrollo/talleres-v2/app';
         var idTrabajo = req.body.idTrabajo;
         var idCotizacion = req.body.idCotizacion;
 
