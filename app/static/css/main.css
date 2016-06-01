@@ -120,7 +120,6 @@ body {
   background-color: white; }
 
 .rol {
-    background-color: #55B4F0;
     height: 60px;
     width: 99px;
     position: absolute;
@@ -134,4 +133,21 @@ body {
     font-size: 14px;
     font-weight: 300;
     color: whitesmoke;
+}
+
+
+.rolcall {
+    background-color: #FFD701;
+}
+
+.roltaller {
+    background-color: #B3B3B3;
+}
+
+.rolcliente {
+   background-color: #55B4F0; 
+}
+
+.roladmin {
+   background-color: #FFA100; 
 }

@@ -93,7 +93,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                       <div class="rol"> Rol -  {{ userData.tipoUsuario}} </div> 
+                       <div class="rol" ng-class="{ 'roladmin' : userData.idTipoUsuario == 1, 'rolcall' : userData.idTipoUsuario == 2, 'roltaller' : userData.idTipoUsuario == 3, 'rolcliente' : userData.idTipoUsuario == 4  }"> Rol -  {{ userData.tipoUsuario}} </div> 
                     </li>
                     <li>
                         <span class="m-r-sm text-muted welcome-message">Talleres Externos</span>
