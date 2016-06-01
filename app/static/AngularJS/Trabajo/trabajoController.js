@@ -142,84 +142,89 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
             });
     });
 
-    //sube archivo de la factura
-    $scope.archivoTrabajoModal = function (idTrabajo, hojaCalidad) {
+//    //sube archivo de la factura
+//    $scope.archivoTrabajoModal = function (idTrabajo, hojaCalidad) {
+//        $scope.idTrabajo = idTrabajo;
+//        $scope.hojaCalidad = hojaCalidad;
+//        
+//        if(hojaCalidad == 1){
+//            $scope.modalTittle = "Hoja de calidad";   
+//            $('#cargarHojaModal').appendTo("body").modal('show');
+//        }
+//        else{
+//            $scope.modalTittle = "Factura";
+//            $('#cargarFacturaModal').appendTo("body").modal('show');
+//        }       
+//    }
+    
+      $scope.adjuntarFactura = function (idTrabajo) {
         $scope.idTrabajo = idTrabajo;
-        $scope.hojaCalidad = hojaCalidad;
-        
-        if(hojaCalidad == 1){
-            $scope.modalTittle = "Hoja de calidad";   
-            $('#cargarHojaModal').appendTo("body").modal('show');
-        }
-        else{
-            $scope.modalTittle = "Factura";
-            $('#cargarFacturaModal').appendTo("body").modal('show');
-        }       
+        $('#factura').appendTo('body').modal('show');
     }
-
+    
+    $scope.adjuntarHoja = function (idTrabajo) {
+        $scope.idTrabajo = idTrabajo;
+        $scope.hojaCalidad = 1;
+        $('#hoja').appendTo('body').modal('show');
+    }
+    
     //Se realiza la carga de archivos de factura
-     $scope.cargarArchivos = function () {
-        //Se obtienen los datos de los archivos a subir
-        $scope.userData = localStorageService.get('userData');
-        formArchivos = document.getElementById("uploader");
-        contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
-        if (contentForm.document){
-            btnSubmit = contentForm.document.getElementById("submit2");
-            elements = contentForm.document.getElementById("uploadForm").elements;
-            idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
-            idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
-            vTrabajo = contentForm.document.getElementById("vTrabajo");
-            idUsuario = contentForm.document.getElementById("idUsuario");
-            idCategoria = contentForm.document.getElementById("idCategoria");
-            idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
-            idTrabajoEdit.value = $scope.idTrabajo;
-            idCategoria.value = 2;
-            idNombreEspecial.value = 3;
-            vTrabajo.value = "1";
-            idTipoEvidencia.value = 1;
-            idUsuario.value = $scope.userData.idUsuario;
-            
-            $scope.hojaCalidad == 1 ? idCategoria.value = 2 : idCategoria.value = 1;
-            //Submit del botón del Form para subir los archivos        
-            btnSubmit.click();
-            setTimeout(function(){
-                archivoTrabajo($scope.idTrabajo, $scope.hojaCalidad);
-            },2000);
-            
-        }
-    }
+    $scope.cargarArchivos = function () {
+       //Se obtienen los datos de los archivos a subir
+       $scope.userData = localStorageService.get('userData');
+       formArchivos = document.getElementById("uploader");
+       contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
+       if (contentForm.document)
+           btnSubmit = contentForm.document.getElementById("submit2");
+       elements = contentForm.document.getElementById("uploadForm").elements;
+       idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
+       idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
+       idUsuario = contentForm.document.getElementById("idUsuario");
+       vTrabajo = contentForm.document.getElementById("vTrabajo");
+       idCategoria = contentForm.document.getElementById("idCategoria");
+       idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
+       idTrabajoEdit.value = $scope.idTrabajo;
+       vTrabajo.value = "1";
+       idTipoEvidencia.value = 1;
+       idCategoria.value = 2;
+       idNombreEspecial.value = 3;
+       idUsuario.value = $scope.userData.idUsuario;
+       //Submit del botón del Form para subir los archivos        
+       btnSubmit.click();
+       setTimeout(function(){
+            archivoTrabajo($scope.idTrabajo, $scope.hojaCalidad);
+        },2000);
+   }
      
      //Carga Hoja de Calidad
     $scope.cargarArchivosHoja = function () {
-        //Se obtienen los datos de los archivos a subir
-        $scope.userData = localStorageService.get('userData');
-        formArchivos = document.getElementById("uploader");
-        contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
-        if (contentForm.document){
-            btnSubmit = contentForm.document.getElementById("submit2");
-            elements = contentForm.document.getElementById("uploadForm").elements;
-            idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
-            idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
-            vTrabajo = contentForm.document.getElementById("vTrabajo");
-            idUsuario = contentForm.document.getElementById("idUsuario");
-            idCategoria = contentForm.document.getElementById("idCategoria");
-            idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
-            idTrabajoEdit.value = $scope.idTrabajo;
-            idCategoria.value = 2;
-            idNombreEspecial.value = 2;
-            vTrabajo.value = "1";
-            idTipoEvidencia.value = 1;
-            idUsuario.value = $scope.userData.idUsuario;
-            
-            $scope.hojaCalidad == 1 ? idCategoria.value = 2 : idCategoria.value = 1;
-            //Submit del botón del Form para subir los archivos        
-            btnSubmit.click();
-            setTimeout(function(){
-                archivoTrabajo($scope.idTrabajo, $scope.hojaCalidad);
-            },2000);
-            
-        }
-    }
+       //Se obtienen los datos de los archivos a subir
+       $scope.userData = localStorageService.get('userData');
+       formArchivos = document.getElementById("uploader");
+       contentForm = (formArchivos.contentWindow || formArchivos.contentDocument);
+       if (contentForm.document)
+           btnSubmit = contentForm.document.getElementById("submit2");
+       elements = contentForm.document.getElementById("uploadForm").elements;
+       idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
+       idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
+       idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
+       idUsuario = contentForm.document.getElementById("idUsuario");
+       vTrabajo = contentForm.document.getElementById("vTrabajo");
+       idCategoria = contentForm.document.getElementById("idCategoria");
+       idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
+       idTrabajoEdit.value = $scope.idTrabajo;
+       vTrabajo.value = "1";
+       idTipoEvidencia.value = 1;
+       idCategoria.value = 2;
+       idNombreEspecial.value = 2;
+       idUsuario.value = $scope.userData.idUsuario;
+       //Submit del botón del Form para subir los archivos        
+       btnSubmit.click();
+        
+       setTimeout(function(){
+            archivoTrabajo($scope.idTrabajo, $scope.hojaCalidad);
+        },2000);
+   }
 
     //cambia el trabajo a estatus a facturado
     var archivoTrabajo = function (idTrabajo, hojaCalidad) {

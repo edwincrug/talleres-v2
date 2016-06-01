@@ -112,43 +112,42 @@
         </div>
     </div>
 </div>
-<div id="cargarFacturaModal" class="modal inmodal fade" role="dialog">
+<div id="factura" class="modal inmodal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{modalTittle}}</h4>
+                <h4 class="modal-title">Carga de Factura</h4>
             </div>
             <div class="modal-body">
                 <div class="table-responsive m-t" style="margin-left:10%">
                     <iframe src="/AngularJS/Templates/uploader.html" width="680px" height="380px" frameborder="0" id="uploader" scrolling="no"></iframe>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivos()">Cargar archivo</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivos()">Adjuntar</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div id="cargarHojaModal" class="modal inmodal fade" role="dialog">
+    
+<div id="hoja" class="modal inmodal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{modalTittle}}</h4>
+                <h4 class="modal-title">Carga de Hoja de Calidad</h4>
             </div>
             <div class="modal-body">
                 <div class="table-responsive m-t" style="margin-left:10%">
                     <iframe src="/AngularJS/Templates/uploader.html" width="680px" height="380px" frameborder="0" id="uploader" scrolling="no"></iframe>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivosHoja()">Cargar archivo</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="cargarArchivosHoja()">Adjuntar</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
