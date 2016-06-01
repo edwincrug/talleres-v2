@@ -734,7 +734,7 @@ Cotizacion.prototype.get_datosCliente = function (req, res, next) {
     });
 }
 
-Cotizacion.prototype.get_evidenciasByOrden_data = function (req, res, next) {
+Cotizacion.prototype.get_evidenciasByOrden = function (req, res, next) {
     //Objeto que almacena la respuesta
     var object = {};
     //Objeto que envía los parámetros
@@ -742,15 +742,20 @@ Cotizacion.prototype.get_evidenciasByOrden_data = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    //Asigno a params el valor de mis variables
-    params = req.params.data;
+    var params = [
+        {
+            name: 'idTrabajo',
+            value: req.query.idTrabajo,
+            type: self.model.types.DECIMAL
+        }
+    ];
 
-    this.model.evidenciasByOrden(params, function (error, result) {
+    this.model.query('SEL_EVIDENCIAS_BY_TRABAJO_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.evidenciasByOrden(res, object);
+        self.view.expositor(res, object);
     });
 }
 

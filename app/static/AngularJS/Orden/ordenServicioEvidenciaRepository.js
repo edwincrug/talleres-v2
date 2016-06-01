@@ -4,8 +4,14 @@ registrationModule.factory('ordenServicioEvidenciaRepository', function ($http) 
     return {
         getEvidenciasByOrden: function (idTrabajo) {
             return $http({
-                url: searchUrl + 'evidenciasByOrden/' + idTrabajo,
-                method: "GET"
+                url: searchUrl + 'evidenciasByOrden',
+                method: "GET",
+                params: {
+                    idTrabajo: idTrabajo
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         }
     };
