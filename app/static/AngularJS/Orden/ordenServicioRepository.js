@@ -33,8 +33,14 @@ registrationModule.factory('ordenServicioRepository', function ($http) {
         },
         getCotizacionByTrabajo: function (idCita) {
             return $http({
-                url: searchUrl + 'cotizacionByTrabajo/' + idCita,
-                method: "GET"
+                url: searchUrl + 'cotizacionByTrabajo',
+                method: "GET",
+                params: {
+                    idCita: idCita
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         },
         putCotizacionAprobacion: function (cotizacion, usuario, comentario) {
