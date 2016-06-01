@@ -157,18 +157,18 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
 //        }       
 //    }
     
-      $scope.adjuntarFactura = function (idTrabajo) {
+    $scope.adjuntar = function (idTrabajo, hojaCalidad) {
         $scope.idTrabajo = idTrabajo;
+        $scope.hojaCalidad = hojaCalidad;
         $('#factura').appendTo('body').modal('show');
     }
     
     $scope.adjuntarHoja = function (idTrabajo) {
         $scope.idTrabajo = idTrabajo;
-        $scope.hojaCalidad = 1;
         $('#hoja').appendTo('body').modal('show');
     }
     
-    //Se realiza la carga de archivos de factura
+   //Se realiza la carga de archivos de factura
     $scope.cargarArchivos = function () {
        //Se obtienen los datos de los archivos a subir
        $scope.userData = localStorageService.get('userData');
@@ -187,7 +187,12 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
        vTrabajo.value = "1";
        idTipoEvidencia.value = 1;
        idCategoria.value = 2;
-       idNombreEspecial.value = 3;
+       if($scope.hojaCalidad == 1)
+        {
+            idNombreEspecial.value = 2;
+        } else{
+            idNombreEspecial.value = 3;
+        }         
        idUsuario.value = $scope.userData.idUsuario;
        //Submit del botón del Form para subir los archivos        
        btnSubmit.click();
@@ -206,7 +211,6 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
            btnSubmit = contentForm.document.getElementById("submit2");
        elements = contentForm.document.getElementById("uploadForm").elements;
        idTrabajoEdit = contentForm.document.getElementById("idTrabajo");
-       idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
        idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
        idUsuario = contentForm.document.getElementById("idUsuario");
        vTrabajo = contentForm.document.getElementById("vTrabajo");
@@ -220,7 +224,6 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
        idUsuario.value = $scope.userData.idUsuario;
        //Submit del botón del Form para subir los archivos        
        btnSubmit.click();
-        
        setTimeout(function(){
             archivoTrabajo($scope.idTrabajo, $scope.hojaCalidad);
         },2000);
