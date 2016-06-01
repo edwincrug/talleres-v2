@@ -75,11 +75,11 @@
                                                 <td>
                                                     <button class="btn btn-info" type="button" ng-click="aprobarTrabajo(trabajo, 1)" data-toggle="tooltip" tooltip="Ver órden de servicio" tooltip-placement="up"><span class="glyphicon glyphicon-sunglasses"></span>&nbsp;Ver&nbsp;&nbsp;</button>
                                                     
-                                                    <button ng-if="trabajo.estatus == 'Cerrado' " ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo,0)" data-toggle="tooltip" tooltip="Cargar factura" tooltip-placement="up"><span class="glyphicon glyphicon-upload"></span> Factura</button>
+                                                    <button ng-if="trabajo.estatus == 'Cerrado' " ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 4" class="btn btn-success" type="button" ng-click="adjuntarFactura(trabajo.idTrabajo)" data-toggle="tooltip" tooltip="Cargar factura" tooltip-placement="up"><span class="glyphicon glyphicon-upload"></span> Factura</button>
 
                                                     <button ng-if="trabajo.estatus == 'HojaCalidad'" ng-hide="userData.idTipoUsuario == 3" class="btn btn-success" type="button" ng-click="aprobarTrabajo(trabajo, 2)" data-toggle="tooltip" tooltip="Aprobar órden de servicio" tooltip-placement="up" ng-hide="userData.idTipoUsuario == 3"><span class="glyphicon glyphicon-check"></span> Aprobar
                                                     </button>
-                                                    <button ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 4" class="btn btn-primary" type="button" ng-click="archivoTrabajoModal(trabajo.idTrabajo, 1)" data-toggle="tooltip" tooltip="Cargar hoja de calidad" tooltip-placement="left"><span class="glyphicon glyphicon-upload"></span>&nbsp;Hoja</button>
+                                                    <button ng-if="trabajo.estatus == 'Terminado'" ng-hide="userData.idTipoUsuario == 2 || userData.idTipoUsuario == 4" class="btn btn-primary" type="button" ng-click="adjuntarHoja(trabajo.idTrabajo)" data-toggle="tooltip" tooltip="Cargar hoja de calidad" tooltip-placement="left"><span class="glyphicon glyphicon-upload"></span>&nbsp;Hoja</button>
                                                 </td>
                                             </tr>
                                         </tbody>
