@@ -18,8 +18,9 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
 
     //init de la pantalla citaTrabajo
     $scope.initCita = function () {
+        var userData = localStorageService.get('userData');
         $scope.unidadInfo = localStorageService.get('unidad');
-        getCita($scope.unidadInfo.idUnidad);
+        getCita($scope.unidadInfo.idUnidad, userData.idUsuario);
     }
 
     //init de la pantalla  nuevaCita
@@ -188,9 +189,9 @@ registrationModule.controller('citaController', function ($scope, $route, $rootS
     }
 
     //obtiene las citas de la unidad
-    var getCita = function (idUnidad) {
+    var getCita = function (idUnidad, idUsuario) {
         $('.dataTableCita').DataTable().destroy();
-        $scope.promise = citaRepository.getCita(idUnidad).then(function (cita) {
+        $scope.promise = citaRepository.getCita(idUnidad, idUsuario).then(function (cita) {
             $scope.citas = cita.data;
             if (cita.data.length > 0) {
                 waitDrawDocument("dataTableCita");

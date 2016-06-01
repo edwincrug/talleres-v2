@@ -64,7 +64,8 @@ Cita.prototype.get_cita = function(req, res, next){
     //Referencia a la clase para callback
     var self = this;
     //Obtención de valores de los parámetros del request
-    var params = [{name: 'idUnidad', value: req.query.idUnidad, type: self.model.types.INT}];
+    var params = [{name: 'idUnidad', value: req.query.idUnidad, type: self.model.types.INT},
+                  {name: 'idUsuario', value: req.query.idUsuario, type: self.model.types.INT}];
     
     this.model.query('SEL_UNIDAD_CITA_SP', params, function(error, result) {
         self.view.expositor(res, {

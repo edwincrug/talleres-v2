@@ -22,11 +22,11 @@ registrationModule.factory('citaRepository', function ($http) {
                 }
             });
         },
-        getCita: function(idUnidad){
+        getCita: function(idUnidad, idUsuario){
             return $http({
                 url: citaUrl + 'cita/',
                 method: "GET",
-                params: {idUnidad: idUnidad},
+                params: {idUnidad: idUnidad, idUsuario: idUsuario},
                 headers: {
                 'Content-Type': 'application/json'
                 }
