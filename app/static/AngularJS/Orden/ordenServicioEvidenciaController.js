@@ -58,7 +58,6 @@ registrationModule.controller('ordenServicioEvidenciaController', function ($sco
         idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
         idTrabajoEdit.value = $scope.idTrabajo;
         vTrabajo.value = "1";
-        idCotizacionEdit.value = idCotizacion;
         idTipoEvidencia.value = 1;
         idCategoria.value = 1;
         idNombreEspecial.value = 0;

@@ -4,8 +4,14 @@ registrationModule.factory('mainRepository', function ($http) {
     return {
         getChat: function (idCita) {
             return $http({
-                url: searchUrl + 'chat/' + idCita,
-                method: "GET"
+                url: searchUrl + 'chat',
+                method: "GET",
+                params: {
+                    idCita: idCita
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         },
         putMessage: function (usuario, msg, cita) {

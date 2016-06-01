@@ -342,20 +342,28 @@ Cotizacion.prototype.post_message = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
 
-    var msgObj = {
-        idUsuario: req.body.idUsuario,
-        mensaje: req.body.mensaje,
-        idCita: req.body.idCita
-    };
+    var params = [{
+            name: 'idUsuario',
+            value: req.body.idUsuario,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'mensaje',
+            value: req.body.mensaje,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'idCita',
+            value: req.body.idCita,
+            type: self.model.types.DECIMAL
+        }];
 
-    //Asigno a params el valor de mis variables
-
-    this.model.message(msgObj, function (error, result) {
+    this.model.post('INS_MENSAJE_CHAT_SP', params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
 
-        self.view.message(res, object);
+        self.view.expositor(res, object);
     });
 }
 

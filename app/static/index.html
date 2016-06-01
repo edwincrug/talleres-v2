@@ -121,14 +121,14 @@
 
             <div class="content">
                 <div ng-repeat="msg in chat">
-                    <div ng-class="msg.idUsuario === 3 ? 'right' : 'left'">
+                    <div ng-class="msg.idUsuario === userData.idUsuario ? 'right' : 'left'">
                         <div class="author-name">
                             {{msg.nombreCompleto}}
                             <small class="chat-date">
                             {{msg.fecha | date:'dd-MM-yyyy HH:mm'}}
                         </small>
                         </div>
-                        <div ng-class="msg.idUsuario === 3 ? 'chat-message' : 'chat-message active'">
+                        <div ng-class="msg.idUsuario === userData.idUsuario ? 'chat-message' : 'chat-message active'">
                             {{msg.mensaje}}
                         </div>
                     </div>
