@@ -402,8 +402,12 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             idCotizacionEdit = contentForm.document.getElementById("idCotizacion");
             idTipoEvidencia = contentForm.document.getElementById("idTipoEvidencia");
             idUsuario = contentForm.document.getElementById("idUsuario");
+            idCategoria = contentForm.document.getElementById("idCategoria");
+            idNombreEspecial = contentForm.document.getElementById("idNombreEspecial");
             idTrabajoEdit.value = idTrabajo;
             idCotizacionEdit.value = idCotizacion;
+            idCategoria.value = 1;
+            idNombreEspecial.value = 0;
             idTipoEvidencia.value = 2;
             idUsuario.value = $scope.userData.idUsuario;
             //Submit del botón del Form para subir los archivos        

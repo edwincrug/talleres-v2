@@ -37,7 +37,7 @@ registrationModule.controller('trabajoController', function ($scope, $rootScope,
 
             if (trabajoTerminado.data.length) {
                 waitDrawDocument("dataTableTrabajoTerminado");
-                alertFactory.success("Trabajos cargados");
+                alertFactory.success("Trabajos terminados cargados");
             } else {
                 alertFactory.info("No se encontraron trabajos");
             }
