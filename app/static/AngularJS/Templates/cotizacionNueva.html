@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../../css/cotizacion.css">
+<link type="text/css" href="../../css/inspinia/ladda/ladda-themeless.min.css" rel="stylesheet">
 <div ng-init="init()" class="animated bounceInRight">
     <div class="headTitle">
         <span class="title"> Cotización<span class="subtitle">Taller</span> </span>
@@ -128,9 +129,7 @@
         <button ng-show="estado==1" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
             <span class="glyphicon glyphicon-saved"></span> Guardar Cotización
         </button>
-        <button ng-show="estado==2" id="buttonEnviar" type="button" data-toggle="tooltip" tooltip-placement="top" tooltip="Actualizar Cotización" class="btn btn-info" ng-click="updateCotizacion(observaciones)"> Actualizar Cotización
-            <span class="glyphicon glyphicon-floppy-saved"></span>
-        </button>
+        <button class="ladda-button ladda-button-demo btn btn-primary" data-style="expand-right" ng-show="estado==2" id="buttonEnviar" ng-click="updateCotizacion(observaciones)">Actualizar Cotización</button>
         <button ng-show="estado==3" id="buttonEnviar" type="button" data-toggle="tooltip" tooltip-placement="top" tooltip="Guardar Cotización" class="btn btn-info" ng-click="enviarAutorizacionOrden(observaciones)"> Guardar Cotización
             <span class="glyphicon glyphicon-floppy-saved"></span>
         </button>

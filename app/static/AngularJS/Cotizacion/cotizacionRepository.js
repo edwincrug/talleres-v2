@@ -47,13 +47,15 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 }
             });
         },
-        insertEvidencia: function(idTipoEvidencia,idTipoArchivo,idUsuario,idProcesoEvidencia,nombreArchivo){
+        insertEvidencia: function(idTipoEvidencia,idTipoArchivo,idUsuario,idProcesoEvidencia,nombreArchivo,idCategoria,idNombreEspecial){
             var msgObj = {
                 idTipoEvidencia: idTipoEvidencia,  
                 idTipoArchivo: idTipoArchivo,
                 idUsuario: idUsuario,
                 idProcesoEvidencia: idProcesoEvidencia,
-                nombreArchivo: nombreArchivo
+                nombreArchivo: nombreArchivo,
+                idCategoria: idCategoria,
+                idNombreEspecial: idNombreEspecial
             }
             return $http({
                 url: searchUrl + 'evidencia',
@@ -74,7 +76,7 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 }
             });
         },
-        updateCotizacion: function(idCotizacion,idTipoElemento,idElemento,precio,cantidad,observaciones,idEstatus){
+        updateCotizacion: function(idCotizacion,idTipoElemento,idElemento,precio,cantidad,observaciones,idEstatus, idTipo){
             var msgObj = {
                 idCotizacion: idCotizacion,  
                 idTipoElemento: idTipoElemento,
@@ -82,7 +84,8 @@ registrationModule.factory('cotizacionRepository', function ($http) {
                 precio: precio,
                 cantidad: cantidad,
                 observaciones: observaciones,
-                idEstatus: idEstatus
+                idEstatus: idEstatus,
+                idTipo: idTipo
             }
             return $http({
                 url: searchUrl + 'updateCotizacion',

@@ -16,6 +16,7 @@
       <input type="text" id="vTrabajo" name="vTrabajo" hidden="true" />
       <input type="text" id="idCategoria" name="idCategoria" hidden="true" />
       <input type="text" id="idNombreEspecial" name="idNombreEspecial" hidden="true">
+      <input type="text" id="filesName" name="filesName[]" hidden="true">
   </div>  
   <button type="submit" id="submit2" name="submit2" hidden="true">Cargar</button>
 </form>
@@ -24,6 +25,7 @@
 <script>
 	Dropzone.autoDiscover = false;
 		$(document).ready(function(){
+            var arrayFiles = [];
 		    var DZ = $(uploadForm).dropzone({
 		    	url: '/api/cotizacion/evidencia',
 		        autoProcessQueue: false,
@@ -41,13 +43,18 @@
 						myDropzone.processQueue();
 					});
 		            this.on("error", function(file)
-		            	{
-		            		if (!file.accepted){
-                                alert();
-                                //this.hide(file);
-                                $("this").hide();
-                            }						    
-		            	});
+                    {
+                        if (!file.accepted){
+                            alert();
+                            //this.hide(file);
+                            $("this").hide();
+                        }						    
+                    });
+                    this.on('addedfile', function(file) {                      
+                        arrayFiles.push(file.name);
+                        //console.log(arrayFiles); 
+                        $("#filesName").val(arrayFiles);
+                    });
 		        }
 		    });
 		});

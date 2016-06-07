@@ -31,36 +31,37 @@ var Cotizacion = function (conf) {
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         //var dirname = 'C:/Produccion/Talleres/talleres-v2/app';
-        var dirname = 'C:/Desarrollo/talleres-v2/app';
+        var dirname = 'C:/Desarrollo/talleres-v2/app/static/uploads/files/';
         var idTrabajo = req.body.idTrabajo;
         var idCotizacion = req.body.idCotizacion;
-
+        
         if (idCotizacion == '') {
-            mkdirp(dirname + '/static/uploads/files/' + idTrabajo, function (err) {
-                if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4') {
-                    mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/multimedia', function (err) {
-                        cb(null, dirname + '/static/uploads/files/' + idTrabajo + '/multimedia')
-                    });
-                } else {
-                    mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/documentos', function (err) {
-                        cb(null, dirname + '/static/uploads/files/' + idTrabajo + '/documentos')
-                    });
-                }
-            });
-        } else {
-            mkdirp(dirname + '/static/uploads/files/' + idTrabajo, function (err) {
-                mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion, function (err) {
-                    if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4') {
-                        mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia', function (err) {
-                            cb(null, dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/multimedia')
-                        });
-                    } else {
-                        mkdirp(dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/documentos', function (err) {
-                            cb(null, dirname + '/static/uploads/files/' + idTrabajo + '/' + idCotizacion + '/documentos')
-                        });
-                    }
-                });
-            });
+            if (!fs.existsSync(dirname + idTrabajo)){
+                fs.mkdirSync(dirname + idTrabajo);
+                fs.mkdirSync(dirname + idTrabajo + '/multimedia');
+                fs.mkdirSync(dirname + idTrabajo + '/documentos');
+            } 
+            
+            if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4') {
+                   cb(null, dirname + idTrabajo + '/multimedia')              
+            } else{
+                cb(null, dirname + idTrabajo + '/documentos')
+            }
+        } else{
+            if (!fs.existsSync(dirname + idTrabajo)){
+                fs.mkdirSync(dirname + idTrabajo);
+            } 
+            if (!fs.existsSync(dirname + idTrabajo + '/' + idCotizacion)){
+                fs.mkdirSync(dirname + idTrabajo + '/' + idCotizacion);
+                fs.mkdirSync(dirname + idTrabajo + '/' + idCotizacion + '/multimedia');
+                fs.mkdirSync(dirname + idTrabajo + '/' + idCotizacion + '/documentos');
+            } 
+                
+            if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/gif' || file.mimetype == 'image/jpg' || file.mimetype == 'image/bmp' || file.mimetype == 'video/mp4') {
+                   cb(null, dirname + idTrabajo + '/' + idCotizacion + '/multimedia')              
+            } else{
+                cb(null, dirname + idTrabajo + '/' + idCotizacion + '/documentos')
+            }
         }
     },
     filename: function (req, file, cb) {
@@ -479,6 +480,69 @@ Cotizacion.prototype.get_evidenciasByCotizacion = function (req, res, next) {
     });
 }
 
+////Método para insertar evidencia
+//Cotizacion.prototype.post_evidencia = function (req, res, next) {
+//    //Objeto que almacena la respuesta
+//    var object = {};
+//    //Objeto que envía los parámetros
+//    var params = {};
+//    //Referencia a la clase para callback
+//    var self = this;
+//    //Arreglo evidencia
+//    var arrayEvidencia = [];
+//    var sIdProcesoEvidencia = "";
+//    for (var i = 0; i < req.files.length; i++) {
+//        var ext = obtenerExtArchivo(req.files[i].originalname);
+//        var idTipoArchivo = obtenerTipoArchivo(ext);
+//
+//        if (req.body.vTrabajo === "1") {
+//            sIdProcesoEvidencia = req.body.idTrabajo;
+//        } else {
+//            sIdProcesoEvidencia = req.body.idCotizacion;
+//        }
+//        arrayEvidencia.push({
+//            idTipoEvidencia: req.body.idTipoEvidencia,
+//            idTipoArchivo: idTipoArchivo,
+//            idUsuario: req.body.idUsuario,
+//            idProcesoEvidencia: sIdProcesoEvidencia,
+//            idCategoria: req.body.idCategoria,
+//            nombreArchivo: req.files[i].originalname,
+//            idNombreEspecial: req.body.idNombreEspecial
+//        });
+//    }
+//
+//    this.model.evidencia(arrayEvidencia, function (error, result) {
+//        var nuevoNombre = '';
+//        var consecutivo = 1;
+//        for (var i = 0; i < req.files.length; i++) {
+//            if(req.body.idNombreEspecial == 1) nuevoNombre = 'ComprobanteRecepcion';
+//            if(req.body.idNombreEspecial == 2) nuevoNombre = 'HojaCalidad';
+//            if(req.body.idNombreEspecial == 3) nuevoNombre = 'Factura';
+//            if(req.body.idNombreEspecial == 4)
+//            {
+//                var ext = obtenerExtArchivo(req.files[i].originalname);
+//                if(ext == '.xml'){
+//                    nuevoNombre = 'COPADE';   
+//                } else{
+//                    nuevoNombre = 'Adenda';    
+//                }                
+//            }
+//            if(req.body.idNombreEspecial == 0) nuevoNombre = req.files[i].originalname;
+//            fs.rename('C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + req.files[i].originalname, 'C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + nuevoNombre + consecutivo + obtenerExtArchivo(req.files[i].originalname), function (err) {
+//                if (err) console.log('ERROR: ' + err);
+//            });
+//            
+//            consecutivo++;
+//        }
+//
+//        //Callback
+//        object.error = error;
+//        object.result = result;
+//
+//        self.view.expositor(res, object);
+//    });
+//}
+
 //Método para insertar evidencia
 Cotizacion.prototype.post_evidencia = function (req, res, next) {
     //Objeto que almacena la respuesta
@@ -487,53 +551,52 @@ Cotizacion.prototype.post_evidencia = function (req, res, next) {
     var params = {};
     //Referencia a la clase para callback
     var self = this;
-    //Arreglo evidencia
-    var arrayEvidencia = [];
-    var sIdProcesoEvidencia = "";
-    for (var i = 0; i < req.files.length; i++) {
-        var ext = obtenerExtArchivo(req.files[i].originalname);
-        var idTipoArchivo = obtenerTipoArchivo(ext);
 
-        if (req.body.vTrabajo === "1") {
-            sIdProcesoEvidencia = req.body.idTrabajo;
-        } else {
-            sIdProcesoEvidencia = req.body.idCotizacion;
+//    if (req.body.vTrabajo === "1") {
+//        sIdProcesoEvidencia = req.body.idTrabajo;
+//    } else {
+//        sIdProcesoEvidencia = req.body.idCotizacion;
+//    }
+    
+    var params = [
+        {
+            name: 'idTipoEvidencia',
+            value: req.body.idTipoEvidencia,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idTipoArchivo',
+            value: req.body.idTipoArchivo,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idUsuario',
+            value: req.body.idUsuario,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idProcesoEvidencia',
+            value: req.body.idProcesoEvidencia,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'nombreArchivo',
+            value: req.body.nombreArchivo,
+            type: self.model.types.STRING
+        },
+        {
+            name: 'idCategoria',
+            value: req.body.idCategoria,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idNombreEspecial',
+            value: req.body.idNombreEspecial,
+            type: self.model.types.DECIMAL
         }
-        arrayEvidencia.push({
-            idTipoEvidencia: req.body.idTipoEvidencia,
-            idTipoArchivo: idTipoArchivo,
-            idUsuario: req.body.idUsuario,
-            idProcesoEvidencia: sIdProcesoEvidencia,
-            idCategoria: req.body.idCategoria,
-            nombreArchivo: req.files[i].originalname,
-            idNombreEspecial: req.body.idNombreEspecial
-        });
-    }
+    ];
 
-    this.model.evidencia(arrayEvidencia, function (error, result) {
-        var nuevoNombre = '';
-        var consecutivo = 1;
-        for (var i = 0; i < req.files.length; i++) {
-            if(req.body.idNombreEspecial == 1) nuevoNombre = 'ComprobanteRecepcion';
-            if(req.body.idNombreEspecial == 2) nuevoNombre = 'HojaCalidad';
-            if(req.body.idNombreEspecial == 3) nuevoNombre = 'Factura';
-            if(req.body.idNombreEspecial == 4)
-            {
-                var ext = obtenerExtArchivo(req.files[i].originalname);
-                if(ext == '.xml'){
-                    nuevoNombre = 'COPADE';   
-                } else{
-                    nuevoNombre = 'Adenda';    
-                }                
-            }
-            if(req.body.idNombreEspecial == 0) nuevoNombre = req.files[i].originalname;
-            fs.rename('C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + req.files[i].originalname, 'C:/Desarrollo/talleres-v2/app/static/uploads/files/' + req.body.idTrabajo + '/documentos/' + nuevoNombre + consecutivo + obtenerExtArchivo(req.files[i].originalname), function (err) {
-                if (err) console.log('ERROR: ' + err);
-            });
-            
-            consecutivo++;
-        }
-
+    this.model.post('INS_EVIDENCIA_SP',params, function (error, result) {
         //Callback
         object.error = error;
         object.result = result;
@@ -621,6 +684,11 @@ Cotizacion.prototype.post_updateCotizacion = function (req, res, next) {
         {
             name: 'idEstatus',
             value: req.body.idEstatus,
+            type: self.model.types.DECIMAL
+        },
+        {
+            name: 'idTipo',
+            value: req.body.idTipo,
             type: self.model.types.DECIMAL
                         }];
 
