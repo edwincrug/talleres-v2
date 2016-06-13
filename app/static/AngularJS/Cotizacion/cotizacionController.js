@@ -35,21 +35,21 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     var formArchivos = '';
     var contentForm = '';
     var btnSubmit = '';
-    var elements = ''; 
+    var elements = '';
 
-    var getExample = function(){
-        exampleRepo.getEjemplo().then(function(exampleData){
-            if(exampleData.data.length > 0){
+    var getExample = function () {
+        exampleRepo.getEjemplo().then(function (exampleData) {
+            if (exampleData.data.length > 0) {
                 alertFactory.success("Éxito");
-            }  
-        });  
+            }
+        });
     }
-    
-    var getPieza = function(){
-        exampleRepo.buscarPieza(1, 'espejo').then(function(pieza){
-            if(pieza.data.length > 0){
-                alertFactory.success("exito");   
-            } 
+
+    var getPieza = function () {
+        exampleRepo.buscarPieza(1, 'espejo').then(function (pieza) {
+            if (pieza.data.length > 0) {
+                alertFactory.success("exito");
+            }
         });
     }
     $scope.init = function () {
@@ -69,7 +69,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         exist = false;
         //Objeto de la pagina de tallerCita 
         if (localStorageService.get('cita') != null) {
-            $scope.citaDatos = localStorageService.get('cita'); 
+            $scope.citaDatos = localStorageService.get('cita');
             $scope.estado = 1;
             $scope.editar = 0;
             datosCita();
@@ -79,7 +79,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         //Se valida si la cotización es para editar
         if (localStorageService.get('objEditCotizacion') != null) {
             $scope.editCotizacion = localStorageService.get('objEditCotizacion'); //objeto de la pagina autorizacion
-            datosUnidad($scope.editCotizacion.idCotizacion,null);
+            datosUnidad($scope.editCotizacion.idCotizacion, null);
             $scope.editar = 1;
             $scope.estado = 2;
             $scope.idTaller = $scope.editCotizacion.idTaller;
@@ -87,12 +87,12 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 $scope.editCotizacion.idTaller);
         }
         //Objeto de la pagina de orden servicio
-        if (localStorageService.get('orden') != null) { 
+        if (localStorageService.get('orden') != null) {
             $scope.orden = localStorageService.get('orden');
             $scope.estado = 3;
             $scope.idTaller = $scope.orden.idTaller;
             $scope.idTrabajo = $scope.orden.idTrabajo;
-            datosUnidad(null,$scope.orden.idTrabajo);
+            datosUnidad(null, $scope.orden.idTrabajo);
         }
     }
 
@@ -159,7 +159,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     if (item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento) {
                         $scope.arrayItem[i].cantidad = item.cantidad + 1;
                         $scope.arrayItem[i].importe = ($scope.arrayItem[i].cantidad) * ($scope.arrayItem[i].precio)
-                        //$scope.importe = $scope.arrayItem[i].importe;
+                            //$scope.importe = $scope.arrayItem[i].importe;
                         $scope.sub = calcularSubtotal();
                         $scope.iva = calcularIva();
                         $scope.total = calculaTotal();
@@ -219,7 +219,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     var calculaTotal = function () {
         var total = 0;
         $scope.arrayItem.forEach(function (item) {
-            total = total + (item.cantidad * parseFloat(item.precio)) + ((item.cantidad)*(parseFloat(item.precio) * parseFloat(item.valorIva / 100)));
+            total = total + (item.cantidad * parseFloat(item.precio)) + ((item.cantidad) * (parseFloat(item.precio) * parseFloat(item.valorIva / 100)));
         })
         return total;
     };
@@ -228,7 +228,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     var calculaTotalEditar = function () {
         var total = 0;
         $scope.arrayItem.forEach(function (item) {
-            total = total + (item.cantidad * parseFloat(item.precio)) + ((item.cantidad)*(parseFloat(item.precio) * parseFloat(item.valorIva / 100)))
+            total = total + (item.cantidad * parseFloat(item.precio)) + ((item.cantidad) * (parseFloat(item.precio) * parseFloat(item.valorIva / 100)))
         })
         return total;
     };
@@ -240,21 +240,21 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             item.importe = (item.cantidad * (parseFloat(item.precio) * parseFloat(item.valorIva / 100))) + parseFloat(item.precio)
         })
     }
-    
+
     //Calcula el Subtotal
-    var calcularSubtotal = function(){
+    var calcularSubtotal = function () {
         var sub = 0;
-        $scope.arrayItem.forEach(function(item){
+        $scope.arrayItem.forEach(function (item) {
             sub = sub + (item.cantidad * parseFloat(item.precio));
         })
         return sub;
     }
-    
+
     //Calcula el IVA
-    var calcularIva = function(){
+    var calcularIva = function () {
         var iva = 0;
-        $scope.arrayItem.forEach(function(item){
-            iva = iva + ((item.cantidad)*(parseFloat(item.precio) * parseFloat(item.valorIva / 100)));
+        $scope.arrayItem.forEach(function (item) {
+            iva = iva + ((item.cantidad) * (parseFloat(item.precio) * parseFloat(item.valorIva / 100)));
         })
         return iva;
     }
@@ -275,17 +275,17 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                     $scope.sub = calcularSubtotal();
                     $scope.iva = calcularIva();
                     $scope.importe = 0;
-                     if ($scope.editar == 1) {
+                    if ($scope.editar == 1) {
                         $scope.arrayCambios.forEach(function (item, i) {
-                             if (item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento) 
+                            if (item.idItem == pieza.idItem && item.idTipoElemento == pieza.idTipoElemento)
                                 $scope.arrayCambios[i].idEstatus = 13; //Estatus Eliminado 
                         })
                     }
 
                 }
             }
-        })                               
-        
+        })
+
     };
 
     //Envia la cotización para autorización
@@ -293,7 +293,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         if ($scope.arrayItem.length == 0) {
             alertFactory.info('Debe seleccionar items para la cotización');
         } else {
-        if ($scope.objCita == null) {
+            if ($scope.objCita == null) {
                 idUnidad = $scope.citaDatos.idUnidad;
             } else {
                 idUnidad = $scope.objCita.idUnidad;
@@ -322,7 +322,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 });
                 cotizacionMailRepository.postMail($scope.idCotizacion, $scope.citaDatos.idTaller, 1, '');
                 cargarArchivos($scope.idCotizacion, $scope.idTrabajo);
-                insertEvidencia($scope.idCotizacion);       
+                insertEvidencia($scope.idCotizacion);
                 location.href = '/cotizacionconsulta';
             }, function (error) {
                 alertFactory.error('Error');
@@ -356,69 +356,72 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
             }, function (error) {
                 alertFactory.error('Error');
             });
-    }  
-    
-    //Actualización de la cotización
-    $scope.updateCotizacion = function (observaciones) {
-        var l = $( '.ladda-button-demo' ).ladda();
-        eliminarElementos();
-                $scope.arrayCambios.forEach(function (item, i) {
-                    cotizacionRepository.updateCotizacion($scope.editCotizacion.idCotizacion,
-                            item.idTipoElemento,
-                            item.idItem,
-                            item.precio,
-                            item.cantidad,
-                            observaciones,
-                            item.idEstatus,
-                            0)
-                        .then(function (result) {
-                            if(result.data[0].idCotizacion > 0)
-                            alertFactory.success('Cotización Actualizada ');
-                        }, function (error) {
-                            alertFactory.error('Error');
-                        });
-                }, function (error) {
-                    alertFactory.error('Error');
-                });
-                $scope.arrayItem.forEach(function (item, i) {
-                    cotizacionRepository.updateCotizacion($scope.editCotizacion.idCotizacion,
-                            item.idTipoElemento,
-                            item.idItem,
-                            item.precio,
-                            item.cantidad,
-                            observaciones,
-                            item.idEstatus,
-                            1)
-                        .then(function (result) {
-                            alertFactory.success('Cotización Actualizada ');
-                        }, function (error) {
-                            alertFactory.error('Error');
-                        });
-                }, function (error) {
-                    alertFactory.error('Error');
-                });
-                cotizacionMailRepository.postMail($scope.editCotizacion.idCotizacion, $scope.editCotizacion.idTaller, 1, '');
-                 l.click(function(){
-                    // Start loading
-                    l.ladda( 'start' );
-
-                    // Timeout example
-                    // Do something in backend and then stop ladda
-                    setTimeout(function(){
-                        cargarArchivos($scope.editCotizacion.idCotizacion, $scope.editCotizacion.idTrabajo);
-                        l.ladda('stop');
-                    })
-                 });
-                
-                setTimeout(function(){
-                    insertEvidencia($scope.editCotizacion.idCotizacion);    
-                },1500);
-
-                setTimeout(function(){
-                    location.href = '/cotizacionconsulta';
-                },2000);
     }
-         
+
+    //Actualización de la cotización
+    var btnCotizacionLoading = $('#btnUpdateCotizacion').ladda();
+    //observaciones
+    $('.ladda-button').ladda('bind', {
+        timeout: 2000
+    });
+    // Bind progress buttons and simulate loading progress
+    Ladda.bind('.progress-demo .ladda-button', {
+        callback: function (instance) {
+            var progress = 0;
+            var interval = setInterval(function () {
+                progress = Math.min(progress + Math.random() * 0.1, 1);
+                instance.setProgress(progress);
+
+                if (progress === 1) {
+                    instance.stop();
+                    clearInterval(interval);
+                }
+            }, 200);
+        }
+    });
+    btnCotizacionLoading.click(function () {
+        btnCotizacionLoading.ladda('start');
+        console.log("clickhere");
+        eliminarElementos();
+        $scope.arrayCambios.forEach(function (item, i) {
+            cotizacionRepository.updateCotizacion($scope.editCotizacion.idCotizacion,
+                    item.idTipoElemento,
+                    item.idItem,
+                    item.precio,
+                    item.cantidad,
+                    $scope.observaciones,
+                    item.idEstatus,
+                    0)
+                .then(function (result) {
+                    if (result.data[0].idCotizacion > 0)
+                        alertFactory.success('Cotización Actualizada ');
+                }, function (error) {
+                    alertFactory.error('Error');
+                });
+        }, function (error) {
+            alertFactory.error('Error');
+        });
+        $scope.arrayItem.forEach(function (item, i) {
+            cotizacionRepository.updateCotizacion($scope.editCotizacion.idCotizacion,
+                    item.idTipoElemento,
+                    item.idItem,
+                    item.precio,
+                    item.cantidad,
+                    $scope.observaciones,
+                    item.idEstatus,
+                    1)
+                .then(function (result) {
+                    alertFactory.success('Cotización Actualizada ');
+                }, function (error) {
+                    alertFactory.error('Error');
+                });
+        }, function (error) {
+            alertFactory.error('Error');
+        });
+        cotizacionMailRepository.postMail($scope.editCotizacion.idCotizacion, $scope.editCotizacion.idTaller, 1, '');
+        cargarArchivos($scope.editCotizacion.idCotizacion, $scope.editCotizacion.idTrabajo);
+        btnCotizacionLoading.ladda('stop');
+    });
 
     //Se realiza la carga de archivos
     var cargarArchivos = function (idCotizacion, idTrabajo) {
@@ -437,16 +440,24 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         filesName = contentForm.document.getElementById("filesName");
         idTrabajoEdit.value = idTrabajo;
         idCotizacionEdit.value = idCotizacion;
-        idCategoria.value = 1;
-        idNombreEspecial.value = 0;
-        idTipoEvidencia.value = 2;
+        //idCategoria.value = 1;
+        idCategoria.value = 2;
+        
+        //para que tome la validación a nivel trabajo
+        idCotizacionEdit.value = "";
+
+        //idNombreEspecial.value = 0;//sin nombre especial
+        idNombreEspecial.value = 3;
+        
+        //tipo de evidencia 1 = trabajo,  2 = cotización
+        idTipoEvidencia.value = 1;
         idUsuario.value = $scope.userData.idUsuario;
         var nombreArchivos = filesName;
         obtenerFiles(nombreArchivos);
         //Submit del botón del Form para subir los archivos        
         btnSubmit.click();
     }
-    
+
     //Se obtienen datos de la unidad a editar
     var datosFicha = function () {
         if (localStorageService.get('objFicha') != null) {
@@ -484,7 +495,7 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
     //Envia la cotización para autorización
     $scope.enviarAutorizacionOrden = function (observaciones) {
         if ($scope.arrayItem.length == 0) {
-        alertFactory.info('Debe seleccionar items para la cotización');
+            alertFactory.info('Debe seleccionar items para la cotización');
         }
         cotizacionRepository.insertCotizacionMaestro($scope.orden.idCita,
                 $scope.orden.idUsuario,
@@ -504,10 +515,10 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                         .then(function (result) {
                             alertFactory.success('Guardando Cotización Detalle');
                         }, function (error) {
-                        alertFactory.error('Error');
+                            alertFactory.error('Error');
                         });
                 });
-                cotizacionMailRepository.postMail($scope.idCotizacion, $scope.orden.idTaller, 1, '');          
+                cotizacionMailRepository.postMail($scope.idCotizacion, $scope.orden.idTaller, 1, '');
                 cargarArchivos($scope.idCotizacion, $scope.idTrabajo);
                 insertEvidencia($scope.idCotizacion);
                 location.href = '/cotizacionconsulta';
@@ -515,35 +526,35 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
                 alertFactory.error('Error');
             });
     };
-    
+
     //Se obtienen los datos de la unidad a cotizar
-    var datosUnidad = function(idCotizacion,idTrabajo){
-        cotizacionRepository.datosUnidad(idCotizacion,idTrabajo)
-            .then(function(result){
+    var datosUnidad = function (idCotizacion, idTrabajo) {
+        cotizacionRepository.datosUnidad(idCotizacion, idTrabajo)
+            .then(function (result) {
                 $scope.numEconomico = result.data[0].numEconomico;
                 $scope.modeloMarca = result.data[0].marca + ' ' + result.data[0].modeloMarca + ' ' + result.data[0].modelo;
                 $scope.trabajo = result.data[0].trabajo;
-        },function(error){
-            alertFactory.error('Error al obtener datos unidad');
-        });
+            }, function (error) {
+                alertFactory.error('Error al obtener datos unidad');
+            });
     }
-    
+
     //Eliminar items que fueron quitados de la cotización
-    var eliminarElementos = function(){
-       $scope.arrayCambios.forEach(function (item, i) {
-           if(item.idEstatus == 8){
-               $scope.arrayCambios.splice(i, 1);
-           }           
-       })
+    var eliminarElementos = function () {
+        $scope.arrayCambios.forEach(function (item, i) {
+            if (item.idEstatus == 8) {
+                $scope.arrayCambios.splice(i, 1);
+            }
+        })
     }
-    
+
     //Se obtiene la extensión del archivo
     var obtenerExtArchivo = function (file) {
         var file = file;
         var res = file.substring(file.length - 4, file.length)
         return res;
     }
-    
+
     //Obtener el tipo de archivo
     var obtenerTipoArchivo = function (ext) {
         if (ext == '.pdf' || ext == '.doc' || ext == '.xls' || ext == '.docx' || ext == '.xlsx' ||
@@ -557,25 +568,27 @@ registrationModule.controller('cotizacionController', function ($scope, $rootSco
         }
         return type;
     }
-    
+
     //obtener los nombres de los archivos
-    var obtenerFiles = function(file){
+    var obtenerFiles = function (file) {
         names = file.value.split(',');
-        names.forEach(function(item){
-            $scope.filesName.push({nombre: item});    
+        names.forEach(function (item) {
+            $scope.filesName.push({
+                nombre: item
+            });
         });
         return $scope.filesName;
     }
-    
+
     //Insertar evidencia
-    var insertEvidencia = function(idCotizacion){
-        if($scope.filesName != null){
-            $scope.filesName.forEach(function(item,i){
+    var insertEvidencia = function (idCotizacion) {
+        if ($scope.filesName != null) {
+            $scope.filesName.forEach(function (item, i) {
                 var ext = obtenerExtArchivo(item.nombre);
                 var tipoArchivo = obtenerTipoArchivo(ext);
-                cotizacionRepository.insertEvidencia(2,tipoArchivo,$scope.userData.idUsuario,
-                                                     idCotizacion,item.nombre,1,0).then(function (result) {
-                    if(result.data[0].idEvidencia > 0)
+                cotizacionRepository.insertEvidencia(2, tipoArchivo, $scope.userData.idUsuario,
+                    idCotizacion, item.nombre, 1, 0).then(function (result) {
+                    if (result.data[0].idEvidencia > 0)
                         alertFactory.success('Evidencias insertadas correctamente');
                 }, function (error) {
                     alertFactory.error('Error');

@@ -112,7 +112,6 @@
         </div>
     </div>
 </div>
-</div>
 <div class="row">
     <div class="col-md-6">
         <div class="ibox float-e-margins">
@@ -126,11 +125,11 @@
     </div>
     <div class="col-md-6">
         <textarea class="form-control" id="observaciones" ng-model="observaciones" placeholder="Observaciones"></textarea>
-        <button ng-show="estado==1" id="buttonEnviar" type="button" class="btn btn-info" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
+        <button ng-show="estado==1" type="button" class="btn btn-info buttonEnviar" ng-click="enviarAutorizacion(observaciones)" data-toggle="tooltip" tooltip-placement="top" tooltip="Enviar Autorización">
             <span class="glyphicon glyphicon-saved"></span> Guardar Cotización
         </button>
-        <button class="ladda-button ladda-button-demo btn btn-primary" data-style="expand-right" ng-show="estado==2" id="buttonEnviar" ng-click="updateCotizacion(observaciones)">Actualizar Cotización</button>
-        <button ng-show="estado==3" id="buttonEnviar" type="button" data-toggle="tooltip" tooltip-placement="top" tooltip="Guardar Cotización" class="btn btn-info" ng-click="enviarAutorizacionOrden(observaciones)"> Guardar Cotización
+        <button id="btnUpdateCotizacion" class="ladda-button ladda-button-demo btn btn-primary buttonEnviar" data-style="expand-right" ng-show="estado==2">Actualizar Cotización</button>
+        <button ng-show="estado==3" type="button" data-toggle="tooltip" tooltip-placement="top" tooltip="Guardar Cotización" class="btn btn-info buttonEnviar" ng-click="enviarAutorizacionOrden(observaciones)"> Guardar Cotización
             <span class="glyphicon glyphicon-floppy-saved"></span>
         </button>
     </div>

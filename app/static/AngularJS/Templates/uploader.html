@@ -5,7 +5,7 @@
 <form 
   id        =  "uploadForm"
   enctype   =  "multipart/form-data"
-  action    =  "/api/cotizacion/evidencia"
+  action    =  "/api/cotizacion/uploadfiles"
   method    =  "post"
   class     =  "dropzone dz-clickable">
   <div>
@@ -27,7 +27,7 @@
 		$(document).ready(function(){
             var arrayFiles = [];
 		    var DZ = $(uploadForm).dropzone({
-		    	url: '/api/cotizacion/evidencia',
+		    	url: '/api/cotizacion/uploadfiles',
 		        autoProcessQueue: false,
 		        uploadMultiple: true,
 		        addRemoveLinks: true,
@@ -52,8 +52,15 @@
                     });
                     this.on('addedfile', function(file) {                      
                         arrayFiles.push(file.name);
-                        //console.log(arrayFiles); 
                         $("#filesName").val(arrayFiles);
+                    });
+                    
+                    this.on("complete", function(file) {
+                        successUploaded();
+                        setTimeout(function(){
+                            myDropzone.removeFile(file);
+                            window.top.location.href = "/cotizacionconsulta"; 
+                        },2000);
                     });
 		        }
 		    });
@@ -61,11 +68,21 @@
 
 		var alert = function (){
 			swal({
-		        title: "Extensión de documento no válido",
+		        title: "Extensión de documento no válido o número de archivos excedidos",
 		        type: "error",
 		        confirmButtonColor: "#DD6B55",
 		        confirmButtonText: "Cerrar"
 		   });
 		}
+        
+        var successUploaded = function (){
+			swal({
+		        title: "Archivos cargados satisfactoriamente",
+		        type: "success",
+		        confirmButtonColor: "#FFCC00",
+		        confirmButtonText: "Cerrar"
+		   });
+		}
+        
 </script>
 
