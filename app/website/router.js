@@ -4,5 +4,6 @@
      trabajo: require('./controllers/trabajo'),
      orden: require('./controllers/ordenes'),
      login: require('./controllers/login'),
-     example: require('./controllers/example')
+     example: require('./controllers/example'),
+     reporte: require('./controllers/reporte')
  }
