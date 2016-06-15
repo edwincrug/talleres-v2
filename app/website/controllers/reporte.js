@@ -163,37 +163,38 @@ function generateConfomidadReporte(data,res) {
         tableHeight = ((skip*(top+Math.ceil(data.data[i].descripcion.length/48)+1))+salto)+(extra*paginas)
         if(tableHeight > 400){
           extra = tableHeight-265;
-          doc.rect(48, 289, 30, 250+extra).stroke()
-          doc.rect(78, 289, 150, 250+extra).stroke()
-          doc.rect(228, 289, 30, 250+extra).stroke()
-          doc.rect(258, 289, 62, 250+extra).stroke()
-          doc.rect(320, 289, 62, 250+extra).stroke()
-          doc.rect(382, 289, 62, 250+extra).stroke()
-          doc.rect(444, 289, 110, 250+extra).stroke()
+          var secondTable = 0 ;
+          if(paginas > 0 ) secondTable = 230;
+          doc.rect(48, 289-secondTable, 30, 250+extra+secondTable).stroke()
+          doc.rect(78, 289-secondTable, 150, 250+extra+secondTable).stroke()
+          doc.rect(228, 289-secondTable, 30, 250+extra+secondTable).stroke()
+          doc.rect(258, 289-secondTable, 62, 250+extra+secondTable).stroke()
+          doc.rect(320, 289-secondTable, 62, 250+extra+secondTable).stroke()
+          doc.rect(382, 289-secondTable, 62, 250+extra+secondTable).stroke()
+          doc.rect(444, 289-secondTable, 110, 250+extra+secondTable).stroke()
           doc.text("SI LOS SELLOS EN ESTE DOCUMENTO NO ESTAN EN ORIGINAL, NO ES UN DOCUMENTO CONTROLADO",30,745)
           doc.addPage();
           paginas++;
-          extra = -620;
+          extra = -600;
           tableHeight = ((skip*(top+Math.ceil(data.data[i].descripcion.length/48)+1))+salto)+(extra*paginas)
           doc.rect(30, 40, 555, 700).stroke()
           doc.rect(40, 50, 535, 680).stroke()
         }
-        doc.text(data.data[i].partida,50,(295+(skip*top)+salto)+extra,{width: 30,align: 'center'})
-        doc.text(data.data[i].descripcion,85,(295+(skip*top)+salto)+extra,{width: 135,align: 'justify'})
-        doc.text(data.data[i].cantidad,228,(295+(skip*top)+salto)+extra,{width: 30,align: 'center'})
-        doc.text(data.data[i].unidad,258,(295+(skip*top)+salto)+extra,{width: 62,align: 'center'})
-        doc.text(data.data[i].noRemFac,320,(295+(skip*top)+salto)+extra,{width: 62,align: 'center'})
-        doc.text(data.data[i].fecha,382,(295+(skip*top)+salto)+extra,{width: 63,align: 'center'})
-        doc.text(data.data[i].importe,444,(295+(skip*top)+salto)+extra,{width: 100,align:'right'})
+        doc.text(data.data[i].partida,50,(295+(skip*top)+salto)+(extra*paginas),{width: 30,align: 'center'})
+        doc.text(data.data[i].descripcion,85,(295+(skip*top)+salto)+(extra*paginas),{width: 135,align: 'justify'})
+        doc.text(data.data[i].cantidad,228,(295+(skip*top)+salto)+(extra*paginas),{width: 30,align: 'center'})
+        doc.text(data.data[i].unidad,258,(295+(skip*top)+salto)+(extra*paginas),{width: 62,align: 'center'})
+        doc.text(data.data[i].noRemFac,320,(295+(skip*top)+salto)+(extra*paginas),{width: 62,align: 'center'})
+        doc.text(data.data[i].fecha,382,(295+(skip*top)+salto)+(extra*paginas),{width: 63,align: 'center'})
+        doc.text(data.data[i].importe,444,(295+(skip*top)+salto)+(extra*paginas),{width: 100,align:'right'})
     }
     if(paginas>0){
       extra = tableHeight -240;
 
-      initTabla = 225;
-    }else{
+      initTabla = 230;
+    }
       if(tableHeight>250)
         extra = tableHeight-250;
-    }
     doc.rect(48, 289-initTabla, 30, 250+extra+initTabla).stroke()
     doc.rect(78, 289-initTabla, 150, 250+extra+initTabla).stroke()
     doc.rect(228, 289-initTabla, 30, 250+extra+initTabla).stroke()
@@ -217,7 +218,7 @@ function generateConfomidadReporte(data,res) {
     doc.fontSize(7);
     doc.text("TOTAL",382,542+extra,{width: 62,align:'center'})
     doc.text(data.total,444,542+extra,{width: 100,align:'right'})
-    if(paginas == 0 && tableHeight>270){
+    if(/*paginas == 0 && */tableHeight>270){
       doc.text("SI LOS SELLOS EN ESTE DOCUMENTO NO ESTAN EN ORIGINAL, NO ES UN DOCUMENTO CONTROLADO",30,745)
       doc.addPage();
       doc.rect(30, 40, 555, 700).stroke()
@@ -234,9 +235,6 @@ function generateConfomidadReporte(data,res) {
     doc.fontSize(7);
     doc.text(data.nombreEmisor,100,625+extra,{width: 220,align: 'center'})
     doc.text(fecha.format(data.fecha, 'DD  MMMM  YYYY'),100,642+extra,{width: 220,align: 'center'})
-
-
-
     doc.text("ACEPTACIÓN DEL PROVEEDOR:",325,600+extra,{width: 230,align: 'center'})
     doc.text("NOMBRE Y FIRMA ________________________________________",326,625+extra)
     doc.text("FECHA                    ________________________________________",326,642+extra)
