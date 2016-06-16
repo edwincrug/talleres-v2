@@ -42,9 +42,25 @@ Reporte.prototype.get_conformidadpdf = function(req, res, next) {
 		    //this.model.query('NOMBRE DEL_SP', params, function(error, result) { Se obtinen los datos asociados
 						//Result de prueba sustituir por datos reales
 						result = []
-						result.push({partida:1,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
-            result.push({partida:2,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
-            result.push({partida:3,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+						result.push({partida:1,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:2,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:3,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:4,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:5,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:6,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:7,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:8,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:9,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:10,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:11,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:12,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:13,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:14,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:15,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:16,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:17,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+            result.push({partida:18,descripcion:"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.  Lorem Ipsum ha sido el texto",cantidad:1,unidad:"Vehiculo",noRemFac:"R216115",fecha:"06/06/2016",importe:"166,520.38 USD"})
+
             data.data = result;
             data.total = "$520,2020.20 UDS";
 						generateConfomidadReporte(data,res)
@@ -156,13 +172,13 @@ function generateConfomidadReporte(data,res) {
     for(var i in data.data){
         var top = 0;
         var salto = 0;
-        var skip = 9;
+        var skip = 9.8;
         for (j=0;j<i;j++){
           top += Math.ceil(data.data[j].descripcion.length/48)+1
         }
         tableHeight = ((skip*(top+Math.ceil(data.data[i].descripcion.length/48)+1))+salto)+(extra*paginas)
         if(tableHeight > 400){
-          extra = tableHeight-265;
+          extra = tableHeight-265-(tableHeight-400);
           var secondTable = 0 ;
           if(paginas > 0 ) secondTable = 230;
           doc.rect(48, 289-secondTable, 30, 250+extra+secondTable).stroke()
@@ -175,8 +191,12 @@ function generateConfomidadReporte(data,res) {
           doc.text("SI LOS SELLOS EN ESTE DOCUMENTO NO ESTAN EN ORIGINAL, NO ES UN DOCUMENTO CONTROLADO",30,745)
           doc.addPage();
           paginas++;
-          extra = -600;
+          extra = -600+(tableHeight-400);
+          if(paginas>1)
+          extra = -550+(tableHeight-400);
+
           tableHeight = ((skip*(top+Math.ceil(data.data[i].descripcion.length/48)+1))+salto)+(extra*paginas)
+
           doc.rect(30, 40, 555, 700).stroke()
           doc.rect(40, 50, 535, 680).stroke()
         }
